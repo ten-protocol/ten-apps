@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://your.repo.url.git
+    repoURL: https://github.com/ten-protocol/ten-apps.git
     targetRevision: HEAD
     path: env/non-prod/dev
   destination:
