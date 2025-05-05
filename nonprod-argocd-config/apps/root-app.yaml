@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/ten-protocol/ten-apps.git
     targetRevision: main
-    path: non-prod-argocd-config/apps
+    path: nonprod-argocd-config/apps
     directory:
       recurse: false  # Only look for files in this directory
   destination:
