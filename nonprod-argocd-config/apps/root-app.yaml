@@ -1,25 +1,25 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: ten-nonprod-root-app
-  namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"  # Ensures this deploys first
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/ten-protocol/ten-apps.git
-    targetRevision: main
-    path: nonprod-argocd-config/apps
-    directory:
-      recurse: false  # Only look for files in this directory
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: argocd
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-      allowEmpty: false
-    syncOptions:
-      - CreateNamespace=true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: ten-nonprod-root-app
+#   namespace: argocd
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "0"  # Ensures this deploys first
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/ten-protocol/ten-apps.git
+#     targetRevision: main
+#     path: nonprod-argocd-config/apps
+#     directory:
+#       recurse: false  # Only look for files in this directory
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: argocd
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+#       allowEmpty: false
+#     syncOptions:
+#       - CreateNamespace=true
