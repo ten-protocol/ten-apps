@@ -1,0 +1,20 @@
+{{- if .Values.host.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ten-node.fullname" . }}-host
+  labels:
+    app: {{ .Release.Name }}-host
+    {{- include "ten-node.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.host.service.type }}
+  ports:
+    {{- range .Values.host.ports }}
+    - port: {{ .port }}
+      targetPort: {{ .containerPort }}
+      protocol: {{ .protocol | default "TCP" }}
+      name: {{ .name }}
+    {{- end }}
+  selector:
+    app: {{ .Release.Name }}-host
+{{- end }}

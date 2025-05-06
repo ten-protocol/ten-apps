@@ -1,0 +1,109 @@
+
+  enclave:
+    image:
+      repository: testnetobscuronet.azurecr.io/obscuronet/dev_enclave
+      tag: "latest"
+    nodeSelector:
+      kubernetes.io/hostname: aks-sgxpool-23084093-vmss000002
+
+    secretEnv:
+      ENCLAVE_DB_SQLITEPATH: ""
+
+  host:
+    image:
+      repository: "testnetobscuronet.azurecr.io/obscuronet/sepolia_host"
+      tag: "latest"
+
+  edb:    
+    nodeSelector:
+      kubernetes.io/hostname: aks-sgxpool-23084093-vmss000002
+
+  config:
+    network:
+      chainid: 443
+      genesisjson: '{}'
+      batch:
+          interval: 1s
+          maxinterval: 1s
+          maxsize: 56320
+      gas:
+          basefee: "1000000000"
+          mingasprice: "1000000000"
+          paymentaddress: "0x0000000000000000000000000000000000000000"
+          batchexecutionlimit: "30000000"
+          localexecutioncap: "300000000000"
+      l1:
+        chainid: 11155111
+        blocktime: 15s
+        starthash: "653aa3b041c8424483074efca61b297a"
+        l1contracts:
+            messagebus: "dc98bd0c62ba456a8a3bada1b5f13b8e"
+            bridge: "0x0000000000000000000000000000000000000000"
+            crosschain: "873a9587025747d0a3060ff1360955df"
+            rollup: "75b6566303044f3f8ace82bb1b7fe32c"
+            enclaveRegistry: "275c9dc881a148b1aa8700874cbf085f"
+            networkConfig: "5465bdb3ba334388bd11f61e593a0dcc"
+      rollup:
+          interval: 15m0s
+          maxinterval: 10m0s
+          maxsize: 131072
+      sequencer:
+          p2paddress: obscuronode-0-sepolia-testnet.uksouth.cloudapp.azure.com:10000
+          systemcontractsupgrader: "0x0000000000000000000000000000000000000000"
+      crosschain:
+          interval: 6s
+    node:
+      nodetype: "sequencer"
+      name: ""
+      id:  #Public key of the node
+      isgenesis: false
+    host:
+      db:
+          useinmemory: false
+          sqlitepath: ""
+      debug:
+          enablemetrics: true
+          metricshttpport: 0
+          enableprofiler: false
+          enabledebugnamespace: true
+      enclave:
+          rpcaddresses:
+              - obscuronode-enclave:11001
+          rpctimeout: 10s
+      l1:
+          websocketurl: ws://dev-testnet-eth2network.uksouth.cloudapp.azure.com:9000
+          l1beaconurl: dev-testnet-eth2network.uksouth.cloudapp.azure.com:12600
+          l1blobarchiveurl: ""
+          rpctimeout: 15s
+      log:
+          level: 3
+          path: sys_out
+      p2p:
+          isdisabled: false
+          bindaddress: 0.0.0.0:10000
+          timeout: 10s
+      rpc:
+          address: 0.0.0.0
+          enablehttp: true
+          httpport: 80
+          enablews: true
+          wsport: 81
+    enclave:
+      simulation: false
+      enableattestation: true
+      db:
+          useinmemory: false
+          edgelessdbhost: obscuronode-edgelessdb
+          sqlitepath: ""
+      debug:
+          enabledebugnamespace: true
+          enableprofiler: false
+      l1:
+          enableblockvalidation: false
+          genesisjson: []
+      log:
+          level: 3
+          path: sys_out
+      rpc:
+          bindaddress: 0.0.0.0:11001
+          timeout: 5s

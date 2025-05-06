@@ -1,0 +1,238 @@
+{{- if .Values.host.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ten-node.fullname" . }}-host
+  labels:
+    app: {{ .Release.Name }}-host
+    {{- include "ten-node.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.host.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-host
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/host-secret.yaml") . | sha256sum }}
+        {{- with .Values.podAnnotations }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        app: {{ .Release.Name }}-host
+        {{- include "ten-node.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "ten-node.fullname" . }}-node
+      securityContext:
+        {{- toYaml .Values.host.podSecurityContext | nindent 8 }}
+      {{- if .Values.postgresql.enabled }}
+      volumes:
+        - name: shared-data
+          emptyDir: {}
+      initContainers:
+      - name: wait-for-host
+        image: bitnami/kubectl:latest
+        command:
+          - /bin/sh
+          - -c
+          - |
+            until [ -n "$(kubectl get svc {{ include "ten-node.fullname" . }}-host -o jsonpath='{.status.loadBalancer.ingress[0].ip}')" ]; do
+              echo "Waiting for host service to get an IP address..."
+              sleep 5
+            done
+            NODE_HOSTADDRESS=$(kubectl get svc {{ include "ten-node.fullname" . }}-host -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+            echo "export NODE_HOSTADDRESS=$NODE_HOSTADDRESS:10000" > /shared-data/node-host.env
+        volumeMounts:
+          - name: shared-data
+            mountPath: /shared-data
+      - name: init-host-db
+        image: busybox
+        env:
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-postgresql
+                key: postgres-password
+          - name: POSTGRES_DB_URL
+            value: "{{ .Release.Name }}-postgresql"
+        command:
+          - /bin/sh
+          - -c
+          - |
+            export HOST_DB_POSTGRESHOST="postgresql://postgres:${POSTGRES_PASSWORD}@${POSTGRES_DB_URL}:5432/"
+            echo "Database host URL is set to $HOST_DB_POSTGRESHOST"
+            echo "export HOST_DB_POSTGRESHOST=$HOST_DB_POSTGRESHOST" > /shared-data/node-host-db.env
+          {{- end }}
+        volumeMounts:
+            - name: shared-data
+              mountPath: /shared-data
+      containers:
+        - name: {{ .Chart.Name }}-host
+          securityContext:
+            privileged: true
+            runAsUser: 0
+          command: ["/bin/sh", "-c", "source /shared-data/node-host.env && source /shared-data/node-host-db.env && ./main "]
+          image: "{{ .Values.host.image.repository }}:{{ .Values.host.image.tag }}"
+          resources:
+            {{- toYaml .Values.host.resources | nindent 12 }}
+          imagePullPolicy: {{ .Values.host.image.pullPolicy }}
+          ports:
+            {{- range .Values.host.ports }}
+            - name: {{ .name }}
+              containerPort: {{ .containerPort }}
+              protocol: {{ .protocol | default "TCP" }}
+            {{- end }}
+          env:
+            - name: NODE_PRIVATEKEY
+              value: {{ .Values.host.secretEnv.NODE_PRIVATEKEY | quote }}
+            # network env vars
+            - name: NETWORK_GAS_BASEFEE
+              value: {{ .Values.config.network.gas.basefee | default "1000000000" | quote }}
+            - name: NETWORK_L1_STARTHASH
+              value: {{ .Values.config.network.l1.starthash | default "" | quote }}
+            - name: NETWORK_GAS_BATCHEXECUTIONLIMIT
+              value: {{ .Values.config.network.gas.batchexecutionlimit | default "300000000000" | quote }}
+            - name: NETWORK_BATCH_MAXINTERVAL
+              value: {{ .Values.config.network.batch.maxinterval | default "1s" | quote }}
+            - name: NETWORK_ROLLUP_INTERVAL
+              value: {{ .Values.config.network.rollup.interval | default "15m0s" | quote }}
+            - name: NETWORK_L1_CONTRACTS_BRIDGE
+              value: {{ .Values.config.network.l1.l1contracts.bridge | default "0x0000000000000000000000000000000000000000" | quote }}
+            - name: NETWORK_GENESIS
+              value: {{ .Values.config.network.genesisjson | default "{}" | quote }}
+            - name: NETWORK_L1_CONTRACTS_MESSAGEBUS
+              value: {{ .Values.config.network.l1.l1contracts.messagebus | default "" | quote }}
+            - name: NETWORK_BATCH_MAXSIZE
+              value: {{ .Values.config.network.batch.maxsize | default "56320" | quote }}
+            - name: NETWORK_SEQUENCER_P2PADDRESS
+              value: {{ .Values.config.network.sequencer.p2paddress | default "obscuronode-0-dev-testnet.uksouth.cloudapp.azure.com:10000" | quote }}
+            - name: NETWORK_SEQUENCER_SYSTEMCONTRACTSUPGRADER
+              value: {{ .Values.config.network.sequencer.systemcontractsupgrader | quote }}
+            - name: NETWORK_GAS_LOCALEXECUTIONCAP
+              value: {{ .Values.config.network.gas.localexecutioncap | default "300000000000" | quote }}
+            - name: NETWORK_ROLLUP_MAXSIZE
+              value: {{ .Values.config.network.rollup.maxsize | default "131072" | quote }}
+            - name: NETWORK_L1_CONTRACTS_MANAGEMENT
+              value: {{ .Values.config.network.l1.l1contracts.management | default "" | quote }}
+            
+            - name: NETWORK_L1_BLOCKTIME
+              value: {{ .Values.config.network.l1.blocktime | default "15s" | quote }}
+            - name: NETWORK_GAS_MINGASPRICE
+              value: {{ .Values.config.network.gas.mingasprice | default "1000000000" | quote }}
+            - name: NETWORK_ROLLUP_MAXINTERVAL
+              value: {{ .Values.config.network.rollup.maxinterval | default "10m0s" | quote }}
+            - name: NETWORK_L1_CHAINID
+              value: {{ .Values.config.network.l1.chainid | default "1337" | quote }}
+            - name: NETWORK_CHAINID
+              value: {{ .Values.config.network.chainid | default "443" | quote }}
+            - name: NETWORK_CROSSCHAIN_INTERVAL
+              value: {{ .Values.config.network.crosschain.interval | default "6s" | quote }}
+            - name: NETWORK_GAS_PAYMENTADDRESS
+              value: {{ .Values.config.network.gas.paymentaddress | default "0xd6c9230053f45f873cb66d8a02439380a37a4fbf" | quote }}
+            - name: NETWORK_BATCH_INTERVAL
+              value: {{ .Values.config.network.batch.interval | default "1s" | quote }}
+            - name: NETWORK_L1_CONTRACTS_CROSSCHAIN
+              value: {{ .Values.config.network.l1.l1contracts.crosschain | default "" | quote }}
+            - name: NETWORK_L1_CONTRACTS_NETWORKCONFIG
+              value: {{ .Values.config.network.l1.l1contracts.networkConfig | default "" | quote }}
+            - name: NETWORK_L1_CONTRACTS_ROLLUP
+              value: {{ .Values.config.network.l1.l1contracts.rollup | default "" | quote }}
+            - name: NODE_ID
+              value: {{ .Values.config.node.id | default "0xd6bcf7694fc4ed7c7c61b3fc5757919e237d0bf5" | quote }}
+            - name: NODE_ISGENESIS
+              value: {{ .Values.config.node.isgenesis | default "false" | quote }}
+            - name: NODE_NODETYPE
+              value: {{ .Values.config.node.nodetype | default "validator" | quote }}
+            - name: NODE_NAME
+              value: {{ .Values.config.node.name | default "tennode" | quote }}
+
+              # host env vars
+            - name: HOST_LOG_LEVEL
+              value: {{ .Values.config.host.log.level | default "3" | quote }}
+            - name: HOST_LOG_PATH
+              value: {{ .Values.config.host.log.path | default "sys_out" | quote }}
+            - name: HOST_RPC_ADDRESS
+              value: {{ .Values.config.host.rpc.address | default "0.0.0.0" | quote }}
+            - name: HOST_RPC_ENABLEHTTP
+              value: {{ .Values.config.host.rpc.enablehttp | default "true" | quote }}
+            - name: HOST_RPC_HTTPPORT
+              value: {{ .Values.config.host.rpc.httpport | default "80" | quote }}
+            - name: HOST_RPC_ENABLEWS
+              value: {{ .Values.config.host.rpc.enablews | default "true" | quote }}
+            - name: HOST_RPC_WSPORT
+              value: {{ .Values.config.host.rpc.wsport | default "81" | quote }}
+            - name: HOST_P2P_BINDADDRESS
+              value: {{ .Values.config.host.p2p.bindaddress | default "0.0.0.0:10000" | quote }}
+            - name: HOST_P2P_DISABLED
+              value: {{ .Values.config.host.p2p.disabled | default "false" | quote }}
+            - name: HOST_P2P_TIMEOUT
+              value: {{ .Values.config.host.p2p.timeout | default "5s" | quote }}
+            - name: HOST_L1_BEACONURL
+              value: {{ .Values.config.host.l1.l1beaconurl | default "" | quote }}
+            - name: HOST_L1_WSURL
+              value: {{ .Values.config.host.l1.websocketurl | default "" | quote }}
+            - name: HOST_L1_RPCTIMEOUT
+              value: {{ .Values.config.host.l1.rpctimeout | default "15s" | quote }}
+            - name: NETWORK_L1_CONTRACTS_ENCLAVEREGISTRY
+              value: {{ .Values.config.network.l1.l1contracts.enclaveRegistry | default "" | quote }}
+            - name: HOST_ENCLAVE_RPCADDRESSES
+              value: {{ include "ten-node.fullname" . }}-enclave:11001
+            - name: HOST_ENCLAVE_RPCTIMEOUT
+              value: {{ .Values.config.host.enclave.rpctimeout | default "10s" | quote }}
+            - name: HOST_DEBUG_ENABLEMETRICS
+              value: {{ .Values.config.host.debug.enablemetrics | default "true" | quote }}
+            - name: HOST_DEBUG_ENABLEPROFILER
+              value: {{ .Values.config.host.debug.enableprofiler | default "false" | quote }} 
+            - name: HOST_DEBUG_METRICSHTTPPORT
+              value: {{ .Values.config.host.debug.metricshttpport | default "9090" | quote }}
+            - name: HOST_DEBUG_ENABLEDEBUGNAMESPACE
+              value: {{ .Values.config.host.debug.enabledebugnamespace | default "true" | quote }}
+            - name: HOST_DB_USEINMEMORY
+              value: {{ .Values.config.host.db.useinmemory | default "false" | quote }}
+            - name: HOST_DB_SQLITEPATH
+              value: {{ .Values.config.host.db.sqlitepath | default "" | quote }}
+          envFrom:
+            - secretRef:
+                name: {{ include "ten-node.fullname" . }}-host
+          volumeMounts:
+            - name: shared-data
+              mountPath: /shared-data
+          {{- if .Values.host.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.host.readinessProbe.path }}
+              port: http
+              scheme: HTTP
+            {{- with .Values.host.readinessProbe.params }}
+            {{- . | toYaml | nindent 12 }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.host.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.host.livenessProbe.path }}
+              port: http
+              scheme: HTTP
+            {{- with .Values.host.livenessProbe.params }}
+            {{- end }}
+          {{- end }}
+      {{- with .Values.host.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.host.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds: {{ . | toYaml | nindent 8 }}
+      {{- end }}
+      {{- with .Values.host.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.host.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  {{- end }}

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "ten-node.fullname" . }}-enclave
+  annotations:
+    "helm.sh/resource-policy": keep
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.enclave.pvc.size }}
+  storageClassName: {{ .Values.enclave.pvc.storageClass }}

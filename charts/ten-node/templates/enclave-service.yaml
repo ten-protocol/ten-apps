@@ -1,0 +1,18 @@
+{{- if .Values.enclave.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ten-node.fullname" . }}-enclave
+  labels:
+    app: {{ .Release.Name }}-enclave
+    {{- include "ten-node.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.enclave.service.type }}
+  ports:
+    - port: {{ .Values.enclave.service.port }}
+      targetPort: {{ .Values.enclave.service.port }}
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ .Release.Name }}-enclave
+{{- end }}

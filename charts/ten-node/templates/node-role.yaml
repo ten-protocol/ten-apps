@@ -1,0 +1,10 @@
+{{- if .Values.enclave.enabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+    name: {{ include "ten-node.fullname" . }}-node
+rules:
+- apiGroups: [""]
+  resources: ["services"]
+  verbs: ["get", "list", "watch"]
+{{- end }}

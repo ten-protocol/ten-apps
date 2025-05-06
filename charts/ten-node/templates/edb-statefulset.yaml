@@ -1,0 +1,64 @@
+{{- if .Values.edb.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "ten-node.fullname" . }}-edb
+  namespace: {{ .Release.namespace }}
+  labels:
+    app.kubernetes.io/component: database
+    app.kubernetes.io/name: EdgelessDB
+    app.kubernetes.io/part-of: EdgelessDB
+spec:
+  serviceName: {{ include "ten-node.fullname" . }}-edb
+  replicas: {{ .Values.edb.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: database
+      app.kubernetes.io/name: EdgelessDB
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: database
+        app.kubernetes.io/name: EdgelessDB
+        app.kubernetes.io/part-of: EdgelessDB
+    spec:
+      nodeSelector:
+        {{- toYaml .Values.edb.nodeSelector | nindent 8 }}
+      affinity:
+        {{- toYaml .Values.edb.affinity | nindent 8 }}
+      tolerations:
+        {{- toYaml .Values.edb.tolerations | nindent 8 }}
+      containers:
+        - env:
+          - name: EDG_EDB_DATABASE_ADDR
+            value: "{{ .Values.edb.sqlApiHost }}:{{ .Values.edb.sqlApiPort }}"
+          - name: EDG_EDB_API_ADDR
+            value: "{{ .Values.edb.restApiHost }}:{{ .Values.edb.restApiPort }}"
+          - name: EDG_EDB_CERT_DNS
+            value: {{ include "ten-node.fullname" . }}-edb
+          - name: OE_SIMULATION
+            value: {{ if .Values.edb.simulation }}"1"{{ else }}"0"{{ end }}
+          {{- if .Values.edb.launchMarble }}
+          args: [ "-marble" ]
+          {{- end }}
+          name: edgelessdb
+          image: "{{ .Values.edb.image.repository }}/edgelessdb-sgx-{{ .Values.edb.heapSize }}gb:{{ .Values.edb.image.tag }}"
+          imagePullPolicy: {{ .Values.edb.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.edb.sqlApiPort }}
+              name: sql
+            - containerPort: {{ .Values.edb.restApiPort }}
+              name: http
+          resources:
+          {{- toYaml .Values.edb.resources | nindent 12 }}
+          securityContext:
+            privileged: true
+            runAsUser: 0
+          volumeMounts:
+          - name: {{ include "ten-node.fullname" . }}-edb
+            mountPath: /enclavedata
+      volumes:
+        - name: {{ include "ten-node.fullname" . }}-edb
+          persistentVolumeClaim:
+            claimName: {{ include "ten-node.fullname" . }}-edb
+{{- end }}
