@@ -87,6 +87,8 @@ spec:
               protocol: {{ .protocol | default "TCP" }}
             {{- end }}
           env:
+            - name: NODE_PRIVATEKEY
+              value: {{ .Values.host.secretEnv.NODE_PRIVATEKEY | quote }}
             # network env vars
             - name: NETWORK_GAS_BASEFEE
               value: {{ .Values.config.network.gas.basefee | default "1000000000" | quote }}
@@ -193,6 +195,9 @@ spec:
               value: {{ .Values.config.host.db.useinmemory | default "false" | quote }}
             - name: HOST_DB_SQLITEPATH
               value: {{ .Values.config.host.db.sqlitepath | default "" | quote }}
+          envFrom:
+            - secretRef:
+                name: {{ include "ten-node.fullname" . }}-host
           volumeMounts:
             - name: shared-data
               mountPath: /shared-data
