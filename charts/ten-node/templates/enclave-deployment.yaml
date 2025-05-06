@@ -206,6 +206,11 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "ten-node.fullname" . }}-enclave
+            {{- if .Values.externalSecrets.enabled }}
+            - secretRef:
+                name: {{ include "ten-node.fullname" . }}-node-secrets
+                optional: true  # Makes the ExternalSecret optional
+            {{- end }}
           volumeMounts:
             - name: enclavedata
               mountPath: /enclavedata
