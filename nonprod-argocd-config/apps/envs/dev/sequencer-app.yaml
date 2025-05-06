@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/ten-protocol/ten-apps.git
-    targetRevision: main-testnet
+    targetRevision: main
     path: charts/ten-node             # <-- Path to actual chart
     helm:
       valueFiles:
