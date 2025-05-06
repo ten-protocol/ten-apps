@@ -37,7 +37,7 @@
         blocktime: 15s
         starthash: "0x0077863ecf3aa659dc06bd1a4fe87047664286f23ee92f5eca0274a6420fa3ca"
         l1contracts:
-            messagebus: "dc98bd0c62ba456a8a3bada1b5f13b8e"
+            messagebus: "0x053005dbc68d8e1288A6080f04F1a9f93CFb4E3a"
             bridge: "0x47232bCB21c986c541bd21855477eF64c92b6737"
             crosschain: "0x046Ea217b74F88E95F6903B7B9363f0a9992a47A"
             rollup: "0xe901EE9bEca17a9D94c4813Eb2F505905f5c01A8"
