@@ -198,6 +198,11 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "ten-node.fullname" . }}-host
+            {{- if .Values.externalSecrets.enabled }}
+            - secretRef:
+                name: {{ include "ten-node.fullname" . }}-node-secrets
+                optional: true  # Makes the ExternalSecret optional
+            {{- end }}
           volumeMounts:
             - name: shared-data
               mountPath: /shared-data
