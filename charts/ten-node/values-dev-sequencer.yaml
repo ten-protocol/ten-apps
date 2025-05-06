@@ -33,7 +33,7 @@
           batchexecutionlimit: "30000000"
           localexecutioncap: "300000000000"
       l1:
-        chainid: 11155111
+        chainid: "11155111"
         blocktime: 15s
         starthash: "653aa3b041c8424483074efca61b297a"
         l1contracts:
