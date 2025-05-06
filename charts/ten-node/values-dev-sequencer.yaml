@@ -29,34 +29,34 @@
       gas:
           basefee: "1000000000"
           mingasprice: "1000000000"
-          paymentaddress: "0x0000000000000000000000000000000000000000"
+          paymentaddress: "0xd6C9230053f45F873Cb66D8A02439380a37A4fbF"
           batchexecutionlimit: "30000000"
           localexecutioncap: "300000000000"
       l1:
-        chainid: "11155111"
+        chainid: "1337"
         blocktime: 15s
-        starthash: "653aa3b041c8424483074efca61b297a"
+        starthash: "0x0077863ecf3aa659dc06bd1a4fe87047664286f23ee92f5eca0274a6420fa3ca"
         l1contracts:
             messagebus: "dc98bd0c62ba456a8a3bada1b5f13b8e"
-            bridge: "0x0000000000000000000000000000000000000000"
-            crosschain: "873a9587025747d0a3060ff1360955df"
-            rollup: "75b6566303044f3f8ace82bb1b7fe32c"
-            enclaveRegistry: "275c9dc881a148b1aa8700874cbf085f"
-            networkConfig: "5465bdb3ba334388bd11f61e593a0dcc"
+            bridge: "0x47232bCB21c986c541bd21855477eF64c92b6737"
+            crosschain: "0x046Ea217b74F88E95F6903B7B9363f0a9992a47A"
+            rollup: "0xe901EE9bEca17a9D94c4813Eb2F505905f5c01A8"
+            enclaveRegistry: "0x9D41676b1510F2EeFCfcCaBaACd99cF39AD785B5"
+            networkConfig: "0x1d797726628627f1A0eEBFAdDb2F9c4e20B3D4FE"
       rollup:
           interval: 15m0s
           maxinterval: 10m0s
           maxsize: 131072
       sequencer:
-          p2paddress: obscuronode-0-sepolia-testnet.uksouth.cloudapp.azure.com:10000
-          systemcontractsupgrader: "0x0000000000000000000000000000000000000000"
+          p2paddress: dev-testnet-sequencer.ten.xyz:10000
+          systemcontractsupgrader: "0x11431A88Fc53F3eE5Ae263067F96EAF91A0f0974"
       crosschain:
           interval: 6s
     node:
       nodetype: "sequencer"
       name: ""
       id:  #Public key of the node
-      isgenesis: false
+      isgenesis: true
     host:
       db:
           useinmemory: false
