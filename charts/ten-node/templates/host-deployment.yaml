@@ -189,8 +189,8 @@ spec:
             - name: HOST_DB_SQLITEPATH
               value: {{ .Values.config.host.db.sqlitepath | default "" | quote }}
           envFrom:
-            - secretRef:
-                name: {{ include "ten-node.fullname" . }}-host
+            # - secretRef:
+            #     name: {{ include "ten-node.fullname" . }}-host
             - secretRef:
                 name: {{ include "ten-node.fullname" . }}-node-secrets
           volumeMounts:
