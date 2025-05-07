@@ -116,9 +116,7 @@ spec:
               value: {{ .Values.config.network.gas.localexecutioncap | default "300000000000" | quote }}
             - name: NETWORK_ROLLUP_MAXSIZE
               value: {{ .Values.config.network.rollup.maxsize | default "131072" | quote }}
-            - name: NETWORK_L1_CONTRACTS_MANAGEMENT
-              value: {{ .Values.config.network.l1.l1contracts.management | default "" | quote }}
-            
+    
             - name: NETWORK_L1_BLOCKTIME
               value: {{ .Values.config.network.l1.blocktime | default "15s" | quote }}
             - name: NETWORK_GAS_MINGASPRICE
