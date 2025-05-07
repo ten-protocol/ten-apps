@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: {{ include "ten-node.fullname" . }}-tcp
+  labels:
+    {{- include "ten-node.labels" . | nindent 4 }}
+spec:
+  entryPoints:
+    - p2p
+  routes:
+    - match: HostSNI(`dev-testnet-sequencer.ten.xyz`)
+      services:
+        - name: {{ include "ten-node.fullname" . }}-host
+          port: 10000
