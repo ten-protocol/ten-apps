@@ -195,7 +195,6 @@ spec:
                 name: {{ include "ten-node.fullname" . }}-host
             - secretRef:
                 name: {{ include "ten-node.fullname" . }}-node-secrets
-                optional: true  # Makes the ExternalSecret optional
           volumeMounts:
             - name: shared-data
               mountPath: /shared-data
