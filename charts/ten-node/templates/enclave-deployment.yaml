@@ -35,30 +35,30 @@ spec:
             claimName: {{ include "ten-node.fullname" . }}-enclave
         - name: shared-data
           emptyDir: {}
-      initContainers:
-        - name: wait-for-host
-          image: bitnami/kubectl:latest
-          command:
-            - /bin/sh
-            - -c
-            - |
-              until [ -n "$(kubectl get svc {{ include "ten-node.fullname" . }}-host -o jsonpath='{.status.loadBalancer.ingress[0].ip}')" ]; do
-                echo "Waiting for host service to get an IP address..."
-                sleep 5
-              done
-              NODE_HOSTADDRESS=$(kubectl get svc {{ include "ten-node.fullname" . }}-host -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-              echo "export NODE_HOSTADDRESS=$NODE_HOSTADDRESS:10000" > /shared-data/node-enclave.env
-              echo "NODE_HOSTADDRESS=$NODE_HOSTADDRESS:10000 is written in /shared-data/node-enclave.env"
-          volumeMounts:
-            - name: shared-data
-              mountPath: /shared-data
+      # initContainers:
+      #   - name: wait-for-host
+      #     image: bitnami/kubectl:latest
+      #     command:
+      #       - /bin/sh
+      #       - -c
+      #       - |
+      #         until [ -n "$(kubectl get svc {{ include "ten-node.fullname" . }}-host -o jsonpath='{.spec.clusterIP}')" ]; do
+      #           echo "Waiting for host service to get an IP address..."
+      #           sleep 5
+      #         done
+      #         NODE_HOSTADDRESS=$(kubectl get svc {{ include "ten-node.fullname" . }}-host -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+      #         echo "export NODE_HOSTADDRESS=$NODE_HOSTADDRESS:10000" > /shared-data/node-enclave.env
+      #         echo "NODE_HOSTADDRESS=$NODE_HOSTADDRESS:10000 is written in /shared-data/node-enclave.env"
+      #     volumeMounts:
+      #       - name: shared-data
+      #         mountPath: /shared-data
       containers:
         - name: {{ .Chart.Name }}-enclave
           securityContext:
             privileged: true
             runAsUser: 0
           image: "{{ .Values.enclave.image.repository }}:{{ .Values.enclave.image.tag }}"
-          command: ["/bin/bash", "-c", "source /shared-data/node-enclave.env && /home/obscuro/go-obscuro/go/enclave/main/entry.sh && ego run /home/obscuro/go-obscuro/go/enclave/main/main -willAttest=true "]
+          command: ["/bin/bash", "-c", "/home/obscuro/go-obscuro/go/enclave/main/entry.sh && ego run /home/obscuro/go-obscuro/go/enclave/main/main -willAttest=true "]
 
           resources:
             {{- toYaml .Values.enclave.resources | nindent 12 }}
@@ -70,6 +70,8 @@ spec:
               protocol: {{ .protocol | default "TCP" }}
             {{- end }}
           env:
+            - name: NODE_HOSTADDRESS
+              value: {{ include "ten-node.fullname" . }}-host:10000
             - name: OE_SIMULATION
               value: {{ if .Values.enclave.simulation }}"1"{{ else }}"0"{{ end }}
             - name: ENCLAVE_L1_ENABLEBLOCKVALIDATION
