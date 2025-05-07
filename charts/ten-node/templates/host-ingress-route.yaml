@@ -12,3 +12,19 @@ spec:
       services:
         - name: {{ include "ten-node.fullname" . }}-host
           port: 10000
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "ten-node.fullname" . }}-http
+  labels:
+    {{- include "ten-node.labels" . | nindent 4 }}
+spec:
+  entryPoints:
+    - http  # Ensure Traefik is listening on the "http" entry point for port 80
+  routes:
+    - match: Host(`dev-testnet-sequencer.ten.xyz`)
+      kind: Rule
+      services:
+        - name: {{ include "ten-node.fullname" . }}-host
+          port: 80  # The same port exposed in the Service definition
