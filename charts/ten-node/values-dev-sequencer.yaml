@@ -55,7 +55,6 @@
     node:
       nodetype: "sequencer"
       name: "obscuronode"
-      id:  "0xd6bCf7694fc4Ed7c7C61B3fC5757919E237D0bf5"
       isgenesis: true
     host:
       db:
@@ -107,3 +106,10 @@
       rpc:
           bindaddress: 0.0.0.0:11001
           timeout: 5s
+externalSecrets:
+  enabled: true
+  secretMappings:
+    NODE_PRIVATEKEY: "DEV-SEQUENCER-NODE-PRIVATEKEY" #Private key of the node
+  secretStore:
+    name: "azure-keyvault"
+    kind: "ClusterSecretStore"
