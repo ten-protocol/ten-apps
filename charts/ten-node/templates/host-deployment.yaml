@@ -116,7 +116,6 @@ spec:
               value: {{ .Values.config.network.gas.localexecutioncap | default "300000000000" | quote }}
             - name: NETWORK_ROLLUP_MAXSIZE
               value: {{ .Values.config.network.rollup.maxsize | default "131072" | quote }}
-    
             - name: NETWORK_L1_BLOCKTIME
               value: {{ .Values.config.network.l1.blocktime | default "15s" | quote }}
             - name: NETWORK_GAS_MINGASPRICE
@@ -139,8 +138,6 @@ spec:
               value: {{ .Values.config.network.l1.l1contracts.networkConfig | default "" | quote }}
             - name: NETWORK_L1_CONTRACTS_ROLLUP
               value: {{ .Values.config.network.l1.l1contracts.rollup | default "" | quote }}
-            - name: NODE_ID
-              value: {{ .Values.config.node.id | default "0xd6bcf7694fc4ed7c7c61b3fc5757919e237d0bf5" | quote }}
             - name: NODE_ISGENESIS
               value: {{ .Values.config.node.isgenesis | default "false" | quote }}
             - name: NODE_NODETYPE
@@ -196,11 +193,9 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "ten-node.fullname" . }}-host
-            {{- if .Values.externalSecrets.enabled }}
             - secretRef:
                 name: {{ include "ten-node.fullname" . }}-node-secrets
                 optional: true  # Makes the ExternalSecret optional
-            {{- end }}
           volumeMounts:
             - name: shared-data
               mountPath: /shared-data

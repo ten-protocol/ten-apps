@@ -147,8 +147,6 @@ spec:
               value: {{ .Values.config.network.batch.interval | default "1s" | quote }}
             - name: NETWORK_L1_CONTRACTS_CROSSCHAIN
               value: {{ .Values.config.network.l1.l1contracts.crosschain | default "" | quote }}
-            - name: NODE_ID
-              value: {{ .Values.config.node.id | default "0xd6bcf7694fc4ed7c7c61b3fc5757919e237d0bf5" | quote }}
             - name: NODE_ISGENESIS
               value: {{ .Values.config.node.isgenesis | default "false" | quote }}
             - name: NODE_NODETYPE
@@ -204,11 +202,7 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "ten-node.fullname" . }}-enclave
-            {{- if .Values.externalSecrets.enabled }}
-            - secretRef:
-                name: {{ include "ten-node.fullname" . }}-node-secrets
-                optional: true  # Makes the ExternalSecret optional
-            {{- end }}
+          
           volumeMounts:
             - name: enclavedata
               mountPath: /enclavedata

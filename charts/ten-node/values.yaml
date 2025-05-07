@@ -259,11 +259,5 @@ config:
     rpc:
         bindaddress: 0.0.0.0:11001
         timeout: 5s
-
 externalSecrets:
-  enabled: true
-  secretMappings:
-    NODE_PRIVATEKEY: "DEV-SEQUENCER-NODE-PRIVATEKEY" #Private key of the node
-  secretStore:
-    name: "azure-keyvault"
-    kind: "ClusterSecretStore"
+  enabled: false
