@@ -54,7 +54,7 @@
           interval: 6s
     node:
       nodetype: "sequencer"
-      name: ""
+      name: "obscuronode"
       id:  "0xd6bCf7694fc4Ed7c7C61B3fC5757919E237D0bf5"
       isgenesis: true
     host:
