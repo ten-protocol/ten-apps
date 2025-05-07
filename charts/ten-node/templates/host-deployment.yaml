@@ -75,7 +75,7 @@ spec:
           securityContext:
             privileged: true
             runAsUser: 0
-          command: ["/bin/sh", "-c", "source /shared-data/node-host.env && source /shared-data/node-host-db.env && ./main "]
+          command: ["/bin/sh", "-c", " source /shared-data/node-host-db.env && ./main "]
           image: "{{ .Values.host.image.repository }}:{{ .Values.host.image.tag }}"
           resources:
             {{- toYaml .Values.host.resources | nindent 12 }}
