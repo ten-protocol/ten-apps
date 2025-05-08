@@ -1,7 +1,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteTCP
 metadata:
-  name: {{ include "ten-node.fullname" . }}-tcp
+  name: {{ include "ten-node.fullname" . }}-p2p
   labels:
     {{- include "ten-node.labels" . | nindent 4 }}
 spec:
@@ -14,17 +14,31 @@ spec:
           port: 10000
 ---
 apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+kind: IngressRouteTCP
 metadata:
-  name: {{ include "ten-node.fullname" . }}-http
+  name: {{ include "ten-node.fullname" . }}-rpc
   labels:
     {{- include "ten-node.labels" . | nindent 4 }}
 spec:
   entryPoints:
-    - http  # Ensure Traefik is listening on the "http" entry point for port 80
+    - rpc
   routes:
-    - match: Host(`{{ .Values.host.fqdn }}`)
-      kind: Rule
+    - match: HostSNI(`{{ .Values.host.fqdn }}`)
       services:
         - name: {{ include "ten-node.fullname" . }}-host
-          port: 80  # The same port exposed in the Service definition
+          port: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: {{ include "ten-node.fullname" . }}-ws
+  labels:
+    {{- include "ten-node.labels" . | nindent 4 }}
+spec:
+  entryPoints:
+    - ws
+  routes:
+    - match: HostSNI(`{{ .Values.host.fqdn }}`)
+      services:
+        - name: {{ include "ten-node.fullname" . }}-host
+          port: 81
