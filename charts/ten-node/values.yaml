@@ -106,7 +106,7 @@ host:
       containerPort: 8085
     - name: ws
       port: 8089
-      containerPort: 8090
+      containerPort: 8089
     - name: p2p
       port: 10000
       containerPort: 10000
