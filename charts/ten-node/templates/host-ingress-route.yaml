@@ -12,6 +12,8 @@ spec:
       services:
         - name: {{ include "ten-node.fullname" . }}-host
           port: 10000
+  tls:
+    certResolver: le
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteTCP
@@ -27,6 +29,8 @@ spec:
       services:
         - name: {{ include "ten-node.fullname" . }}-host
           port: 8085
+  tls:
+    certResolver: le
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteTCP
@@ -42,3 +46,5 @@ spec:
       services:
         - name: {{ include "ten-node.fullname" . }}-host
           port: 8089
+  tls:
+    certResolver: le
