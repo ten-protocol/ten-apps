@@ -156,12 +156,8 @@ spec:
               value: {{ .Values.config.host.rpc.address | default "0.0.0.0" | quote }}
             - name: HOST_RPC_ENABLEHTTP
               value: {{ .Values.config.host.rpc.enablehttp | default "true" | quote }}
-            - name: HOST_RPC_HTTPPORT
-              value: {{ .Values.config.host.rpc.httpport | default "80" | quote }}
             - name: HOST_RPC_ENABLEWS
               value: {{ .Values.config.host.rpc.enablews | default "true" | quote }}
-            - name: HOST_RPC_WSPORT
-              value: {{ .Values.config.host.rpc.wsport | default "81" | quote }}
             - name: HOST_P2P_BINDADDRESS
               value: {{ .Values.config.host.p2p.bindaddress | default "0.0.0.0:10000" | quote }}
             - name: HOST_P2P_DISABLED
