@@ -144,6 +144,10 @@ spec:
               value: {{ .Values.config.node.name | default "tennode" | quote }}
 
               # host env vars
+            - name: HOST_RPC_HTTPPORT
+              value: 8085
+            - name: HOST_RPC_WSPORT
+              value: 8089
             - name: HOST_LOG_LEVEL
               value: {{ .Values.config.host.log.level | default "3" | quote }}
             - name: HOST_LOG_PATH

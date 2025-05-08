@@ -103,10 +103,10 @@ host:
   ports:
     - name: http
       port: 8085
-      containerPort: 80
+      containerPort: 8085
     - name: ws
       port: 8089
-      containerPort: 81
+      containerPort: 8090
     - name: p2p
       port: 10000
       containerPort: 10000
