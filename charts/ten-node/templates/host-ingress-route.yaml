@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - p2p
   routes:
-    - match: HostSNI(`dev-testnet-sequencer.ten.xyz`)
+    - match: HostSNI(`{{ .Values.host.fqdn }}`)
       services:
         - name: {{ include "ten-node.fullname" . }}-host
           port: 10000
@@ -23,7 +23,7 @@ spec:
   entryPoints:
     - http  # Ensure Traefik is listening on the "http" entry point for port 80
   routes:
-    - match: Host(`dev-testnet-sequencer.ten.xyz`)
+    - match: Host(`{{ .Values.host.fqdn }}`)
       kind: Rule
       services:
         - name: {{ include "ten-node.fullname" . }}-host

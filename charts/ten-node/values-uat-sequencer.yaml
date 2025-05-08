@@ -1,22 +1,22 @@
 
 enclave:
     image:
-        repository: testnetobscuronet.azurecr.io/obscuronet/dev_enclave
+        repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
         tag: "latest"
     nodeSelector:
-        kubernetes.io/hostname: aks-sgxpool-23084093-vmss000002
+        kubernetes.io/hostname: aks-sgxpool-23084093-vmss000001
 
     secretEnv:
         ENCLAVE_DB_SQLITEPATH: ""
 
 host:
     image:
-        repository: "testnetobscuronet.azurecr.io/obscuronet/sepolia_host"
+        repository: "testnetobscuronet.azurecr.io/obscuronet/uat_host"
         tag: "latest"
-    fqdn: dev-testnet-sequencer.ten.xyz
+    fqdn: uat-testnet-sequencer.ten.xyz
 edb:    
     nodeSelector:
-        kubernetes.io/hostname: aks-sgxpool-23084093-vmss000002
+        kubernetes.io/hostname: aks-sgxpool-23084093-vmss000001
 config:
     network:
         chainid: 443
@@ -34,20 +34,20 @@ config:
         l1:
             chainid: "1337"
             blocktime: 15s
-            starthash: "0x0077863ecf3aa659dc06bd1a4fe87047664286f23ee92f5eca0274a6420fa3ca"
+            starthash: "0x3100c7d0cb4d7777b930b3709779833a3c71ccdc89dedc7b6560cf402f43df95"
             l1contracts:
-                messagebus: "0x053005dbc68d8e1288A6080f04F1a9f93CFb4E3a"
-                bridge: "0x47232bCB21c986c541bd21855477eF64c92b6737"
-                crosschain: "0x046Ea217b74F88E95F6903B7B9363f0a9992a47A"
-                rollup: "0xe901EE9bEca17a9D94c4813Eb2F505905f5c01A8"
-                enclaveRegistry: "0x9D41676b1510F2EeFCfcCaBaACd99cF39AD785B5"
-                networkConfig: "0x1d797726628627f1A0eEBFAdDb2F9c4e20B3D4FE"
+                messagebus: "0x7C948e8eDdCe94CCd11068A92B1A97bb61F1A65a"
+                bridge: "0x0C084797164F4347AEa1e2c9cD29FdC710FBd63F"
+                crosschain: "0x1713E26c9251eEDBF9D09dF692d2682F050Fe926"
+                rollup: "0x653Aa03F4b6d3f187d550113dEaC51Ccaa8DE477"
+                enclaveRegistry: "0x6Ac08597CfE1D567776e8831E4ec3D5c77320017"
+                networkConfig: "0xa63592Db46df35C4Ce0dFF98d45d8CDE010B09f0"
         rollup:
             interval: 15m0s
             maxinterval: 10m0s
             maxsize: 131072
         sequencer:
-            p2paddress: dev-testnet-sequencer.ten.xyz:10000
+            p2paddress: uat-testnet-sequencer.ten.xyz:10000
             systemcontractsupgrader: "0x11431A88Fc53F3eE5Ae263067F96EAF91A0f0974"
         crosschain:
             interval: 6s
@@ -69,9 +69,9 @@ config:
                 - obscuronode-enclave:11001
             rpctimeout: 10s
         l1:
-            websocketurl: ws://dev-testnet-eth2network.uksouth.cloudapp.azure.com:9000
-            l1beaconurl: dev-testnet-eth2network.uksouth.cloudapp.azure.com:12600
-            l1blobarchiveurl: ""
+            websocketurl: "ws://sepolia-l1-node-02.uksouth.cloudapp.azure.com:81?id=tenuserpwd"
+            l1beaconurl: "https://ethereum-sepolia-beacon-api.publicnode.com"
+            l1blobarchiveurl: "https://eth-beacon-chain-sepolia.drpc.org/rest/"
             rpctimeout: 15s
         log:
             level: 3
@@ -108,4 +108,4 @@ config:
 externalSecrets:
   enabled: true
   secretMappings:
-    NODE_PRIVATEKEY: "DEV-SEQUENCER-NODE-PRIVATEKEY" #Private key of the node
+    NODE_PRIVATEKEY: "UAT-SEQUENCER-NODE-PRIVATEKEY" #Private key of the node

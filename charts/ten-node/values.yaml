@@ -94,7 +94,7 @@ host:
     enabled: false
   livenessProbe:
     enabled: false
-    
+  fqdn: dev-testnet-sequencer.ten.xyz   
   secretEnv:
     NODE_PRIVATEKEY: "" #Private key of the node
   extraEnv: []
