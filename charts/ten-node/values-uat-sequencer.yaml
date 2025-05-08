@@ -32,7 +32,7 @@ config:
             batchexecutionlimit: "30000000"
             localexecutioncap: "300000000000"
         l1:
-            chainid: "1337"
+            chainid: "11155111"
             blocktime: 15s
             starthash: "0x3100c7d0cb4d7777b930b3709779833a3c71ccdc89dedc7b6560cf402f43df95"
             l1contracts:
