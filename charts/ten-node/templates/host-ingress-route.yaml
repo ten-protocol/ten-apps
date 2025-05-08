@@ -41,4 +41,4 @@ spec:
     - match: HostSNI(`{{ .Values.host.fqdn }}`)
       services:
         - name: {{ include "ten-node.fullname" . }}-host
-          port: 88090
+          port: 8090
