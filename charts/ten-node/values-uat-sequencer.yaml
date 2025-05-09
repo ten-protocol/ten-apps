@@ -34,14 +34,14 @@ config:
         l1:
             chainid: "11155111"
             blocktime: 15s
-            starthash: "0x3100c7d0cb4d7777b930b3709779833a3c71ccdc89dedc7b6560cf402f43df95"
+            starthash: "0x079aee457ed19ef37341edb88bc7ffafe3e2e576080fdbcf6c31aac36cb60517"
             l1contracts:
-                messagebus: "0x7C948e8eDdCe94CCd11068A92B1A97bb61F1A65a"
-                bridge: "0x0C084797164F4347AEa1e2c9cD29FdC710FBd63F"
-                crosschain: "0x1713E26c9251eEDBF9D09dF692d2682F050Fe926"
-                rollup: "0x653Aa03F4b6d3f187d550113dEaC51Ccaa8DE477"
-                enclaveRegistry: "0x6Ac08597CfE1D567776e8831E4ec3D5c77320017"
-                networkConfig: "0xa63592Db46df35C4Ce0dFF98d45d8CDE010B09f0"
+                messagebus: "0x1661615679747f218518074Fc7Cb39BBbC1eb607"
+                bridge: "0xF6A4e670cbb9ac8a647c345b425c75234E92710e"
+                crosschain: "0xe13fb81486d5635EBF6339e854558fCff4d3BC1F"
+                rollup: "0x447a7ad662891F675e424c3b0e87bA95D969661d"
+                enclaveRegistry: "0x3E7FC3FdF46e4950b8a4e405Fa0F6aA38aE42A98"
+                networkConfig: "0x41432483BB3bE5307d4a445244cFC902eBA70b62"
         rollup:
             interval: 15m0s
             maxinterval: 10m0s
