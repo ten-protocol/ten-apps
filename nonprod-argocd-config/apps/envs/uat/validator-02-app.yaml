@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: uat-validator-02
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ten-protocol/ten-apps.git
+    targetRevision: main
+    path: charts/ten-node             # <-- Path to actual chart
+    helm:
+      valueFiles:
+        - values-uat-validator-02.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: uat
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
