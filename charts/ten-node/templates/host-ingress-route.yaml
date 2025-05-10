@@ -47,4 +47,4 @@ spec:
         - name: {{ include "ten-node.fullname" . }}-host
           port: 8089
   tls:
-    certResolver: le
+    passthrough: true
