@@ -102,7 +102,7 @@ spec:
             - name: NETWORK_GAS_BASEFEE
               value: {{ .Values.config.network.gas.basefee | default "1000000000" | quote }}
             - name: NETWORK_L1_STARTHASH
-              value: {{ .Values.config.network.l1.starthash | default "" | quote }}
+              value: {{ tpl .Values.config.network.l1.starthash . | default "" | quote }}
             - name: NETWORK_GAS_BATCHEXECUTIONLIMIT
               value: {{ .Values.config.network.gas.batchexecutionlimit | default "300000000000" | quote }}
             - name: NETWORK_BATCH_MAXINTERVAL
@@ -110,15 +110,15 @@ spec:
             - name: NETWORK_ROLLUP_INTERVAL
               value: {{ .Values.config.network.rollup.interval | default "15m0s" | quote }}
             - name: NETWORK_L1_CONTRACTS_BRIDGE
-              value: {{ .Values.config.network.l1.l1contracts.bridge | default "0x0000000000000000000000000000000000000000" | quote }}
+              value: {{ tpl .Values.config.network.l1.l1contracts.bridge . | default "0x0000000000000000000000000000000000000000" | quote }}
             - name: NETWORK_L1_CONTRACTS_ENCLAVEREGISTRY
-              value: {{ .Values.config.network.l1.l1contracts.enclaveRegistry | default "" | quote }}
+              value: {{ tpl .Values.config.network.l1.l1contracts.enclaveRegistry . | default "" | quote }}
             - name: NETWORK_L1_CONTRACTS_NETWORKCONFIG
-              value: {{ .Values.config.network.l1.l1contracts.networkConfig | default "" | quote }}
+              value: {{ tpl .Values.config.network.l1.l1contracts.networkConfig . | default "" | quote }}
             - name: NETWORK_GENESIS
               value: {{ .Values.config.network.genesisjson | default "{}" | quote }}
             - name: NETWORK_L1_CONTRACTS_MESSAGEBUS
-              value: {{ .Values.config.network.l1.l1contracts.messagebus | default "" | quote }}
+              value: {{ tpl .Values.config.network.l1.l1contracts.messagebus . | default "" | quote }}
             - name: NETWORK_BATCH_MAXSIZE
               value: {{ .Values.config.network.batch.maxsize | default "56320" | quote }}
             - name: NETWORK_SEQUENCER_P2PADDRESS
@@ -130,7 +130,7 @@ spec:
             - name: NETWORK_ROLLUP_MAXSIZE
               value: {{ .Values.config.network.rollup.maxsize | default "131072" | quote }}
             - name: NETWORK_L1_CONTRACTS_ROLLUP
-              value: {{ .Values.config.network.l1.l1contracts.rollup | default "" | quote }}  
+              value: {{ tpl .Values.config.network.l1.l1contracts.rollup . | default "" | quote }}  
             - name: NETWORK_L1_BLOCKTIME
               value: {{ .Values.config.network.l1.blocktime | default "15s" | quote }}
             - name: NETWORK_GAS_MINGASPRICE
@@ -148,7 +148,7 @@ spec:
             - name: NETWORK_BATCH_INTERVAL
               value: {{ .Values.config.network.batch.interval | default "1s" | quote }}
             - name: NETWORK_L1_CONTRACTS_CROSSCHAIN
-              value: {{ .Values.config.network.l1.l1contracts.crosschain | default "" | quote }}
+              value: {{ tpl .Values.config.network.l1.l1contracts.crosschain . | default "" | quote }}
             - name: NODE_ISGENESIS
               value: {{ .Values.config.node.isgenesis | default "false" | quote }}
             - name: NODE_NODETYPE
@@ -179,7 +179,7 @@ spec:
               value: {{ .Values.config.host.p2p.timeout | default "5s" | quote }}
             - name: HOST_L1_BEACONURL
               value: {{ .Values.config.host.l1.l1beaconurl | default "" | quote }}
-            - name: HOST_L1_WSURL
+            - name: HOST_L1_WSURL 
               value: {{ .Values.config.host.l1.websocketurl | default "" | quote }}
             - name: HOST_L1_RPCTIMEOUT
               value: {{ .Values.config.host.l1.rpctimeout | default "15s" | quote }}
