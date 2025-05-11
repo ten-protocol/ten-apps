@@ -99,7 +99,7 @@ host:
     NODE_PRIVATEKEY: "" #Private key of the node
   extraEnv: []
   service:
-    type: ClusterIP
+    type: LoadBalancer
   ports:
     - name: http
       port: 8085
