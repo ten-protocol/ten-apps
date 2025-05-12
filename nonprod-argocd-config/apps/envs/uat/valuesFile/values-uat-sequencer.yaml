@@ -1,4 +1,5 @@
 enclave:
+  replicaCount: 2
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
     tag: "latest"
