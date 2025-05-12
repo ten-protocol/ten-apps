@@ -11,7 +11,7 @@ spec:
     path: charts/ten-node             # <-- Path to actual chart
     helm:
       valueFiles:
-        - ../../nonprod-argocd-config/apps/ envs/uat/valuesFile/values-uat-validator-02.yaml
+        - ../../nonprod-argocd-config/apps/envs/uat/valuesFile/values-uat-validator-02.yaml
         - ../../nonprod-argocd-config/apps/envs/uat/valuesFile/l1-values.yaml
   destination:
     server: https://kubernetes.default.svc
