@@ -103,9 +103,6 @@ enclave:
       - key: sgx.intel.com/epc
         operator: Exists
         effect: NoSchedule
-    nodeSelector:
-      kubernetes.io/hostname: aks-sgxpool2-37956146-vmss000001
-    # nodeName: aks-sgxpool2-37956146-vmss000001  # Ensure this matches the node hostname
 
  # Ensure this matches the node hostname
 

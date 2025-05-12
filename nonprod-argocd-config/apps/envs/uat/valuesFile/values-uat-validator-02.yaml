@@ -1,112 +1,108 @@
-
-
 enclave:
-    image:
-        repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
-        tag: "latest"
-    nodeSelector:
-        kubernetes.io/hostname: aks-sgxpool-23084093-vmss000002
-
-    secretEnv:
-        ENCLAVE_DB_SQLITEPATH: ""
+  image:
+    repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
+    tag: "latest"
+  nodeSelector:
+    kubernetes.io/hostname: aks-sgxpool-23084093-vmss000002
+  secretEnv:
+    ENCLAVE_DB_SQLITEPATH: ""
 
 host:
-    image:
-        repository: "testnetobscuronet.azurecr.io/obscuronet/uat_host"
-        tag: "latest"
-    fqdn: uat-testnet-validator-02.ten.xyz
-edb:    
-    nodeSelector:
-        kubernetes.io/hostname: aks-sgxpool-23084093-vmss000002
+  image:
+    repository: "testnetobscuronet.azurecr.io/obscuronet/uat_host"
+    tag: "latest"
+  fqdn: uat-testnet-validator-02.ten.xyz
+
 config:
-    network:
-        chainid: 443
-        genesisjson: '{}'
-        batch:
-            interval: 1s
-            maxinterval: 1s
-            maxsize: 56320
-        gas:
-            basefee: "1000000000"
-            mingasprice: "1000000000"
-            paymentaddress: "0xd6C9230053f45F873Cb66D8A02439380a37A4fbF"
-            batchexecutionlimit: "30000000"
-            localexecutioncap: "300000000000"
-        l1:
-            chainid: "11155111"
-            blocktime: 15s
-            starthash: "{{ .Values.l1Config.starthash  }}"
-            l1contracts:
-              messagebus: "{{ .Values.l1Config.messagebus  }}"
-              bridge: "{{  .Values.l1Config.bridge  }}"
-              crosschain: "{{  .Values.l1Config.crosschain  }}"
-              rollup: "{{  .Values.l1Config.rollup  }}"
-              enclaveRegistry: "{{  .Values.l1Config.enclaveRegistry  }}"
-              networkConfig: "{{ .Values.l1Config.networkConfig  }}"
-        rollup:
-            interval: 15m0s
-            maxinterval: 10m0s
-            maxsize: 131072
-        sequencer:
-            p2paddress: uat-sequencer-ten-node-host:10000
-            systemcontractsupgrader: "0x11431A88Fc53F3eE5Ae263067F96EAF91A0f0974"
-        crosschain:
-            interval: 6s
-    node:
-        nodetype: "validator"
-        name: "ten-uat-validator-02"
-        isgenesis: false
-    host:
-        db:
-            useinmemory: false
-            sqlitepath: ""
-        debug:
-            enablemetrics: true
-            metricshttpport: 0
-            enableprofiler: false
-            enabledebugnamespace: true
-        enclave:
-            rpcaddresses:
-                - obscuronode-enclave:11001
-            rpctimeout: 10s
-        l1:
-            websocketurl: "ws://sepolia-l1-node-02.uksouth.cloudapp.azure.com:81?id=tenuserpwd"
-            l1beaconurl: "https://ethereum-sepolia-beacon-api.publicnode.com"
-            l1blobarchiveurl: "https://eth-beacon-chain-sepolia.drpc.org/rest/"
-            rpctimeout: 15s
-        log:
-            level: 3
-            path: sys_out
-        p2p:
-            isdisabled: false
-            bindaddress: 0.0.0.0:10000
-            timeout: 10s
-        rpc:
-            address: 0.0.0.0
-            enablehttp: true
-            httpport: 8085
-            enablews: true
-            wsport: 8089
+  network:
+    chainid: 443
+    genesisjson: '{}'
+    batch:
+      interval: 1s
+      maxinterval: 1s
+      maxsize: 56320
+    gas:
+      basefee: "1000000000"
+      mingasprice: "1000000000"
+      paymentaddress: "0xd6C9230053f45F873Cb66D8A02439380a37A4fbF"
+      batchexecutionlimit: "30000000"
+      localexecutioncap: "300000000000"
+    l1:
+      chainid: "11155111"
+      blocktime: 15s
+      starthash: "{{ .Values.l1Config.starthash }}"
+      l1contracts:
+        messagebus: "{{ .Values.l1Config.messagebus }}"
+        bridge: "{{ .Values.l1Config.bridge }}"
+        crosschain: "{{ .Values.l1Config.crosschain }}"
+        rollup: "{{ .Values.l1Config.rollup }}"
+        enclaveRegistry: "{{ .Values.l1Config.enclaveRegistry }}"
+        networkConfig: "{{ .Values.l1Config.networkConfig }}"
+    rollup:
+      interval: 15m0s
+      maxinterval: 10m0s
+      maxsize: 131072
+    sequencer:
+      p2paddress: uat-sequencer-ten-node-host:10000
+      systemcontractsupgrader: "0x11431A88Fc53F3eE5Ae263067F96EAF91A0f0974"
+    crosschain:
+      interval: 6s
+  node:
+    nodetype: "validator"
+    name: "ten-uat-validator-02"
+    isgenesis: false
+  host:
+    db:
+      useinmemory: false
+      sqlitepath: ""
+    debug:
+      enablemetrics: true
+      metricshttpport: 0
+      enableprofiler: false
+      enabledebugnamespace: true
     enclave:
-        simulation: false
-        enableattestation: true
-        db:
-            useinmemory: false
-            edgelessdbhost: obscuronode-edgelessdb
-            sqlitepath: ""
-        debug:
-            enabledebugnamespace: true
-            enableprofiler: false
-        l1:
-            enableblockvalidation: false
-            genesisjson: []
-        log:
-            level: 3
-            path: sys_out
-        rpc:
-            bindaddress: 0.0.0.0:11001
-            timeout: 5s
+      rpcaddresses:
+        - obscuronode-enclave:11001
+      rpctimeout: 10s
+    l1:
+      websocketurl: "ws://sepolia-l1-node-02.uksouth.cloudapp.azure.com:81?id=tenuserpwd"
+      l1beaconurl: "https://ethereum-sepolia-beacon-api.publicnode.com"
+      l1blobarchiveurl: "https://eth-beacon-chain-sepolia.drpc.org/rest/"
+      rpctimeout: 15s
+    log:
+      level: 3
+      path: sys_out
+    p2p:
+      isdisabled: false
+      bindaddress: 0.0.0.0:10000
+      timeout: 10s
+    rpc:
+      address: 0.0.0.0
+      enablehttp: true
+      httpport: 8085
+      enablews: true
+      wsport: 8089
+  enclave:
+    simulation: false
+    enableattestation: true
+    db:
+      useinmemory: false
+      edgelessdbhost: obscuronode-edgelessdb
+      sqlitepath: ""
+    debug:
+      enabledebugnamespace: true
+      enableprofiler: false
+    l1:
+      enableblockvalidation: false
+      genesisjson: []
+    log:
+      level: 3
+      path: sys_out
+    rpc:
+      bindaddress: 0.0.0.0:11001
+      timeout: 5s
+
 externalSecrets:
   enabled: true
   secretMappings:
-    NODE_PRIVATEKEY: "UAT-VALIDATOR-02-NODE-PRIVATEKEY" #Private key of the node
+    NODE_PRIVATEKEY: "UAT-VALIDATOR-02-NODE-PRIVATEKEY"
