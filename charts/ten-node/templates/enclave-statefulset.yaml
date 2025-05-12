@@ -1,15 +1,22 @@
-{{- if .Values.enclave.enabled }}
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "ten-node.fullname" . }}-enclave
+  namespace: {{ .Release.namespace }}
   labels:
+    app.kubernetes.io/component: database
+    app.kubernetes.io/name: EdgelessDB
+    app.kubernetes.io/part-of: Enclave  # Fixed duplicate label
     app: {{ .Release.Name }}-enclave
     {{- include "ten-node.labels" . | nindent 4 }}
 spec:
+  serviceName: {{ include "ten-node.fullname" . }}-enclave
   replicas: {{ .Values.enclave.replicaCount }}
   selector:
     matchLabels:
+      app.kubernetes.io/component: database
+      app.kubernetes.io/name: EdgelessDB
+      app.kubernetes.io/part-of: Enclave
       app: {{ .Release.Name }}-enclave
   template:
     metadata:
@@ -19,8 +26,10 @@ spec:
           {{- toYaml . | nindent 8 }}
         {{- end }}
       labels:
+        app.kubernetes.io/component: database
+        app.kubernetes.io/name: EdgelessDB
+        app.kubernetes.io/part-of: Enclave  # Fixed duplicate label
         app: {{ .Release.Name }}-enclave
-        {{- include "ten-node.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -29,37 +38,52 @@ spec:
       serviceAccountName: {{ include "ten-node.fullname" . }}-node
       securityContext:
         {{- toYaml .Values.enclave.podSecurityContext | nindent 8 }}
-      volumes:
-        - name: enclavedata
-          persistentVolumeClaim:
-            claimName: {{ include "ten-node.fullname" . }}-enclave
-        - name: shared-data
-          emptyDir: {}
-      # initContainers:
-      #   - name: wait-for-host
-      #     image: bitnami/kubectl:latest
-      #     command:
-      #       - /bin/sh
-      #       - -c
-      #       - |
-      #         until [ -n "$(kubectl get svc {{ include "ten-node.fullname" . }}-host -o jsonpath='{.spec.clusterIP}')" ]; do
-      #           echo "Waiting for host service to get an IP address..."
-      #           sleep 5
-      #         done
-      #         NODE_HOSTADDRESS=$(kubectl get svc {{ include "ten-node.fullname" . }}-host -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-      #         echo "export NODE_HOSTADDRESS=$NODE_HOSTADDRESS:10000" > /shared-data/node-enclave.env
-      #         echo "NODE_HOSTADDRESS=$NODE_HOSTADDRESS:10000 is written in /shared-data/node-enclave.env"
-      #     volumeMounts:
-      #       - name: shared-data
-      #         mountPath: /shared-data
+      nodeSelector:
+        {{- toYaml .Values.enclave.nodeSelector | nindent 8 }}
+      affinity:
+        {{- toYaml .Values.enclave.affinity | nindent 8 }}
+      {{- with .Values.enclave.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds: {{ . | toYaml | nindent 8 }}
+      {{- end }}
+      {{- with .Values.enclave.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
+        - env:
+          - name: EDG_EDB_DATABASE_ADDR
+            value: "{{ .Values.enclave.edb.sqlApiHost }}:{{ .Values.enclave.edb.sqlApiPort }}"
+          - name: EDG_EDB_API_ADDR
+            value: "{{ .Values.enclave.edb.restApiHost }}:{{ .Values.enclave.edb.restApiPort }}"
+          - name: EDG_EDB_CERT_DNS
+            value: "localhost"
+          - name: OE_SIMULATION
+            value: {{ if .Values.enclave.edb.simulation }}"1"{{ else }}"0"{{ end }}
+          {{- if .Values.enclave.edb.launchMarble }}
+          args: [ "-marble" ]
+          {{- end }}
+          name: edgelessdb
+          image: "{{ .Values.enclave.edb.image.repository }}/edgelessdb-sgx-{{ .Values.enclave.edb.heapSize }}gb:{{ .Values.enclave.edb.image.tag }}"
+          imagePullPolicy: {{ .Values.enclave.edb.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.enclave.edb.sqlApiPort }}
+              name: sql
+            - containerPort: {{ .Values.enclave.edb.restApiPort }}
+              name: http
+          resources:
+            {{- toYaml .Values.enclave.edb.resources | nindent 12 }}
+          securityContext:
+            privileged: true
+            runAsUser: 0
+          volumeMounts:
+          - name: {{ include "ten-node.fullname" . }}-enclave
+            mountPath: /data
         - name: {{ .Chart.Name }}-enclave
           securityContext:
             privileged: true
             runAsUser: 0
           image: "{{ .Values.enclave.image.repository }}:{{ .Values.enclave.image.tag }}"
           command: ["/bin/bash", "-c", "/home/obscuro/go-obscuro/go/enclave/main/entry.sh && ego run /home/obscuro/go-obscuro/go/enclave/main/main -willAttest=true "]
-
           resources:
             {{- toYaml .Values.enclave.resources | nindent 12 }}
           imagePullPolicy: {{ .Values.enclave.image.pullPolicy }}
@@ -87,7 +111,7 @@ spec:
             - name: ENCLAVE_DB_USEINMEMORY
               value: {{ .Values.config.enclave.db.useinmemory | default "false" | quote }}
             - name: ENCLAVE_DB_EDGELESSDBHOST
-              value: {{ include "ten-node.fullname" . }}-edb
+              value: localhost
             - name: ENCLAVE_DB_SQLITEPATH
               value: {{ .Values.config.enclave.db.sqlitepath | default "" | quote }}
             - name: ENCLAVE_L1_GENESISJSON
@@ -155,61 +179,12 @@ spec:
               value: {{ .Values.config.node.nodetype | default "validator" | quote }}
             - name: NODE_NAME
               value: {{ .Values.config.node.name | default "tennode" | quote }}
-
-              # host env vars
-            - name: HOST_LOG_LEVEL
-              value: {{ .Values.config.host.log.level | default "3" | quote }}
-            - name: HOST_LOG_PATH
-              value: {{ .Values.config.host.log.path | default "sys_out" | quote }}
-            - name: HOST_RPC_ADDRESS
-              value: {{ .Values.config.host.rpc.address | default "0.0.0.0" | quote }}
-            - name: HOST_RPC_ENABLEHTTP
-              value: {{ .Values.config.host.rpc.enablehttp | default "true" | quote }}
-            - name: HOST_RPC_HTTPPORT
-              value: {{ .Values.config.host.rpc.httpport | default "8085" | quote }}
-            - name: HOST_RPC_ENABLEWS
-              value: {{ .Values.config.host.rpc.enablews | default "true" | quote }}
-            - name: HOST_RPC_WSPORT
-              value: {{ .Values.config.host.rpc.wsport | default "8089" | quote }}
-            - name: HOST_P2P_BINDADDRESS
-              value: {{ .Values.config.host.p2p.bindaddress | default "0.0.0.0:10000" | quote }}
-            - name: HOST_P2P_DISABLED
-              value: {{ .Values.config.host.p2p.disabled | default "false" | quote }}
-            - name: HOST_P2P_TIMEOUT
-              value: {{ .Values.config.host.p2p.timeout | default "5s" | quote }}
-            - name: HOST_L1_BEACONURL
-              value: {{ .Values.config.host.l1.l1beaconurl | default "" | quote }}
-            - name: HOST_L1_WSURL 
-              value: {{ .Values.config.host.l1.websocketurl | default "" | quote }}
-            - name: HOST_L1_RPCTIMEOUT
-              value: {{ .Values.config.host.l1.rpctimeout | default "15s" | quote }}
-            - name: HOST_L1_BLOBARCHIVEURL
-              value: {{ .Values.config.host.l1.l1blobarchiveurl | default "" | quote }}
-            - name: HOST_ENCLAVE_RPCADDRESSES
-              value: {{ include "ten-node.fullname" . }}-enclave:11001
-            - name: HOST_ENCLAVE_RPCTIMEOUT
-              value: {{ .Values.config.host.enclave.rpctimeout | default "10s" | quote }}
-            - name: HOST_DEBUG_ENABLEMETRICS
-              value: {{ .Values.config.host.debug.enablemetrics | default "true" | quote }}
-            - name: HOST_DEBUG_ENABLEPROFILER
-              value: {{ .Values.config.host.debug.enableprofiler | default "false" | quote }} 
-            - name: HOST_DEBUG_METRICSHTTPPORT
-              value: {{ .Values.config.host.debug.metricshttpport | default "9090" | quote }}
-            - name: HOST_DEBUG_ENABLEDEBUGNAMESPACE
-              value: {{ .Values.config.host.debug.enabledebugnamespace | default "true" | quote }}
-            - name: HOST_DB_USEINMEMORY
-              value: {{ .Values.config.host.db.useinmemory | default "false" | quote }}
-            - name: HOST_DB_SQLITEPATH
-              value: {{ .Values.config.host.db.sqlitepath | default "" | quote }}
           envFrom:
             - secretRef:
                 name: {{ include "ten-node.fullname" . }}-enclave
-          
           volumeMounts:
-            - name: enclavedata
+            - name: {{ include "ten-node.fullname" . }}-enclave  # Fixed volume mount name
               mountPath: /enclavedata
-            - name: shared-data
-              mountPath: /shared-data
           {{- if .Values.enclave.readinessProbe.enabled }}
           readinessProbe:
             httpGet:
@@ -230,15 +205,7 @@ spec:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           {{- end }}
-      nodeSelector:
-        {{- toYaml .Values.enclave.nodeSelector | nindent 8 }}
-      affinity:
-        {{- toYaml .Values.enclave.affinity | nindent 8 }}
-      {{- with .Values.enclave.terminationGracePeriodSeconds }}
-      terminationGracePeriodSeconds: {{ . | toYaml | nindent 8 }}
-      {{- end }}
-      {{- with .Values.enclave.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-{{- end }}
+      volumes:
+        - name: {{ include "ten-node.fullname" . }}-enclave
+          persistentVolumeClaim:
+            claimName: {{ include "ten-node.fullname" . }}-enclave
