@@ -6,9 +6,6 @@ enclave:
     kubernetes.io/hostname: aks-sgxpool-23084093-vmss000000
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
-  edb:  # <--- Now properly nested under enclave
-    nodeSelector:
-      kubernetes.io/hostname: aks-sgxpool-23084093-vmss000000
 
 host:
   image:
