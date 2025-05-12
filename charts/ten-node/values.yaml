@@ -2,14 +2,12 @@ global:
   imagePullSecrets: []
   imagePullPolicy: Always
 
-
 # -- Overrides the chart's name
 nameOverride: ""
 
 # -- Overrides the chart's computed fullname
 fullnameOverride: ""
 enclave:
-  enabled: true
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/sepolia_enclave
@@ -24,11 +22,7 @@ enclave:
     targetCPUUtilizationPercentage: 80
 
   nodeSelector:
-    kubernetes.io/hostname: <sgx enabled k8s node name>
-  pvc:
-    storageClass: "default"
-    size: 1Gi
-  
+    kubernetes.io/hostname: aks-sgxpool2-37956146-vmss000001
 
   tolerations: []
 
@@ -72,13 +66,46 @@ enclave:
       memory: 5Gi
       cpu: 500m
 
-  storage:
-    storageClass: "default"
-    size: 10Gi  
+  # storage:
+  #   storageClass: "default"
+  #   size: 10Gi  
 
   serviceAccount:
     create: true
-
+  edb:
+    image:
+      repository: "ghcr.io/edgelesssys"
+      tag: "v0.3.2"
+      pullPolicy: "Always"
+      imagePullSecrets: []
+    sqlApiHost: "0.0.0.0"
+    sqlApiPort: 3306
+    restApiHost: "0.0.0.0"
+    restApiPort: 8080
+    debug: false
+    simulation: false
+    heapSize: 1
+    marbleType: EdgelessDB
+    launchMarble: false
+    resources:
+      limits:
+        sgx.intel.com/epc: "10Mi"
+        sgx.intel.com/provision: 1
+        sgx.intel.com/enclave: 1
+    storage:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+    tolerations:
+      - key: sgx.intel.com/epc
+        operator: Exists
+        effect: NoSchedule
+    nodeSelector:
+      kubernetes.io/hostname: aks-sgxpool2-37956146-vmss000001
+    # nodeName: aks-sgxpool2-37956146-vmss000001  # Ensure this matches the node hostname
 
  # Ensure this matches the node hostname
 
@@ -118,7 +145,6 @@ host:
       memory: 1Gi
       cpu: 200m
 
-
 postgresql:
   enabled: true
 
@@ -131,43 +157,6 @@ postgresql:
     storageClass: ""
     accessMode: ReadWriteOnce
     size: 20Gi
-
-edb:
-  enabled: true
-  image:
-    repository: "ghcr.io/edgelesssys"
-    tag: "v0.3.2"
-    pullPolicy: "Always"
-    imagePullSecrets: []
-  replicas: 1
-  sqlApiHost: "0.0.0.0"
-  sqlApiPort: 3306
-  restApiHost: "0.0.0.0"
-  restApiPort: 8080
-  debug: false
-  simulation: false
-  heapSize: 1
-  marbleType: EdgelessDB
-  launchMarble: false
-  resources:
-    limits:
-      sgx.intel.com/epc: "10Mi"
-      sgx.intel.com/provision: 1
-      sgx.intel.com/enclave: 1
-  storage:
-    spec:
-      accessModes:
-        - ReadWriteOnce
-      resources:
-        requests:
-          storage: 1Gi
-  tolerations:
-    - key: sgx.intel.com/epc
-      operator: Exists
-      effect: NoSchedule
-  nodeSelector:
-    kubernetes.io/hostname: <sgx enabled k8s node name>
-  # nodeName: aks-sgxpool2-37956146-vmss000001  # Ensure this matches the node hostname
 
 config:
   network:
