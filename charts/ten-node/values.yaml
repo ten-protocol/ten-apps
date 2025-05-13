@@ -63,7 +63,7 @@ enclave:
       memory: 8Gi
       cpu: 2000m
     requests:
-      memory: 9Gi
+      memory: 8Gi
       cpu: 1000m
 
   # storage:
