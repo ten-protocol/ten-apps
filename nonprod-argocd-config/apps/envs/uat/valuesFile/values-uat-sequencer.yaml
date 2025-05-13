@@ -44,7 +44,7 @@ config:
       maxinterval: 10m0s
       maxsize: 131072
     sequencer:
-      p2paddress: uat-testnet-sequencer.ten.xyz:10000
+      p2paddress: uat-sequencer.ten.xyz:10000
       systemcontractsupgrader: "0x11431A88Fc53F3eE5Ae263067F96EAF91A0f0974"
     crosschain:
       interval: 6s
@@ -52,6 +52,7 @@ config:
     nodetype: "sequencer"
     name: "obscuronode"
     isgenesis: true
+    hostAddress: "uat-sequencer.ten.xyz:10000"
   host:
     db:
       useinmemory: false

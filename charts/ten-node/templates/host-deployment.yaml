@@ -141,6 +141,8 @@ spec:
               value: {{ .Values.config.node.nodetype | default "validator" | quote }}
             - name: NODE_NAME
               value: {{ .Values.config.node.name | default "tennode" | quote }}
+            - name: NODE_HOSTADDRESS
+              value: {{ .Values.config.node.hostAddress | default "obscuronode-0-dev-testnet.uksouth.cloudapp.azure.com:10000" | quote }}
 
               # host env vars
             - name: HOST_LOG_LEVEL
