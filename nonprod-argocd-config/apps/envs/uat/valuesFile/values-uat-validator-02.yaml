@@ -51,7 +51,7 @@ config:
     nodetype: "validator"
     name: "ten-uat-validator-02"
     isgenesis: false
-    hostAddress: "uat-validator-01.ten.xyz:10000"
+    hostAddress: "uat-validator-02.ten.xyz:10000"
   host:
     db:
       useinmemory: false
