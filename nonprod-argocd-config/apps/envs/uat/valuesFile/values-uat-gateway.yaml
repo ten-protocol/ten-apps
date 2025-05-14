@@ -35,6 +35,8 @@ backend:
   insideEnclave: true
   enableTLS: true
   tlsDomain: "rpc.uat-testnet.ten.xyz"
+  nodePortHTTP: 8085
+  nodePortWS: 8089
   verbose: true
   ports:
     http: 443
