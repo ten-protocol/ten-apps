@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ten-gateway.fullname" . }}-backend
+  labels:
+    {{- include "ten-gateway.labels" . | nindent 4 }}
+    app.kubernetes.io/component: backend
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "ten-gateway.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: backend
+  template:
+    metadata:
+      labels:
+        {{- include "ten-gateway.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: backend
+    spec:
+      serviceAccountName: {{ include "ten-gateway.fullname" . }}-sa
+      volumes:
+        - name: db-secret-volume
+          secret:
+            secretName: {{ include "ten-gateway.fullname" . }}-backend-secret
+        - name: backend-pvc-volume
+          persistentVolumeClaim:
+            claimName: {{ include "ten-gateway.fullname" . }}-backend-pvc
+    
+      containers:
+        - name: {{ include "ten-gateway.name" . }}
+          securityContext:
+            privileged: true
+            runAsUser: 0
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          command:
+            - "/bin/bash"
+            - "-c"
+          args:
+            - |
+              set -a
+              set +a
+              ego run /home/ten/go-ten/tools/walletextension/main/main \
+                -host=0.0.0.0 \
+                -port=443 \
+                -portWS=443 \
+                -verbose=true \
+                -logPath=sys_out \
+                -dbType={{ .Values.backend.dbType }} \
+                -dbConnectionURL="${dbConnectionURL}" \
+                -rateLimitUserComputeTime={{ .Values.backend.rateLimitUserComputeTime }} \
+                -rateLimitWindow={{ .Values.backend.rateLimitWindow }} \
+                -maxConcurrentRequestsPerUser={{ .Values.backend.maxConcurrentRequestsPerUser }} \
+                -keyExchangeURL={{ .Values.backend.keyExchangeURL }} \
+                -insideEnclave={{ .Values.backend.insideEnclave }} \
+                -enableTLS={{ .Values.backend.enableTLS }} \
+                -tlsDomain={{ .Values.backend.tlsDomain }} \
+                -nodeHost={{ .Values.backend.nodeHost }} \
+          volumeMounts:
+            - name: db-secret-volume
+              mountPath: /secrets
+              readOnly: true
+            - name: backend-pvc-volume
+              mountPath: /data
+          env:
+            - name: OE_SIMULATION
+              value: {{ .Values.backend.env.OE_SIMULATION | quote }}
+          envFrom:
+            - secretRef:
+                name: {{ include "ten-gateway.fullname" . }}-backend-secret
+          ports:
+            - name: https
+              containerPort: 443
+            - name: http
+              containerPort: 80
+          resources:
+            {{- toYaml .Values.backend.resources | nindent 12 }}
+      nodeSelector:
+        {{- toYaml .Values.backend.nodeSelector | nindent 8 }}

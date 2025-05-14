@@ -1,0 +1,73 @@
+replicaCount: 1
+
+
+
+frontend:
+  name: obscuro-gateway
+  domain: gw-dev.ten.xyz
+  image:
+    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_dev_testnet_fe
+    tag: latest
+    pullPolicy: IfNotPresent
+  containerPort: 80
+  service:
+    type: ClusterIP
+    port: 80
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
+
+backend:
+  name: obscuro-gateway
+  domain: rpc.gw-dev.ten.xyz
+  image:
+    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_dev_testnet
+    tag: latest
+    pullPolicy: IfNotPresent
+  nodeHost: "dev-validator-01.ten.xyz:10000"
+  ports:
+    http: 80
+    https: 443
+    websocket: 81
+  args:
+    - "ego"
+    - "run"
+    - "/home/ten/go-ten/tools/walletextension/main/main"
+    - "-host=0.0.0.0"
+    - "-port=443"
+    - "-portWS=81"
+    - "-verbose=true"
+    - "-logPath=sys_out"
+    - "-dbType=cosmosDB"
+    - "-rateLimitUserComputeTime=0"
+    - "-rateLimitWindow=1m"
+    - "-maxConcurrentRequestsPerUser=5"
+    - "-keyExchangeURL=''"
+    - "-insideEnclave=true"
+    - "-enableTLS=true"
+    - "-tlsDomain=rpc.gw-dev.ten.xyz"
+  env: 
+    OE_SIMULATION: "0"
+  dbConnectionURL: "REPLACE_ME"
+
+  pvc:
+    enabled: true
+    name: ""
+    storageClassName: "managed"
+    accessMode: ReadWriteOnce
+    size: 1Gi
+
+resources: 
+  limits:
+    cpu: 1000m
+    memory: 5Gi
+  requests:
+    cpu: 500m
+    memory: 5Gi
+nodeSelector: {}
+tolerations: []
+affinity: {}
