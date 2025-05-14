@@ -2,7 +2,7 @@ replicaCount: 1
 
 frontend:
   name: obscuro-gateway
-  domain: uat-testnet.ten.xyz
+  domain: uat-gw-testnet.ten.xyz
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_dev_testnet_fe
     tag: latest
@@ -21,7 +21,7 @@ frontend:
 
 backend:
   name: obscuro-gateway
-  domain: rpc.uat-testnet.ten.xyz
+  domain: rpc.uat-gw-testnet.ten.xyz
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_dev_testnet
     tag: latest
@@ -34,7 +34,7 @@ backend:
   encryptionKeySource: "new"
   insideEnclave: true
   enableTLS: true
-  tlsDomain: "rpc.uat-testnet.ten.xyz"
+  tlsDomain: "rpc.uat-gw-testnet.ten.xyz"
   nodePortHTTP: 8085
   nodePortWS: 8089
   verbose: true
