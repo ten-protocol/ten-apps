@@ -15,12 +15,12 @@ spec:
       services:
         - name: {{ include "ten-gateway.fullname" . }}-frontend
           port: {{ .Values.frontend.service.port }}
-    - match: Host(`{{ .Values.backend.domain }}`) && PathPrefix(`/v1`)
+    - match: "Host(`{{ .Values.backend.domain }}`) && PathPrefix(`/v1`)"
       kind: Rule
       services:
         - name: {{ include "ten-gateway.fullname" . }}-backend
           port: {{ .Values.backend.ports.https }}
-    - match: Host(`{{ .Values.backend.domain }}`) && PathPrefix(`/v1`)
+    - match: "Host(`{{ .Values.backend.domain }}`) && PathPrefix(`/v1`)"
       kind: Rule
       entryPoints:
         - web # Use the HTTP entry point for this route
