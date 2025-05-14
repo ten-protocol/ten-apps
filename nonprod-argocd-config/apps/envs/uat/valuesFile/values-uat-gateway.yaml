@@ -35,7 +35,7 @@ backend:
   insideEnclave: true
   enableTLS: true
   tlsDomain: "rpc.uat-testnet.ten.xyz"
-  verbose: false
+  verbose: true
   ports:
     http: 443
     https: 443
