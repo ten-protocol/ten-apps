@@ -38,6 +38,8 @@ backend:
   enableTLS: true
   tlsDomain: "rpc.gw-dev.ten.xyz"
   verbose: false
+  nodePortHTTP: 8085
+  nodePortWS: 8089
   ports:
     http: 443
     https: 443
