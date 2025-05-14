@@ -51,7 +51,7 @@ spec:
                 -rateLimitUserComputeTime={{ .Values.backend.rateLimitUserComputeTime }} \
                 -rateLimitWindow={{ .Values.backend.rateLimitWindow }} \
                 -maxConcurrentRequestsPerUser={{ .Values.backend.maxConcurrentRequestsPerUser }} \
-                -keyExchangeURL={{ .Values.backend.keyExchangeURL }} \
+                -encryptionKeySource={{ .Values.backend.encryptionKeySource }} \
                 -insideEnclave={{ .Values.backend.insideEnclave }} \
                 -enableTLS={{ .Values.backend.enableTLS }} \
                 -tlsDomain={{ .Values.backend.tlsDomain }} \
