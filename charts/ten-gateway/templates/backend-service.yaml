@@ -6,7 +6,7 @@ metadata:
     {{- include "ten-gateway.labels" . | nindent 4 }}
     app.kubernetes.io/component: backend
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     # - port: {{ .Values.backend.ports.http }}
     #   targetPort: http
