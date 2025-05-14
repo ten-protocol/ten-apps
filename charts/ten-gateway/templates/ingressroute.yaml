@@ -15,17 +15,17 @@ spec:
       services:
         - name: {{ include "ten-gateway.fullname" . }}-frontend
           port: {{ .Values.frontend.service.port }}
-    # - match: Host(`{{ .Values.backend.domain }}`)
-    #   kind: Rule
-    #   services:
-    #     - name: {{ include "ten-gateway.fullname" . }}-backend
-    #       port: {{ .Values.backend.ports.https }}
-    # - match: Host(`{{ .Values.backend.domain }}`)
-    #   kind: Rule
-    #   entryPoints:
-    #     - web # Use the HTTP entry point for this route
-    #   services:
-    #     - name: {{ include "ten-gateway.fullname" . }}-backend
-    #       port: {{ .Values.backend.ports.http }}
+    - match: Host(`{{ .Values.backend.domain }}`)
+      kind: Rule
+      services:
+        - name: {{ include "ten-gateway.fullname" . }}-backend
+          port: {{ .Values.backend.ports.https }}
+    - match: Host(`{{ .Values.backend.domain }}`)
+      kind: Rule
+      entryPoints:
+        - web # Use the HTTP entry point for this route
+      services:
+        - name: {{ include "ten-gateway.fullname" . }}-backend
+          port: {{ .Values.backend.ports.http }}
   tls:
     certResolver: le
