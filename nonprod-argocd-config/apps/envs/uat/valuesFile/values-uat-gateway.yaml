@@ -31,7 +31,7 @@ backend:
   rateLimitUserComputeTime: 0
   rateLimitWindow: "1m"
   maxConcurrentRequestsPerUser: 5
-  keyExchangeURL: ""
+  keyExchangeURL: "new"
   insideEnclave: true
   enableTLS: true
   tlsDomain: "rpc.uat-testnet.ten.xyz"
