@@ -39,9 +39,9 @@ backend:
   nodePortWS: 8089
   verbose: true
   ports:
-    http: 443
+    http: 80
     https: 443
-    websocket: 443
+    websocket: 8443
   env: 
     OE_SIMULATION: "0"
   dbConnectionURL: "REPLACE_ME"
