@@ -74,6 +74,8 @@ spec:
               containerPort: 443
             - name: http
               containerPort: 80
+            - name: websocket
+              containerPort: 443
           resources:
             {{- toYaml .Values.backend.resources | nindent 12 }}
       nodeSelector:
