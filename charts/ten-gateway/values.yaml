@@ -29,27 +29,19 @@ backend:
     tag: latest
     pullPolicy: IfNotPresent
   nodeHost: "dev-validator-01.ten.xyz:10000"
+  dbType: "cosmosDB"
+  rateLimitUserComputeTime: 0
+  rateLimitWindow: "1m"
+  maxConcurrentRequestsPerUser: 5
+  keyExchangeURL: ""
+  insideEnclave: true
+  enableTLS: true
+  tlsDomain: "rpc.gw-dev.ten.xyz"
+  verbose: false
   ports:
-    http: 80
+    http: 443
     https: 443
-    websocket: 81
-  args:
-    - "ego"
-    - "run"
-    - "/home/ten/go-ten/tools/walletextension/main/main"
-    - "-host=0.0.0.0"
-    - "-port=443"
-    - "-portWS=81"
-    - "-verbose=true"
-    - "-logPath=sys_out"
-    - "-dbType=cosmosDB"
-    - "-rateLimitUserComputeTime=0"
-    - "-rateLimitWindow=1m"
-    - "-maxConcurrentRequestsPerUser=5"
-    - "-keyExchangeURL=''"
-    - "-insideEnclave=true"
-    - "-enableTLS=true"
-    - "-tlsDomain=rpc.gw-dev.ten.xyz"
+    websocket: 443
   env: 
     OE_SIMULATION: "0"
   dbConnectionURL: "REPLACE_ME"
@@ -57,7 +49,7 @@ backend:
   pvc:
     enabled: true
     name: ""
-    storageClassName: "managed"
+    storageClassName: ""
     accessMode: ReadWriteOnce
     size: 1Gi
 

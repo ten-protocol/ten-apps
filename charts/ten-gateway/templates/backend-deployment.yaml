@@ -42,9 +42,9 @@ spec:
               set +a
               ego run /home/ten/go-ten/tools/walletextension/main/main \
                 -host=0.0.0.0 \
-                -port=443 \
-                -portWS=443 \
-                -verbose=true \
+                -port={{ .Values.backend.ports.https }} \
+                -portWS={{ .Values.backend.ports.websocket }} \
+                -verbose={{ .Values.backend.verbose }} \
                 -logPath=sys_out \
                 -dbType={{ .Values.backend.dbType }} \
                 -dbConnectionURL="${dbConnectionURL}" \
