@@ -33,7 +33,7 @@ backend:
   rateLimitUserComputeTime: 0
   rateLimitWindow: "1m"
   maxConcurrentRequestsPerUser: 5
-  keyExchangeURL: ""
+  encryptionKeySource: ""
   insideEnclave: true
   enableTLS: true
   tlsDomain: "rpc.gw-dev.ten.xyz"
