@@ -8,10 +8,10 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: {{ .Values.backend.ports.http }}
-      targetPort: http
-      protocol: TCP
-      name: http
+    # - port: {{ .Values.backend.ports.http }}
+    #   targetPort: http
+    #   protocol: TCP
+    #   name: http
     - port: {{ .Values.backend.ports.https }}
       targetPort: https
       protocol: TCP
