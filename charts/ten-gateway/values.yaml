@@ -8,7 +8,7 @@ frontend:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_dev_testnet_fe
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   containerPort: 80
   service:
     type: ClusterIP
