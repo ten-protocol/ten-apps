@@ -2,7 +2,7 @@ replicaCount: 1
 
 frontend:
   name: obscuro-gateway
-  domain: gw-uat.ten.xyz
+  domain: uat-testnet.ten.xyz
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_uat_testnet_fe
     tag: latest
@@ -21,33 +21,25 @@ frontend:
 
 backend:
   name: obscuro-gateway
-  domain: rpc.gw-uat.ten.xyz
+  domain: rpc.uat-testnet.ten.xyz
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_uat_testnet
     tag: latest
     pullPolicy: IfNotPresent
-  nodeHost: "uat-validator-01.ten.xyz:8085"
+  nodeHost: "uat-validator-01.ten.xyz:10000"
+  dbType: "cosmosDB"
+  rateLimitUserComputeTime: 0
+  rateLimitWindow: "1m"
+  maxConcurrentRequestsPerUser: 5
+  keyExchangeURL: ""
+  insideEnclave: true
+  enableTLS: true
+  tlsDomain: "rpc.uat-testnet.ten.xyz"
+  verbose: false
   ports:
-    http: 80
+    http: 443
     https: 443
-    websocket: 81
-  args:
-    - "ego"
-    - "run"
-    - "/home/ten/go-ten/tools/walletextension/main/main"
-    - "-host=0.0.0.0"
-    - "-port=443"
-    - "-portWS=81"
-    - "-verbose=true"
-    - "-logPath=sys_out"
-    - "-dbType=cosmosDB"
-    - "-rateLimitUserComputeTime=0"
-    - "-rateLimitWindow=1m"
-    - "-maxConcurrentRequestsPerUser=5"
-    - "-keyExchangeURL=''"
-    - "-insideEnclave=true"
-    - "-enableTLS=true"
-    - "-tlsDomain=rpc.gw-uat.ten.xyz"
+    websocket: 443
   env: 
     OE_SIMULATION: "0"
   dbConnectionURL: "REPLACE_ME"
