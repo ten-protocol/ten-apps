@@ -10,4 +10,4 @@ spec:
   resources:
     requests:
       storage: {{ .Values.backend.pvc.size }}
-  storageClassName: {{ .Values.backend.pvc.storageClass }}
+  storageClassName: default
