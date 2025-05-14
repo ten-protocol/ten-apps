@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ten-gateway.fullname" . }}-frontend
+  labels:
+    {{- include "ten-gateway.labels" . | nindent 4 }}
+    component: frontend
+spec:
+  type: {{ .Values.frontend.service.type | default "ClusterIP" }}
+  ports:
+    - port: {{ .Values.frontend.service.port | default 80 }}
+      targetPort: {{ .Values.frontend.containerPort | default 80 }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "ten-gateway.selectorLabels" . | nindent 4 }}
+    component: frontend

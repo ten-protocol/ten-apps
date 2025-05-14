@@ -1,0 +1,31 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "ten-gateway.fullname" . }}
+  labels:
+    {{- include "ten-gateway.labels" . | nindent 4 }}
+    component: frontend
+spec:
+  entryPoints:
+    - websecure
+    - web
+  routes:
+    - match: Host(`{{ .Values.frontend.domain }}`)
+      kind: Rule
+      services:
+        - name: {{ include "ten-gateway.fullname" . }}-frontend
+          port: {{ .Values.frontend.service.port }}
+    # - match: Host(`{{ .Values.backend.domain }}`)
+    #   kind: Rule
+    #   services:
+    #     - name: {{ include "ten-gateway.fullname" . }}-backend
+    #       port: {{ .Values.backend.ports.https }}
+    # - match: Host(`{{ .Values.backend.domain }}`)
+    #   kind: Rule
+    #   entryPoints:
+    #     - web # Use the HTTP entry point for this route
+    #   services:
+    #     - name: {{ include "ten-gateway.fullname" . }}-backend
+    #       port: {{ .Values.backend.ports.http }}
+  tls:
+    certResolver: le
