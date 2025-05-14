@@ -49,7 +49,7 @@ backend:
   pvc:
     enabled: true
     name: ""
-    storageClassName: ""
+    storageClassName: "default"
     accessMode: ReadWriteOnce
     size: 1Gi
 
