@@ -15,6 +15,7 @@ faucet:
   nodePort: "80"
   pk: "YOUR_FAUCET_PRIVATE_KEY"
   jwtSecret: "YOUR_JWT_SECRET"
+  defaultAmount: 0.25
   host: "faucet.tenscan.io"
 
 tenscan:
