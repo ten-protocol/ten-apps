@@ -11,3 +11,5 @@ spec:
       services:
         - name: {{ include "ten-tools.fullname" . }}-faucet
           port: 80
+  tls:
+    certResolver: le
