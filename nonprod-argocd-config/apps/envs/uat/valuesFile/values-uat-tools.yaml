@@ -11,8 +11,8 @@ faucet:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/faucet_uat_testnet
     tag: latest
-  nodeHost: "l2-validator"
-  nodePort: "80"
+  nodeHost: "uat-validator-01.ten.xyz"
+  nodePort: "8085"
   pk: "YOUR_FAUCET_PRIVATE_KEY"
   jwtSecret: "YOUR_JWT_SECRET"
   host: "faucet.tenscan.io"
@@ -21,21 +21,21 @@ tenscan:
   api:
     replicaCount: 1
     image:
-      repository: testnetobscuronet.azurecr.io/obscuronet/dev_testnet_obscuroscan
+      repository: testnetobscuronet.azurecr.io/obscuronet/uat_testnet_obscuroscan
       tag: latest
-    nodeHostAddress: "l2-validator"
-    host: "api.tenscan.io"
+    nodeHostAddress: "uat-validator-01.ten.xyz"
+    host: "uat-api.tenscan.io"
 
   fe:
     replicaCount: 1
     image:
-      repository: testnetobscuronet.azurecr.io/obscuronet/dev_testnet_obscuroscan
+      repository: testnetobscuronet.azurecr.io/obscuronet/uat_testnet_obscuroscan
       tag: latest
     env:
-      apiHost: "https://api.tenscan.io"
+      apiHost: "https://uat-api.tenscan.io"
       version: "v1.0.0"
       environment: "uat"
-    host: "tenscan.io"
+    host: "uat-testnet.tenscan.io"
 
 resources: {}
 nodeSelector: {}
