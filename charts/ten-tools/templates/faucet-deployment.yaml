@@ -20,9 +20,10 @@ spec:
           imagePullPolicy: IfNotPresent
           command: ["./faucet"]
           args:
-            - "--nodeHost={{ .Values.faucet.nodeHost }}"
-            - "--nodePort={{ .Values.faucet.nodePort }}"
-            - "--pk={{ .Values.faucet.pk }}"
-            - "--jwtSecret={{ .Values.faucet.jwtSecret }}"
+            - --nodeHost={{ .Values.faucet.nodeHost }}
+            - --nodePort={{ .Values.faucet.nodePort }}
+            - --pk={{ .Values.faucet.pk }}
+            - --jwtSecret={{ .Values.faucet.jwtSecret }}
+            - -- defaultAmount={{ .Values.faucet.defaultAmount | default 0.25 }}
           ports:
             - containerPort: 80
