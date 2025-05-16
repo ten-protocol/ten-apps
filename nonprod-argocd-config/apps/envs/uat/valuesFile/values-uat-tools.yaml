@@ -1,0 +1,43 @@
+nameOverride: ""
+fullnameOverride: ""
+
+imagePullSecrets: []
+podAnnotations: {}
+podSecurityContext: {}
+securityContext: {}
+
+faucet:
+  replicaCount: 1
+  image:
+    repository: testnetobscuronet.azurecr.io/obscuronet/faucet_uat_testnet
+    tag: latest
+  nodeHost: "l2-validator"
+  nodePort: "80"
+  pk: "YOUR_FAUCET_PRIVATE_KEY"
+  jwtSecret: "YOUR_JWT_SECRET"
+  host: "faucet.tenscan.io"
+
+tenscan:
+  api:
+    replicaCount: 1
+    image:
+      repository: testnetobscuronet.azurecr.io/obscuronet/dev_testnet_obscuroscan
+      tag: latest
+    nodeHostAddress: "l2-validator"
+    host: "api.tenscan.io"
+
+  fe:
+    replicaCount: 1
+    image:
+      repository: testnetobscuronet.azurecr.io/obscuronet/dev_testnet_obscuroscan
+      tag: latest
+    env:
+      apiHost: "https://api.tenscan.io"
+      version: "v1.0.0"
+      environment: "uat"
+    host: "tenscan.io"
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

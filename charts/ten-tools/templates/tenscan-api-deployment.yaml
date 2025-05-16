@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ten-tools.fullname" . }}-tenscan-api
+spec:
+  replicas: {{ .Values.tenscan.api.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ include "ten-tools.name" . }}-tenscan-api
+  template:
+    metadata:
+      labels:
+        app: {{ include "ten-tools.name" . }}-tenscan-api
+    spec:
+      containers:
+        - name: tenscan-api
+          image: "{{ .Values.tenscan.api.image.repository }}:{{ .Values.tenscan.api.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          command: ["./cmd/backend"]
+          args:
+            - "--nodeHostAddress=http://{{ .Values.tenscan.api.nodeHostAddress }}"
+            - "--serverAddress=0.0.0.0:80"
+          ports:
+            - containerPort: 80

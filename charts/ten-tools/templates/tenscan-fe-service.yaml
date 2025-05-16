@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ten-tools.fullname" . }}-tenscan-fe
+spec:
+  selector:
+    app: {{ include "ten-tools.name" . }}-tenscan-fe
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
