@@ -4,7 +4,7 @@ metadata:
   name: {{ include "ten-tools.fullname" . }}-faucet
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - match: Host(`{{ .Values.faucet.host }}`)
       kind: Rule

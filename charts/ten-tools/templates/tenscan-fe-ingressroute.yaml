@@ -4,7 +4,7 @@ metadata:
   name: {{ include "ten-tools.fullname" . }}-tenscan-fe
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - match: Host(`{{ .Values.tenscan.fe.host }}`)
       kind: Rule
