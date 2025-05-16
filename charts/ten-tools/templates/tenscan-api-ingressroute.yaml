@@ -1,13 +1,13 @@
-# apiVersion: traefik.containo.us/v1alpha1
-# kind: IngressRoute
-# metadata:
-#   name: {{ include "ten-tools.fullname" . }}-tenscan-api
-# spec:
-#   entryPoints:
-#     - web
-#   routes:
-#     - match: Host(`{{ .Values.tenscan.api.host }}`)
-#       kind: Rule
-#       services:
-#         - name: {{ include "ten-tools.fullname" . }}-tenscan-api
-#           port: 80
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "ten-tools.fullname" . }}-tenscan-api
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`{{ .Values.tenscan.api.host }}`)
+      kind: Rule
+      services:
+        - name: {{ include "ten-tools.fullname" . }}-tenscan-api
+          port: 80
