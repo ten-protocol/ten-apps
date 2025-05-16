@@ -18,7 +18,7 @@ spec:
           imagePullPolicy: IfNotPresent
           command: ["./cmd/backend"]
           args:
-            - "--nodeHostAddress=http://{{ .Values.tenscan.api.nodeHostAddress }}"
+            - "--nodeHostAddress={{ .Values.tenscan.api.nodeHostAddress }}"
             - "--serverAddress=0.0.0.0:80"
           ports:
             - containerPort: 80
