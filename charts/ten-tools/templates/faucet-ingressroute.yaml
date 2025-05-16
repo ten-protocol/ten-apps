@@ -1,0 +1,13 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ include "ten-tools.fullname" . }}-faucet
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`{{ .Values.faucet.host }}`)
+      kind: Rule
+      services:
+        - name: {{ include "ten-tools.fullname" . }}-faucet
+          port: 80

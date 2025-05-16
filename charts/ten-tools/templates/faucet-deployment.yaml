@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ten-tools.fullname" . }}-faucet
+  labels:
+    {{- include "ten-tools.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.faucet.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ include "ten-tools.name" . }}-faucet
+  template:
+    metadata:
+      labels:
+        app: {{ include "ten-tools.name" . }}-faucet
+    spec:
+      containers:
+        - name: faucet
+          image: "{{ .Values.faucet.image.repository }}:{{ .Values.faucet.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          command: ["./faucet"]
+          args:
+            - "--nodeHost={{ .Values.faucet.nodeHost }}"
+            - "--nodePort={{ .Values.faucet.nodePort }}"
+            - "--pk={{ .Values.faucet.pk }}"
+            - "--jwtSecret={{ .Values.faucet.jwtSecret }}"
+          ports:
+            - containerPort: 80

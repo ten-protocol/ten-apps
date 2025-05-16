@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ten-tools.fullname" . }}-tenscan-fe
+spec:
+  replicas: {{ .Values.tenscan.fe.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ include "ten-tools.name" . }}-tenscan-fe
+  template:
+    metadata:
+      labels:
+        app: {{ include "ten-tools.name" . }}-tenscan-fe
+    spec:
+      containers:
+        - name: tenscan-fe
+          image: "{{ .Values.tenscan.fe.image.repository }}:{{ .Values.tenscan.fe.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          command: ["pnpm", "run", "start-prod"]
+          env:
+            - name: NEXT_PUBLIC_API_HOST
+              value: "{{ .Values.tenscan.fe.env.apiHost }}"
+            - name: NEXT_PUBLIC_FE_VERSION
+              value: "{{ .Values.tenscan.fe.env.version }}"
+            - name: NEXT_PUBLIC_API_HOST_ENVIRONMENT
+              value: "{{ .Values.tenscan.fe.env.environment }}"
+          ports:
+            - containerPort: 80
