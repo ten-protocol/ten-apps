@@ -98,7 +98,7 @@ enclave:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 1Gi
+            storage: 100Gi
     tolerations:
       - key: sgx.intel.com/epc
         operator: Exists
