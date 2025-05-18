@@ -74,7 +74,7 @@ enclave:
     create: true
   edb:
     image:
-      repository: " ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
+      repository: "ghcr.io/edgelesssys"
       tag: "v0.3.2"
       pullPolicy: "Always"
       imagePullSecrets: []
@@ -84,7 +84,7 @@ enclave:
     restApiPort: 8080
     debug: false
     simulation: false
-    heapSize: 1
+    heapSize: 4
     marbleType: EdgelessDB
     launchMarble: false
     resources:
