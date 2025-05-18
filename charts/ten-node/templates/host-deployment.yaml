@@ -167,6 +167,8 @@ spec:
               value: {{ .Values.config.host.p2p.timeout | default "5s" | quote }}
             - name: HOST_L1_BEACONURL
               value: {{ .Values.config.host.l1.l1beaconurl | default "" | quote }}
+            - name: HOST_L1_BLOBARCHIVEURL
+              value: {{ .Values.config.host.l1.l1blobarchiveurl | default "" | quote }}
             - name: HOST_L1_WSURL
               value: {{ .Values.config.host.l1.websocketurl | default "" | quote }}
             - name: HOST_L1_RPCTIMEOUT
