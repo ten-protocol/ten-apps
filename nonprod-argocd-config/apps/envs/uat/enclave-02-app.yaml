@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: uat-sequencer
+  name: uat-enclave-02
   namespace: argocd
 spec:
   project: default
