@@ -11,6 +11,7 @@ metadata:
 spec:
     {{- toYaml .Values.enclave.edb.storage.spec | nindent 4 }}
 ---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ include "ten-node.fullname" . }}-enclave
