@@ -17,8 +17,101 @@ enclave:
 
   autoscaling:
     enabled: false
-    minReplicas: 1
-    maxReplicas: 100
+
+  nodeSelector:
+    kubernetes.io/hostname: aks-sgxpool2-37956146-vmss000001
+
+  tolerations: []
+
+  affinity: {}  # Ensure this matches the agent pool label
+
+  # affinity:
+  #   nodeAffinity:
+  #     required:
+  #       nodeSelectorTerms:
+  #       - matchExpressions:
+  #         - key: kubernetes.io/hostname
+  #           operator: In
+  #           values:
+  #           - "aks-sgxpool2-37956146-vmss000001"  # Replace with your actual node hostname
+
+  
+  readinessProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false
+
+  secretEnv:
+    ENCLAVE_DB_SQLITEPATH: ""
+
+  extraEnv: []
+
+  service:
+    type: ClusterIP
+    port: 11001
+
+  ports:
+    - name: rpc
+      port: 11001
+      containerPort: 11001
+
+  resources:
+    limits:
+      memory: 8Gi
+      cpu: 2000m
+    requests:
+      memory: 8Gi
+      cpu: 1000m
+
+  # storage:
+  #   storageClass: "default"
+  #   size: 10Gi  
+
+  serviceAccount:
+    create: true
+  edb:
+    image:
+      repository: "ghcr.io/edgelesssys"
+      tag: "v0.3.2"
+      pullPolicy: "Always"
+      imagePullSecrets: []
+    sqlApiHost: "0.0.0.0"
+    sqlApiPort: 3306
+    restApiHost: "0.0.0.0"
+    restApiPort: 8080
+    debug: false
+    simulation: false
+    heapSize: 4
+    marbleType: EdgelessDB
+    launchMarble: false
+    resources:
+      limits:
+        sgx.intel.com/epc: "10Mi"
+        sgx.intel.com/provision: 1
+        sgx.intel.com/enclave: 1
+    storage:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 100Gi
+    tolerations:
+      - key: sgx.intel.com/epc
+        operator: Exists
+        effect: NoSchedule
+
+enclave02:
+  enabled: false
+  replicaCount: 1
+  image:
+    repository: testnetobscuronet.azurecr.io/obscuronet/sepolia_enclave
+    tag: "latest"
+    pullPolicy: Always
+    imagePullSecrets: []
+
+  autoscaling:
+    enabled: false
     targetCPUUtilizationPercentage: 80
 
   nodeSelector:
