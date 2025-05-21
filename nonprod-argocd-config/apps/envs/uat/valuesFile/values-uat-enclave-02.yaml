@@ -1,18 +1,21 @@
+fullnameOverride: "ha-enclave"
+
 enclave:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
     tag: "latest"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23084093-vmss000000
+    kubernetes.io/hostname: aks-sgxpool-23084093-vmss000001
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
 
 host:
-  image:
-    repository: "testnetobscuronet.azurecr.io/obscuronet/uat_host"
-    tag: "latest"
-  fqdn: uat-testnet-sequencer.ten.xyz
+  enabled: false
+  # image:
+  #   repository: "testnetobscuronet.azurecr.io/obscuronet/uat_host"
+  #   tag: "latest"
+  # fqdn: uat-testnet-sequencer.ten.xyz
 
 config:
   network:
@@ -50,41 +53,40 @@ config:
       interval: 6s
   node:
     nodetype: "sequencer"
-    name: "obscuronode"
+    name: "obscuronode2"
     isgenesis: true
     hostAddress: "uat-sequencer.ten.xyz:10000"
-  host:
-    db:
-      useinmemory: false
-      sqlitepath: ""
-    debug:
-      enablemetrics: true
-      metricshttpport: 0
-      enableprofiler: false
-      enabledebugnamespace: true
-    enclave:
-      rpcaddresses:
-        - obscuronode-enclave:11001
-        - ha-enclave-enclave:11001
-      rpctimeout: 10s
-    l1:
-      websocketurl: "ws://sepolia-l1-node-02.uksouth.cloudapp.azure.com:81?id=tenuserpwd"
-      l1beaconurl: "https://ethereum-sepolia-beacon-api.publicnode.com"
-      l1blobarchiveurl: "https://eth-beacon-chain-sepolia.drpc.org/rest/"
-      rpctimeout: 15s
-    log:
-      level: 3
-      path: sys_out
-    p2p:
-      isdisabled: false
-      bindaddress: 0.0.0.0:10000
-      timeout: 10s
-    rpc:
-      address: 0.0.0.0
-      enablehttp: true
-      httpport: 8085
-      enablews: true
-      wsport: 8089
+  # host:
+  #   db:
+  #     useinmemory: false
+  #     sqlitepath: ""
+  #   debug:
+  #     enablemetrics: true
+  #     metricshttpport: 0
+  #     enableprofiler: false
+  #     enabledebugnamespace: true
+  #   enclave:
+  #     rpcaddresses:
+  #       - obscuronode-enclave:11001
+  #     rpctimeout: 10s
+  #   l1:
+  #     websocketurl: "ws://sepolia-l1-node-02.uksouth.cloudapp.azure.com:81?id=tenuserpwd"
+  #     l1beaconurl: "https://ethereum-sepolia-beacon-api.publicnode.com"
+  #     l1blobarchiveurl: "https://eth-beacon-chain-sepolia.drpc.org/rest/"
+  #     rpctimeout: 15s
+  #   log:
+  #     level: 3
+  #     path: sys_out
+  #   p2p:
+  #     isdisabled: false
+  #     bindaddress: 0.0.0.0:10000
+  #     timeout: 10s
+  #   rpc:
+  #     address: 0.0.0.0
+  #     enablehttp: true
+  #     httpport: 8085
+  #     enablews: true
+  #     wsport: 8089
   enclave:
     simulation: false
     enableattestation: true

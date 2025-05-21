@@ -1,10 +1,9 @@
 enclave:
-  replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
     tag: "latest"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23084093-vmss000000
+    kubernetes.io/hostname: aks-sgxpool-23084093-vmss000002
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
 
@@ -12,7 +11,7 @@ host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/uat_host"
     tag: "latest"
-  fqdn: uat-testnet-sequencer.ten.xyz
+  fqdn: uat-validator-02.ten.xyz
 
 config:
   network:
@@ -44,15 +43,15 @@ config:
       maxinterval: 10m0s
       maxsize: 131072
     sequencer:
-      p2paddress: uat-sequencer.ten.xyz:10000
+      p2paddress: uat-sequencer-ten-node-host:10000
       systemcontractsupgrader: "0x11431A88Fc53F3eE5Ae263067F96EAF91A0f0974"
     crosschain:
       interval: 6s
   node:
-    nodetype: "sequencer"
-    name: "obscuronode"
-    isgenesis: true
-    hostAddress: "uat-sequencer.ten.xyz:10000"
+    nodetype: "validator"
+    name: "ten-uat-validator-02"
+    isgenesis: false
+    hostAddress: "uat-validator-02.ten.xyz:10000"
   host:
     db:
       useinmemory: false
@@ -65,7 +64,6 @@ config:
     enclave:
       rpcaddresses:
         - obscuronode-enclave:11001
-        - ha-enclave-enclave:11001
       rpctimeout: 10s
     l1:
       websocketurl: "ws://sepolia-l1-node-02.uksouth.cloudapp.azure.com:81?id=tenuserpwd"
@@ -108,4 +106,4 @@ config:
 externalSecrets:
   enabled: true
   secretMappings:
-    NODE_PRIVATEKEY: "UAT-SEQUENCER-NODE-PRIVATEKEY"
+    NODE_PRIVATEKEY: "UAT-VALIDATOR-02-NODE-PRIVATEKEY"
