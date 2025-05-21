@@ -26,7 +26,7 @@ enclave:
         - ReadWriteOnce
       resources:
         requests:
-          storage: 1Gi
+          storage: 10Gi
 
   tolerations: []
 
@@ -129,7 +129,7 @@ enclave02:
         - ReadWriteOnce
       resources:
         requests:
-          storage: 1Gi
+          storage: 10Gi
 
   tolerations: []
 
