@@ -2,14 +2,23 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "ten-node.fullname" . }}-enclave02
+  name: {{ include "ten-node.fullname" . }}-enclave02-db
   namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/name: edgelessdb-storage
     app.kubernetes.io/component: persistent-storage
     app.kubernetes.io/part-of: Enclave02
+spec:
+    {{- toYaml .Values.enclave02.edb.storage.spec | nindent 4 }}
+---
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "ten-node.fullname" . }}-enclave02
+  namespace: {{ .Release.Namespace }}
+  labels:
     app: {{ .Release.Name }}-enclave02
     {{- include "ten-node.labels" . | nindent 4 }}
 spec:
-    {{- toYaml .Values.enclave02.edb.storage.spec | nindent 4 }}
+    {{- toYaml .Values.enclave02.storage.spec | nindent 4 }}
+
 {{- end }}
