@@ -4,8 +4,6 @@ metadata:
   name: {{ include "ten-node.fullname" . }}-enclave
   namespace: {{ .Release.namespace }}
   labels:
-    app.kubernetes.io/component: database
-    app.kubernetes.io/name: EdgelessDB
     app.kubernetes.io/part-of: Enclave  # Fixed duplicate label
     app: {{ .Release.Name }}-enclave
     {{- include "ten-node.labels" . | nindent 4 }}
@@ -14,8 +12,6 @@ spec:
   replicas: {{ .Values.enclave.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/component: database
-      app.kubernetes.io/name: EdgelessDB
       app.kubernetes.io/part-of: Enclave
       app: {{ .Release.Name }}-enclave
   template:
@@ -26,8 +22,6 @@ spec:
           {{- toYaml . | nindent 8 }}
         {{- end }}
       labels:
-        app.kubernetes.io/component: database
-        app.kubernetes.io/name: EdgelessDB
         app.kubernetes.io/part-of: Enclave  # Fixed duplicate label
         app: {{ .Release.Name }}-enclave
     spec:
