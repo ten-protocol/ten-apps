@@ -159,8 +159,13 @@ spec:
               value: {{ .Values.config.host.l1.rpctimeout | default "15s" | quote }}
             - name: NETWORK_L1_CONTRACTS_ENCLAVEREGISTRY
               value: {{ tpl .Values.config.network.l1.l1contracts.enclaveRegistry . | default "" | quote }}
+            {{- if .Values.enclave02.enabled -}}
+            - name: HOST_ENCLAVE_RPCADDRESSES
+              value: {{ include "ten-node.fullname" . }}-enclave:11001, {{ include "ten-node.fullname" . }}-enclave02:11001
+            {{- else -}}
             - name: HOST_ENCLAVE_RPCADDRESSES
               value: {{ include "ten-node.fullname" . }}-enclave:11001
+            {{- end -}}
             - name: HOST_ENCLAVE_RPCTIMEOUT
               value: {{ .Values.config.host.enclave.rpctimeout | default "10s" | quote }}
             - name: HOST_DEBUG_ENABLEMETRICS
