@@ -20,6 +20,13 @@ enclave:
 
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool2-37956146-vmss000001
+  storage:
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
 
   tolerations: []
 
@@ -116,6 +123,13 @@ enclave02:
 
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool2-37956146-vmss000001
+  storage:
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
 
   tolerations: []
 

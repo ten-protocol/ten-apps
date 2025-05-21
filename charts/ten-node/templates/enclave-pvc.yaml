@@ -11,3 +11,13 @@ metadata:
     {{- include "ten-node.labels" . | nindent 4 }}
 spec:
     {{- toYaml .Values.enclave.edb.storage.spec | nindent 4 }}
+---
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "ten-node.fullname" . }}-enclave
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Release.Name }}-enclave
+    {{- include "ten-node.labels" . | nindent 4 }}
+spec:
+    {{- toYaml .Values.enclave.storage.spec | nindent 4 }}

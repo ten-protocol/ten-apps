@@ -76,7 +76,7 @@ spec:
             privileged: true
             runAsUser: 0
           volumeMounts:
-          - name: {{ include "ten-node.fullname" . }}-enclave02
+          - name: {{ include "ten-node.fullname" . }}-enclave02-db
             mountPath: /data
         - name: {{ .Chart.Name }}-enclave02
           securityContext:
@@ -206,7 +206,10 @@ spec:
             {{- end }}
           {{- end }}
       volumes:
-        - name: {{ include "ten-node.fullname" . }}-enclave02
+        - name: {{ include "ten-node.fullname" . }}-enclave02-db
+          persistentVolumeClaim:
+            claimName: {{ include "ten-node.fullname" . }}-enclave02-db
+        - name: {{ include "ten-node.fullname" . }}-enclave02  #
           persistentVolumeClaim:
             claimName: {{ include "ten-node.fullname" . }}-enclave02
 {{- end }}
