@@ -19,7 +19,7 @@ enclave:
     enabled: false
 
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool2-37956146-vmss000001
+    kubernetes.io/hostname: aks-sgxpool2-37956146-vmss000005
   storage:
     spec:
       accessModes:

@@ -3,20 +3,20 @@ enclave:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
     tag: "latest"
-  nodeSelector:
-    "kubernetes.io/hostname": "aks-sgxpool-23084093-vmss000005"
+  # nodeSelector:
+  #   "kubernetes.io/hostname": "aks-sgxpool-23084093-vmss000005"
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
-enclave02:
-  enabled: false
-  replicaCount: 1
-  image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
-    tag: "latest"
-  nodeSelector:
-    "kubernetes.io/hostname": "aks-sgxpool-23084093-vmss000005"
-  secretEnv:
-    ENCLAVE_DB_SQLITEPATH: ""
+# enclave02:
+#   enabled: false
+#   replicaCount: 1
+#   image:
+#     repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
+#     tag: "latest"
+#   nodeSelector:
+#     "kubernetes.io/hostname": "aks-sgxpool-23084093-vmss000005"
+#   secretEnv:
+#     ENCLAVE_DB_SQLITEPATH: ""
 
 host:
   image:
