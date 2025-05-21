@@ -65,7 +65,6 @@ config:
     enclave:
       rpcaddresses:
         - obscuronode-enclave:11001
-        - ha-enclave-enclave:11001
       rpctimeout: 10s
     l1:
       websocketurl: "ws://sepolia-l1-node-02.uksouth.cloudapp.azure.com:81?id=tenuserpwd"
@@ -109,3 +108,4 @@ externalSecrets:
   enabled: true
   secretMappings:
     NODE_PRIVATEKEY: "UAT-SEQUENCER-NODE-PRIVATEKEY"
+    HOST_DB_POSTGRESHOST: "sequencer-01-db-connstring"

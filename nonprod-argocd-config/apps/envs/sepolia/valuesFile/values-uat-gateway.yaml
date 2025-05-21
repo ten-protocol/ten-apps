@@ -1,0 +1,66 @@
+replicaCount: 1
+
+frontend:
+  name: obscuro-gateway
+  domain: uat-gw-testnet.ten.xyz
+  image:
+    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_uat_testnet_fe
+    tag: latest
+    pullPolicy: IfNotPresent
+  containerPort: 80
+  service:
+    type: ClusterIP
+    port: 80
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
+
+backend:
+  name: obscuro-gateway
+  domain: rpc-uat-gw-testnet.ten.xyz
+  image:
+    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_uat_testnet
+    tag: latest
+    pullPolicy: Always
+  nodeHost: "uat-validator-01.ten.xyz"
+  dbType: "cosmosDB"
+  rateLimitUserComputeTime: 0
+  rateLimitWindow: "1m"
+  maxConcurrentRequestsPerUser: 5
+  encryptionKeySource: "new"
+  insideEnclave: true
+  enableTLS: true
+  tlsDomain: "rpc-uat-gw-testnet.ten.xyz"
+  nodePortHTTP: 8085
+  nodePortWS: 8089
+  verbose: true
+  ports:
+    http: 80
+    https: 443
+    websocket: 443
+  env: 
+    OE_SIMULATION: "0"
+  dbConnectionURL: "REPLACE_ME"
+
+  pvc:
+    enabled: true
+    name: ""
+    storageClassName: "managed"
+    accessMode: ReadWriteOnce
+    size: 1Gi
+
+resources: 
+  limits:
+    cpu: 1000m
+    memory: 5Gi
+  requests:
+    cpu: 500m
+    memory: 5Gi
+nodeSelector:
+    kubernetes.io/hostname: aks-sgxpool2-37956146-vmss000001
+tolerations: []
+affinity: {}
