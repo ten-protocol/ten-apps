@@ -7,6 +7,16 @@ enclave:
     kubernetes.io/hostname: aks-sgxpool-23084093-vmss000000
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
+enclave02:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
+    tag: "latest"
+  nodeSelector:
+    kubernetes.io/hostname: aks-sgxpool-23084093-vmss000002
+  secretEnv:
+    ENCLAVE_DB_SQLITEPATH: ""
 
 host:
   image:
@@ -65,7 +75,7 @@ config:
     enclave:
       rpcaddresses:
         - obscuronode-enclave:11001
-        - ha-enclave-enclave:11001
+        - obscuronode-enclave02:11001
       rpctimeout: 10s
     l1:
       websocketurl: "ws://sepolia-l1-node-02.uksouth.cloudapp.azure.com:81?id=tenuserpwd"
