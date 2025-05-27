@@ -61,7 +61,11 @@ spec:
           securityContext:
             privileged: true
             runAsUser: 0
+          {{- if .Values.postgresql.enabled }}
           command: ["/bin/sh", "-c", " source /shared-data/node-host-db.env && ./main "]
+          {{- else }}
+          command: ["/bin/sh", "-c", "./main"]
+          {{- end }}
           image: "{{ .Values.host.image.repository }}:{{ .Values.host.image.tag }}"
           resources:
             {{- toYaml .Values.host.resources | nindent 12 }}
@@ -183,9 +187,11 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "ten-node.fullname" . }}-node-secrets
+          {{- if .Values.postgresql.enabled }}
           volumeMounts:
             - name: shared-data
               mountPath: /shared-data
+          {{- end }}              
           {{- if .Values.host.readinessProbe.enabled }}
           readinessProbe:
             httpGet:
