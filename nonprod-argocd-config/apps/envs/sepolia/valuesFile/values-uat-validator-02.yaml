@@ -80,9 +80,9 @@ config:
     rpc:
       address: 0.0.0.0
       enablehttp: true
-      httpport: 8085
+      httpport: 80
       enablews: true
-      wsport: 8089
+      wsport: 443
   enclave:
     simulation: false
     enableattestation: true

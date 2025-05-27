@@ -233,11 +233,11 @@ host:
     type: LoadBalancer
   ports:
     - name: http
-      port: 8085
-      containerPort: 8085
+      port: 80
+      containerPort: 80
     - name: ws
-      port: 8089
-      containerPort: 8089
+      port: 443
+      containerPort: 443
     - name: p2p
       port: 10000
       containerPort: 10000
@@ -250,7 +250,7 @@ host:
       cpu: 200m
 
 postgresql:
-  enabled: true
+  enabled: false
 
   tls: 
     enabled: true
@@ -331,9 +331,9 @@ config:
     rpc:
         address: 0.0.0.0
         enablehttp: true
-        httpport: 8085
+        httpport: 80
         enablews: true
-        wsport: 8089
+        wsport: 443
   enclave:
     simulation: false
     enableattestation: true
