@@ -3,7 +3,7 @@ enclave:
     repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
     tag: "latest"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23084093-vmss000008
+    kubernetes.io/hostname: aks-sgxpool-38816337-vmss000002
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
 
@@ -80,9 +80,9 @@ config:
     rpc:
       address: 0.0.0.0
       enablehttp: true
-      httpport: 8085
+      httpport: 80
       enablews: true
-      wsport: 8089
+      wsport: 443
   enclave:
     simulation: false
     enableattestation: true
@@ -107,3 +107,4 @@ externalSecrets:
   enabled: true
   secretMappings:
     NODE_PRIVATEKEY: "UAT-VALIDATOR-02-NODE-PRIVATEKEY"
+    HOST_DB_POSTGRESHOST: "validator-02-db-connstring"

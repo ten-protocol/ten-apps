@@ -35,8 +35,8 @@ backend:
   insideEnclave: true
   enableTLS: true
   tlsDomain: "rpc-uat-gw-testnet.ten.xyz"
-  nodePortHTTP: 8085
-  nodePortWS: 8089
+  nodePortHTTP: 80
+  nodePortWS: 443
   verbose: true
   ports:
     http: 80
@@ -61,6 +61,6 @@ resources:
     cpu: 500m
     memory: 5Gi
 nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23084093-vmss000008
+    kubernetes.io/hostname: aks-sgxpool-38816337-vmss000002
 tolerations: []
 affinity: {}

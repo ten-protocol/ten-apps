@@ -4,7 +4,7 @@ enclave:
     repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
     tag: "latest"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23084093-vmss000006
+    kubernetes.io/hostname: aks-sgxpool-38816337-vmss000000
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
 enclave02:
@@ -14,7 +14,7 @@ enclave02:
     repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
     tag: "latest"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23084093-vmss000007
+    kubernetes.io/hostname: aks-sgxpool-38816337-vmss000001
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
 
@@ -92,9 +92,9 @@ config:
     rpc:
       address: 0.0.0.0
       enablehttp: true
-      httpport: 8085
+      httpport: 80
       enablews: true
-      wsport: 8089
+      wsport: 443
   enclave:
     simulation: false
     enableattestation: true
@@ -119,3 +119,4 @@ externalSecrets:
   enabled: true
   secretMappings:
     NODE_PRIVATEKEY: "UAT-SEQUENCER-NODE-PRIVATEKEY"
+    HOST_DB_POSTGRESHOST: "sequencer-db-connstring"

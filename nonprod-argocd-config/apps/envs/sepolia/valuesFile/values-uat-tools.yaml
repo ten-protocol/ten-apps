@@ -12,7 +12,7 @@ faucet:
     repository: testnetobscuronet.azurecr.io/obscuronet/faucet_uat_testnet
     tag: latest
   nodeHost: "uat-validator-01.ten.xyz"
-  nodePort: "8085"
+  nodePort: "80"
   pk: "YOUR_FAUCET_PRIVATE_KEY"
   jwtSecret: "YOUR_JWT_SECRET"
   host: "uat-faucet.tenscan.io"
@@ -23,7 +23,7 @@ tenscan:
     image:
       repository: testnetobscuronet.azurecr.io/obscuronet/api_obscuro_scan_uat_testnet
       tag: latest
-    nodeHostAddress: "http://uat-validator-01.ten.xyz:8085"
+    nodeHostAddress: "http://uat-validator-01.ten.xyz:80"
     host: "uat-testnet-api.tenscan.io"
 
   fe:
