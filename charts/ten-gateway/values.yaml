@@ -65,3 +65,8 @@ resources:
 nodeSelector: {}
 tolerations: []
 affinity: {}
+
+externalSecrets:
+  enabled: true
+  secretMappings:
+    dbConnectionURL: "uattestnet-gateway-connection-string"

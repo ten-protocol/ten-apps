@@ -64,3 +64,8 @@ nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-38816337-vmss000000
 tolerations: []
 affinity: {}
+
+externalSecrets:
+  enabled: true
+  secretMappings:
+    dbConnectionURL: "uattestnet-gateway-connection-string"
