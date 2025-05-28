@@ -21,7 +21,7 @@ frontend:
 
 backend:
   name: obscuro-gateway
-  domain: rpc-uat-gw-testnet.ten.xyz
+  domain: rpc.uat-gw-testnet.ten.xyz
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_uat_testnet
     tag: latest
@@ -34,7 +34,7 @@ backend:
   encryptionKeySource: "new"
   insideEnclave: true
   enableTLS: true
-  tlsDomain: "rpc-uat-gw-testnet.ten.xyz"
+  tlsDomain: "rpc.uat-gw-testnet.ten.xyz"
   nodePortHTTP: 80
   nodePortWS: 443
   verbose: true

@@ -21,12 +21,12 @@ frontend:
 
 backend:
   name: obscuro-gateway
-  domain: rpc-uat-gw-testnet.ten.xyz
+  domain: rpc.uat-gw-testnet.ten.xyz
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_uat_testnet
     tag: latest
     pullPolicy: Always
-  nodeHost: "uat-validator-01.ten.xyz"
+  nodeHost: "erpc.uat-testnet.ten.xyz"
   dbType: "cosmosDB"
   rateLimitUserComputeTime: 0
   rateLimitWindow: "1m"
@@ -34,7 +34,7 @@ backend:
   encryptionKeySource: "new"
   insideEnclave: true
   enableTLS: true
-  tlsDomain: "rpc-uat-gw-testnet.ten.xyz"
+  tlsDomain: "rpc.uat-gw-testnet.ten.xyz"
   nodePortHTTP: 80
   nodePortWS: 443
   verbose: true
