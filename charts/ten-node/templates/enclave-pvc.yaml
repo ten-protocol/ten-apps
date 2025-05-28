@@ -8,6 +8,8 @@ metadata:
     app.kubernetes.io/component: persistent-storage
     app.kubernetes.io/part-of: Enclave
     {{- include "ten-node.labels" . | nindent 4 }}
+  annotations:
+    "argocd.argoproj.io/sync-options": Prune={{ .Values.global.pvcPrunning }}
 spec:
     {{- toYaml .Values.enclave.edb.storage.spec | nindent 4 }}
 ---
