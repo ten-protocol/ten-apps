@@ -1,6 +1,7 @@
 global:
   imagePullSecrets: []
   imagePullPolicy: Always
+  pvcPrunning: false
 
 # -- Overrides the chart's name
 nameOverride: ""

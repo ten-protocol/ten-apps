@@ -8,6 +8,8 @@ metadata:
     app.kubernetes.io/name: edgelessdb-storage
     app.kubernetes.io/component: persistent-storage
     app.kubernetes.io/part-of: Enclave02
+  annotations:
+    "argocd.argoproj.io/sync-options": Prune={{ .Values.global.pvcPrunning }}
 spec:
     {{- toYaml .Values.enclave02.edb.storage.spec | nindent 4 }}
 ---
