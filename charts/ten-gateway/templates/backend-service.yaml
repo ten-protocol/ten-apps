@@ -5,6 +5,8 @@ metadata:
   labels:
     {{- include "ten-gateway.labels" . | nindent 4 }}
     app.kubernetes.io/component: backend
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   type: LoadBalancer
   ports:
