@@ -99,7 +99,7 @@ config:
       enablehttp: true
       httpport: 80
       enablews: true
-      wsport: 443
+      wsport: 81
   enclave:
     simulation: false
     enableattestation: true
