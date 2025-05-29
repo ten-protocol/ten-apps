@@ -237,8 +237,8 @@ host:
       port: 80
       containerPort: 80
     - name: ws
-      port: 443
-      containerPort: 443
+      port: 81
+      containerPort: 81
     - name: p2p
       port: 10000
       containerPort: 10000
@@ -334,7 +334,7 @@ config:
         enablehttp: true
         httpport: 80
         enablews: true
-        wsport: 443
+        wsport: 81
   enclave:
     simulation: false
     enableattestation: true
