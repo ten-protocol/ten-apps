@@ -56,7 +56,8 @@ spec:
                 -tlsDomain={{ .Values.backend.tlsDomain }} \
                 -nodeHost={{ .Values.backend.nodeHost }} \
                 -nodePortHTTP={{ .Values.backend.nodePortHTTP }} \
-                -nodePortWS={{ .Values.backend.nodePortWS }} 
+                -nodePortWS={{ .Values.backend.nodePortWS }} \
+                -logLevel=warn 
           volumeMounts:
             - name: db-secret-volume
               mountPath: /secrets
