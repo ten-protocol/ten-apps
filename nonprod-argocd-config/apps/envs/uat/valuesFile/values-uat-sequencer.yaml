@@ -124,4 +124,4 @@ externalSecrets:
   enabled: true
   secretMappings:
     NODE_PRIVATEKEY: "UAT-SEQUENCER-NODE-PRIVATEKEY"
-    HOST_DB_POSTGRESHOST: "sequencer-db-connstring"
+    HOST_DB_POSTGRESHOST: "seq-db-connstring"

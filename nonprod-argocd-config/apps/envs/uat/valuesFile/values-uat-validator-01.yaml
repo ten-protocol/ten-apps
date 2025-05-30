@@ -112,4 +112,4 @@ externalSecrets:
   enabled: true
   secretMappings:
     NODE_PRIVATEKEY: "UAT-VALIDATOR-01-NODE-PRIVATEKEY"
-    HOST_DB_POSTGRESHOST: "validator-02-db-connstring"
+    HOST_DB_POSTGRESHOST: "val-01-db-connstring"
