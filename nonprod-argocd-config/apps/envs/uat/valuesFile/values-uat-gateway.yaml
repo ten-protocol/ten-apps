@@ -36,7 +36,7 @@ backend:
   enableTLS: true
   tlsDomain: "rpc.uat-gw-testnet.ten.xyz"
   nodePortHTTP: 80
-  nodePortWS: 443
+  nodePortWS: 81
   verbose: true
   ports:
     http: 80
