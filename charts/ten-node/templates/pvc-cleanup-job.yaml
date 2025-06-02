@@ -33,16 +33,21 @@ spec:
             - -c
             - |
               echo "Attempting to delete Enclave PVCs..."
+              STS_ENCLAVE="{{ include "ten-node.fullname" . }}-enclave"
               PVC_ENCLAVE_DB="{{ include "ten-node.fullname" . }}-enclave-db"
               PVC_ENCLAVE_DATA="{{ include "ten-node.fullname" . }}-enclave"
-              
+             
+              kubectl delete sts "$STS_ENCLAVE" -n {{ .Release.Namespace }} --ignore-not-found=true
               kubectl delete pvc "$PVC_ENCLAVE_DB" -n {{ .Release.Namespace }} --ignore-not-found=true
               kubectl delete pvc "$PVC_ENCLAVE_DATA" -n {{ .Release.Namespace }} --ignore-not-found=true
+
               
               {{- if .Values.enclave02.enabled }}
               echo "Attempting to delete Enclave02 PVCs..."
+              STS_ENCLAVE02="{{ include "ten-node.fullname" . }}-enclave02"
               PVC_ENCLAVE02_DB="{{ include "ten-node.fullname" . }}-enclave02-db"
               PVC_ENCLAVE02_DATA="{{ include "ten-node.fullname" . }}-enclave02"
+              kubectl delete sts "$STS_ENCLAVE02" -n {{ .Release.Namespace }} --ignore-not-found=true 
               kubectl delete pvc "$PVC_ENCLAVE02_DB" -n {{ .Release.Namespace }} --ignore-not-found=true
               kubectl delete pvc "$PVC_ENCLAVE02_DATA" -n {{ .Release.Namespace }} --ignore-not-found=true
               {{- end }}
