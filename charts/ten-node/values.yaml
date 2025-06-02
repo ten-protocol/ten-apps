@@ -1,9 +1,8 @@
 global:
   imagePullSecrets: []
   imagePullPolicy: Always
-  pvcPrunning: false
+  destructiveDeployment: false
 
-# -- Overrides the chart's name
 nameOverride: ""
 
 # -- Overrides the chart's computed fullname
@@ -371,3 +370,34 @@ config:
         timeout: 5s
 externalSecrets:
   enabled: false
+
+cleanupJob:
+  # Configuration for the PostgreSQL table cleanup job
+  postgres:
+    image:
+      repository: postgres
+      tag: "15-alpine" # Or any version with psql client
+      pullPolicy: IfNotPresent
+    # Assumes the secret '{{ include "ten-node.fullname" . }}-node-secrets'
+    # contains keys like DB_HOST, DB_USER, DB_PASSWORD, DB_NAME
+    # These will be mapped to PGHOST, PGUSER, PGPASSWORD, PGDATABASE
+    postgresSecretName: "" # Defaults to {{ include "ten-node.fullname" . }}-node-secrets in the job template
+    # envMappings: # Example if your secret keys are different
+    #   PGHOST: YOUR_DB_HOST_KEY_IN_SECRET
+    #   PGUSER: YOUR_DB_USER_KEY_IN_SECRET
+    #   PGPASSWORD: YOUR_DB_PASSWORD_KEY_IN_SECRET
+    #   PGDATABASE: YOUR_DB_NAME_KEY_IN_SECRET
+    annotations: {} # Optional: helm.sh/hook: pre-upgrade,pre-install
+                    # helm.sh/hook-weight: "-5" # To run before other hooks
+
+  # Configuration for the PVC cleanup job
+  pvc:
+    image:
+      repository: bitnami/kubectl
+      tag: "latest"
+      pullPolicy: IfNotPresent
+    serviceAccount:
+      create: true
+      name: "" # Defaults to {{ include "ten-node.fullname" . }}-pvc-cleaner
+    annotations: {} # Optional: helm.sh/hook: pre-upgrade,pre-install
+                    # helm.sh/hook-weight: "-10" # To run even earlier

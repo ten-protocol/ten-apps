@@ -1,0 +1,27 @@
+
+{{- if .Values.global.destructiveDeployment }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ten-node.fullname" . }}-cleanup-sql-script
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "ten-node.name" . }}-cleanup-script
+    helm.sh/chart: {{ include "ten-node.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    {{- if .Values.cleanupJob.postgres.annotations }}
+  annotations:
+    {{- toYaml .Values.cleanupJob.postgres.annotations | nindent 4 }}
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+    {{- end }}
+data:
+  cleanup.sql: |-
+    DROP TABLE IF EXISTS transaction_count CASCADE;
+    DROP TABLE IF EXISTS transaction_host CASCADE;
+    DROP TABLE IF EXISTS batch_host CASCADE;
+    DROP TABLE IF EXISTS cross_chain_message_host CASCADE;
+    DROP TABLE IF EXISTS rollup_host CASCADE;
+    DROP TABLE IF EXISTS block_host CASCADE;
+    -- Add any other tables that need to be dropped
+{{- end }}
