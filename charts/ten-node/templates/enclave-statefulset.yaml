@@ -199,6 +199,22 @@ spec:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           {{- end }}
+        {{- if .Values.enclave.edbtool.enabled }} # Conditional block for edbtool
+        - name: edbtool
+          image: "{{ .Values.enclave.edbtool.image.repository }}:{{ .Values.enclave.edbtool.image.tag }}"
+          imagePullPolicy: {{ .Values.enclave.edbtool.image.pullPolicy }}
+          command: {{ .Values.enclave.edbtool.command | toYaml | nindent 12 }}
+          securityContext:
+            privileged: true # Adjust as necessary
+            runAsUser: 0     # Adjust as necessary
+          resources:
+            {{- toYaml .Values.enclave.edbtool.resources | nindent 12 }}
+          # Add any necessary volumeMounts or env variables for edbtool here
+          # Example:
+          # volumeMounts:
+          #   - name: {{ include "ten-node.fullname" . }}-enclave
+          #     mountPath: /somepath-for-edbtool
+        {{- end }}
       volumes:
         - name: {{ include "ten-node.fullname" . }}-enclave-db
           persistentVolumeClaim:
