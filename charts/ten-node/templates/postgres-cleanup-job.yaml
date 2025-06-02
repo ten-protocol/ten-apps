@@ -10,11 +10,9 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
   annotations:
-    # This job will run before Helm installs or upgrades charts, if the flag is true.
-    # Adjust weight as needed if you have other pre-install/pre-upgrade hooks.
-    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-weight": "-5"
-    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
     {{- with .Values.cleanupJob.postgres.annotations }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
@@ -34,29 +32,21 @@ spec:
             - name: POSTGRES_CONNECTION_URI
               valueFrom:
                 secretKeyRef:
-                  # Uses the secret name defined in values.yaml or defaults to '<fullname>-node-secrets'
                   name: {{ .Values.cleanupJob.postgres.postgresSecretName | default (printf "%s-node-secrets" (include "ten-node.fullname" .)) }}
-                  # This is the key your external secret system creates
                   key: HOST_DB_POSTGRESHOST
             - name: PGSSLMODE
-              # It's good practice to make SSL mode configurable via values.yaml
               value: {{ .Values.cleanupJob.postgres.pgSslMode | default "prefer" }}
           command:
             - /bin/sh
             - -c
             - |
-              echo "Waiting for PostgreSQL to be ready..."
-              # You might want a more robust readiness check or a short delay
-              # sleep 10 
-              echo "Attempting to clean PostgreSQL tables using connection URI..."
-              # Pass the connection URI directly to psql
-              psql "$POSTGRES_CONNECTION_URI""postgres" -f /scripts/cleanup.sql
+              echo "Finding databases starting with host_..."
+              DBS=$(psql "$POSTGRES_CONNECTION_URI""postgres" -tAc "SELECT datname FROM pg_database WHERE datname LIKE 'host\_%'")
+              for db in $DBS; do
+                if [ -n "$db" ]; then
+                  echo "Dropping database: $db"
+                  psql "$POSTGRES_CONNECTION_URI""postgres" -c "DROP DATABASE IF EXISTS \"$db\""
+                fi
+              done
               echo "PostgreSQL cleanup script executed."
-          volumeMounts:
-            - name: cleanup-sql-script
-              mountPath: /scripts
-      volumes:
-        - name: cleanup-sql-script
-          configMap:
-            name: {{ include "ten-node.fullname" . }}-cleanup-sql-script
 {{- end }}
