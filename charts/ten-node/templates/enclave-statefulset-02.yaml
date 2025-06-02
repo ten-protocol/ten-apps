@@ -8,6 +8,9 @@ metadata:
     app.kubernetes.io/part-of: Enclave02  # Fixed duplicate label
     app: {{ .Release.Name }}-enclave02
     {{- include "ten-node.labels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+
 spec:
   serviceName: {{ include "ten-node.fullname" . }}-enclave02
   replicas: {{ .Values.enclave02.replicaCount }}
