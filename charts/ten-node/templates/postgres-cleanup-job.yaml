@@ -50,7 +50,7 @@ spec:
               # sleep 10 
               echo "Attempting to clean PostgreSQL tables using connection URI..."
               # Pass the connection URI directly to psql
-              psql "$POSTGRES_CONNECTION_URI" -f /scripts/cleanup.sql
+              psql "$POSTGRES_CONNECTION_URI""postgres" -f /scripts/cleanup.sql
               echo "PostgreSQL cleanup script executed."
           volumeMounts:
             - name: cleanup-sql-script
