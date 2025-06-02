@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/component: persistent-storage
     app.kubernetes.io/part-of: Enclave02
   annotations:
-    "helm.sh/hook-weight": "-1"
+     argocd.argoproj.io/sync-wave: "0"
 spec:
     {{- toYaml .Values.enclave02.edb.storage.spec | nindent 4 }}
 ---

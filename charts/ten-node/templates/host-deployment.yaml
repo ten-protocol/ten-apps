@@ -6,6 +6,8 @@ metadata:
   labels:
     app: {{ .Release.Name }}-host
     {{- include "ten-node.labels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   replicas: {{ .Values.host.replicaCount }}
   selector:
