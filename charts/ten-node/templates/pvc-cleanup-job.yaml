@@ -33,6 +33,8 @@ spec:
             - -c
             - |
               echo "Attempting to delete Enclave PVCs..."
+
+              DEPLOY_HOST="{{ include "ten-node.fullname" . }}-host"
               STS_ENCLAVE="{{ include "ten-node.fullname" . }}-enclave"
               PVC_ENCLAVE_DB="{{ include "ten-node.fullname" . }}-enclave-db"
               PVC_ENCLAVE_DATA="{{ include "ten-node.fullname" . }}-enclave"
@@ -40,7 +42,7 @@ spec:
               kubectl delete sts "$STS_ENCLAVE" -n {{ .Release.Namespace }} --ignore-not-found=true
               kubectl delete pvc "$PVC_ENCLAVE_DB" -n {{ .Release.Namespace }} --ignore-not-found=true
               kubectl delete pvc "$PVC_ENCLAVE_DATA" -n {{ .Release.Namespace }} --ignore-not-found=true
-
+              kubectl delete pvc "$DEPLOY_HOST" -n {{ .Release.Namespace }} --ignore-not-found=true
               
               {{- if .Values.enclave02.enabled }}
               echo "Attempting to delete Enclave02 PVCs..."
