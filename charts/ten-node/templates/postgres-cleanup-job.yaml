@@ -30,46 +30,27 @@ spec:
         - name: postgres-cleaner
           image: "{{ .Values.cleanupJob.postgres.image.repository }}:{{ .Values.cleanupJob.postgres.image.tag }}"
           imagePullPolicy: {{ .Values.cleanupJob.postgres.image.pullPolicy }}
-          envFrom:
-            - secretRef:
-                # Defaulting to the -node-secrets, assuming it contains DB_HOST, DB_USER, DB_PASSWORD, DB_NAME
-                name: {{ .Values.cleanupJob.postgres.postgresSecretName | default (printf "%s-node-secrets" (include "ten-node.fullname" .)) }}
           env:
-            # Map standard PostgreSQL env vars from your secret's keys.
-            # Adjust these 'valueFrom' if your secret keys are different
-            # For example, if your secret has 'database-user', map it to PGUSER.
-            # The default assumes keys like DB_USER, DB_PASSWORD etc. exist in the secret.
-            - name: PGHOST
+            - name: POSTGRES_CONNECTION_URI
               valueFrom:
                 secretKeyRef:
+                  # Uses the secret name defined in values.yaml or defaults to '<fullname>-node-secrets'
                   name: {{ .Values.cleanupJob.postgres.postgresSecretName | default (printf "%s-node-secrets" (include "ten-node.fullname" .)) }}
-                  key: DB_HOST # Or your specific key for the DB host
-            - name: PGUSER
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.cleanupJob.postgres.postgresSecretName | default (printf "%s-node-secrets" (include "ten-node.fullname" .)) }}
-                  key: DB_USER # Or your specific key for the DB user
-            - name: PGPASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.cleanupJob.postgres.postgresSecretName | default (printf "%s-node-secrets" (include "ten-node.fullname" .)) }}
-                  key: DB_PASSWORD # Or your specific key for the DB password
-            - name: PGDATABASE
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.cleanupJob.postgres.postgresSecretName | default (printf "%s-node-secrets" (include "ten-node.fullname" .)) }}
-                  key: DB_NAME # Or your specific key for the DB name
-            - name: PGSSLMODE 
-              value: "prefer" # Or "require", "disable" based on your setup
+                  # This is the key your external secret system creates
+                  key: HOST_DB_POSTGRESHOST
+            - name: PGSSLMODE
+              # It's good practice to make SSL mode configurable via values.yaml
+              value: {{ .Values.cleanupJob.postgres.pgSslMode | default "prefer" }}
           command:
             - /bin/sh
             - -c
             - |
               echo "Waiting for PostgreSQL to be ready..."
-              # Simple wait, adjust as needed, or use pg_isready if available and host is resolvable
+              # You might want a more robust readiness check or a short delay
               # sleep 10 
-              echo "Attempting to clean PostgreSQL tables..."
-              psql -f /scripts/cleanup.sql
+              echo "Attempting to clean PostgreSQL tables using connection URI..."
+              # Pass the connection URI directly to psql
+              psql "$POSTGRES_CONNECTION_URI" -f /scripts/cleanup.sql
               echo "PostgreSQL cleanup script executed."
           volumeMounts:
             - name: cleanup-sql-script
