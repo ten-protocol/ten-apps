@@ -1,7 +1,7 @@
 global:
   imagePullSecrets: []
   imagePullPolicy: Always
-  pvcPrunning: true
+  destructiveDeployment: true
 
 enclave:
   replicaCount: 1

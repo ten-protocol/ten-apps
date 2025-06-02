@@ -1,0 +1,81 @@
+{{- if .Values.global.destructiveDeployment }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "ten-node.fullname" . }}-postgres-cleanup
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "ten-node.name" . }}-postgres-cleanup
+    helm.sh/chart: {{ include "ten-node.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    # This job will run before Helm installs or upgrades charts, if the flag is true.
+    # Adjust weight as needed if you have other pre-install/pre-upgrade hooks.
+    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+    {{- with .Values.cleanupJob.postgres.annotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "ten-node.name" . }}-postgres-cleanup
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: postgres-cleaner
+          image: "{{ .Values.cleanupJob.postgres.image.repository }}:{{ .Values.cleanupJob.postgres.image.tag }}"
+          imagePullPolicy: {{ .Values.cleanupJob.postgres.image.pullPolicy }}
+          envFrom:
+            - secretRef:
+                # Defaulting to the -node-secrets, assuming it contains DB_HOST, DB_USER, DB_PASSWORD, DB_NAME
+                name: {{ .Values.cleanupJob.postgres.postgresSecretName | default (printf "%s-node-secrets" (include "ten-node.fullname" .)) }}
+          env:
+            # Map standard PostgreSQL env vars from your secret's keys.
+            # Adjust these 'valueFrom' if your secret keys are different
+            # For example, if your secret has 'database-user', map it to PGUSER.
+            # The default assumes keys like DB_USER, DB_PASSWORD etc. exist in the secret.
+            - name: PGHOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.cleanupJob.postgres.postgresSecretName | default (printf "%s-node-secrets" (include "ten-node.fullname" .)) }}
+                  key: DB_HOST # Or your specific key for the DB host
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.cleanupJob.postgres.postgresSecretName | default (printf "%s-node-secrets" (include "ten-node.fullname" .)) }}
+                  key: DB_USER # Or your specific key for the DB user
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.cleanupJob.postgres.postgresSecretName | default (printf "%s-node-secrets" (include "ten-node.fullname" .)) }}
+                  key: DB_PASSWORD # Or your specific key for the DB password
+            - name: PGDATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.cleanupJob.postgres.postgresSecretName | default (printf "%s-node-secrets" (include "ten-node.fullname" .)) }}
+                  key: DB_NAME # Or your specific key for the DB name
+            - name: PGSSLMODE 
+              value: "prefer" # Or "require", "disable" based on your setup
+          command:
+            - /bin/sh
+            - -c
+            - |
+              echo "Waiting for PostgreSQL to be ready..."
+              # Simple wait, adjust as needed, or use pg_isready if available and host is resolvable
+              # sleep 10 
+              echo "Attempting to clean PostgreSQL tables..."
+              psql -f /scripts/cleanup.sql
+              echo "PostgreSQL cleanup script executed."
+          volumeMounts:
+            - name: cleanup-sql-script
+              mountPath: /scripts
+      volumes:
+        - name: cleanup-sql-script
+          configMap:
+            name: {{ include "ten-node.fullname" . }}-cleanup-sql-script
+{{- end }}
