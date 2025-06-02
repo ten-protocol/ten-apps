@@ -9,7 +9,6 @@ metadata:
     app.kubernetes.io/part-of: Enclave
     {{- include "ten-node.labels" . | nindent 4 }}
   annotations:
-    "helm.sh/hook": "pre-install,pre-upgrade"
     "helm.sh/hook-weight": "-1"
 spec:
     {{- toYaml .Values.enclave.edb.storage.spec | nindent 4 }}
