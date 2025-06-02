@@ -209,11 +209,9 @@ spec:
             runAsUser: 0     # Adjust as necessary
           resources:
             {{- toYaml .Values.enclave.edbtool.resources | nindent 12 }}
-          # Add any necessary volumeMounts or env variables for edbtool here
-          # Example:
-          # volumeMounts:
-          #   - name: {{ include "ten-node.fullname" . }}-enclave
-          #     mountPath: /somepath-for-edbtool
+          volumeMounts:
+            - name: {{ include "ten-node.fullname" . }}-enclave  # Fixed volume mount name
+              mountPath: /enclavedata
         {{- end }}
       volumes:
         - name: {{ include "ten-node.fullname" . }}-enclave-db
