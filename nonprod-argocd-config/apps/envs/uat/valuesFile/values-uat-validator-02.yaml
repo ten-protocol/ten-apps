@@ -49,7 +49,7 @@ config:
       maxsize: 131072
     sequencer:
       p2paddress: uat-sequencer-ten-node-host:10000
-      systemcontractsupgrader: "0x11431A88Fc53F3eE5Ae263067F96EAF91A0f0974"
+      systemcontractsupgrader: "0x76d412eBaA22Ab58783531b585128Cf50768abbE"
     crosschain:
       interval: 6s
   node:
