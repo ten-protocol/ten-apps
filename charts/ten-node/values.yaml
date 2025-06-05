@@ -188,7 +188,7 @@ enclave02:
   serviceAccount:
     create: true
   edbtool: 
-    enabled: true # Set to true to enable the sidecar
+    enabled: false # Set to true to enable the sidecar
     image:
       repository: testnetobscuronet.azurecr.io/obscuronet/edbconnect
       tag: latest
