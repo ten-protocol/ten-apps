@@ -258,11 +258,11 @@ host:
       containerPort: 10000
   resources:
     limits:
-      memory: 1Gi
-      cpu: 500m
+      memory: 2Gi
+      cpu: 1000§m
     requests:
-      memory: 1Gi
-      cpu: 200m
+      memory: 2Gi
+      cpu: 1000m
 
 postgresql:
   enabled: false
