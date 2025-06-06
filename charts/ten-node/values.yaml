@@ -295,6 +295,7 @@ config:
         chainid: 11155111
         blocktime: 15s
         starthash: "0x0000000000000000000000000000000000000000"
+        rollupRetryDelay: 10s
         l1contracts:
             management: "0x0000000000000000000000000000000000000000"
             messagebus: "0x0000000000000000000000000000000000000000"
