@@ -47,6 +47,7 @@ config:
       chainid: "11155111"
       blocktime: 15s
       starthash: "{{ .Values.l1Config.starthash }}"
+      rollupRetryDelay: "{{ .Values.l1Config.rollupRetryDelay }}"
       l1contracts:
         messagebus: "{{ .Values.l1Config.messagebus }}"
         bridge: "{{ .Values.l1Config.bridge }}"
