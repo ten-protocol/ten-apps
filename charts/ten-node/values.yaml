@@ -82,7 +82,7 @@ enclave:
       repository: testnetobscuronet.azurecr.io/obscuronet/edbconnect
       tag: latest
       pullPolicy: Always
-    command: ["/bin/sh", "-c", "tail -f /dev/null"]
+    command:  [ "/bin/sh", "-c", "tail -f /dev/null" ]
     resources: {} # Define any specific resources for this sidecar if needed
   edb:
     image:
@@ -193,7 +193,7 @@ enclave02:
       repository: testnetobscuronet.azurecr.io/obscuronet/edbconnect
       tag: latest
       pullPolicy: Always
-    command: ["/bin/sh", "-c", "tail -f /dev/null"]
+    command: ["ego", "run", "/home/ten/go-ten/tools/edbconnect/main/main", "0.0.0.0"]
   edb:
     image:
       repository: "ghcr.io/edgelesssys"
@@ -295,7 +295,6 @@ config:
         chainid: 11155111
         blocktime: 15s
         starthash: "0x0000000000000000000000000000000000000000"
-        rollupRetryDelay: 10s
         l1contracts:
             management: "0x0000000000000000000000000000000000000000"
             messagebus: "0x0000000000000000000000000000000000000000"
