@@ -106,6 +106,7 @@ enclave:
         sgx.intel.com/enclave: 1
     storage:
       spec:
+        storageClassName: "azurefile-premium"
         accessModes:
           - ReadWriteOnce
         resources:
