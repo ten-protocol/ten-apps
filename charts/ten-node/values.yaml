@@ -273,7 +273,7 @@ postgresql:
 
   persistence:
     enabled: true
-    storageClass: ""
+    storageClass: "azurefile-csi-premium"
     accessMode: ReadWriteOnce
     size: 20Gi
 
