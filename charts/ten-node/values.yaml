@@ -65,10 +65,10 @@ enclave:
   resources:
     limits:
       memory: 8Gi
-      cpu: 2000m
+      cpu: 2
     requests:
       memory: 8Gi
-      cpu: 1000m
+      cpu: 1
 
   # storage:
   #   storageClass: "default"
@@ -102,8 +102,8 @@ enclave:
     resources:
       limits:
         sgx.intel.com/epc: "10Mi"
-        sgx.intel.com/provision: 1
-        sgx.intel.com/enclave: 1
+        sgx.intel.com/provision: '1'
+        sgx.intel.com/enclave: '1'
     storage:
       spec:
         storageClassName: "azurefile-premium"
@@ -177,7 +177,7 @@ enclave02:
   resources:
     limits:
       memory: 8Gi
-      cpu: 2000m
+      cpu: 2
     requests:
       memory: 8Gi
       cpu: 1000m
