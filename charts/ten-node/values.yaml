@@ -65,10 +65,10 @@ enclave:
   resources:
     limits:
       memory: 8Gi
-      cpu: 2
+      cpu: 2000m
     requests:
       memory: 8Gi
-      cpu: 1
+      cpu: 1000m
 
   # storage:
   #   storageClass: "default"
@@ -102,11 +102,11 @@ enclave:
     resources:
       limits:
         sgx.intel.com/epc: "10Mi"
-        sgx.intel.com/provision: '1'
-        sgx.intel.com/enclave: '1'
+        sgx.intel.com/provision: 1
+        sgx.intel.com/enclave: 1
     storage:
       spec:
-        storageClassName: "azurefile-premium"
+        storageClassName: "premium2-disk-sc"
         accessModes:
           - ReadWriteOnce
         resources:
@@ -177,7 +177,7 @@ enclave02:
   resources:
     limits:
       memory: 8Gi
-      cpu: 2
+      cpu: 2000m
     requests:
       memory: 8Gi
       cpu: 1000m
@@ -217,7 +217,6 @@ enclave02:
         sgx.intel.com/enclave: 1
     storage:
       spec:
-        storageClassName: "azurefile-premium"
         accessModes:
           - ReadWriteOnce
         resources:

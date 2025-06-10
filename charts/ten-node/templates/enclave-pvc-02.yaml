@@ -22,7 +22,7 @@ metadata:
     app: {{ .Release.Name }}-enclave02
     {{- include "ten-node.labels" . | nindent 4 }}
 spec:
-    storageClassName: {{ .Values.enclave02.storage.storageClassName | default "azurefile-premium" }}
+    storageClassName: {{ .Values.enclave02.storage.storageClassName | default "premium2-disk-sc" }}
     {{- toYaml .Values.enclave02.storage.spec | nindent 4 }}
 
 {{- end }}
