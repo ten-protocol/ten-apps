@@ -28,6 +28,8 @@ host:
     repository: "testnetobscuronet.azurecr.io/obscuronet/uat_host"
     tag: "latest"
   fqdn: uat-testnet-sequencer.ten.xyz
+  nodeSelector:
+    kubernetes.io/hostname: aks-sgxpool-55812500-vmss000000
 
 config:
   network:

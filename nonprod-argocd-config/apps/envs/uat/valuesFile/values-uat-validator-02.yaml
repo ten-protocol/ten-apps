@@ -17,6 +17,9 @@ host:
     repository: "testnetobscuronet.azurecr.io/obscuronet/uat_host"
     tag: "latest"
   fqdn: uat-validator-02.ten.xyz
+  nodeSelector:
+    kubernetes.io/hostname: aks-sgxpool-55812500-vmss000002
+
 
 config:
   network:
