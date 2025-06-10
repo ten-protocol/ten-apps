@@ -22,4 +22,5 @@ metadata:
     app: {{ .Release.Name }}-enclave
     {{- include "ten-node.labels" . | nindent 4 }}
 spec:
+    storageClassName: {{ .Values.enclave.storage.storageClassName | default "azurefile-premium" }}
     {{- toYaml .Values.enclave.storage.spec | nindent 4 }}
