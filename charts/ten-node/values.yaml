@@ -101,7 +101,7 @@ enclave:
     launchMarble: false
     resources:
       limits:
-        sgx.intel.com/epc: "10Mi"
+        sgx.intel.com/epc: "128Mi"
         sgx.intel.com/provision: 1
         sgx.intel.com/enclave: 1
     storage:
