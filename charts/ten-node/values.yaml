@@ -101,9 +101,9 @@ enclave:
     launchMarble: false
     resources:
       limits:
-        sgx.intel.com/epc: "128Mi"
-        sgx.intel.com/provision: 1
-        sgx.intel.com/enclave: 1
+        sgx.intel.com/epc: 4Gi
+        sgx.intel.com/provision: 10
+        sgx.intel.com/enclave: 10
     storage:
       spec:
         storageClassName: "premium2-disk-sc"
