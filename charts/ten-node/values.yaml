@@ -64,11 +64,11 @@ enclave:
 
   resources:
     limits:
-      memory: 8Gi
-      cpu: 4000m
-    requests:
-      memory: 8Gi
+      memory: 4Gi
       cpu: 2000m
+    requests:
+      memory: 4Gi
+      cpu: 1000m
 
   # storage:
   #   storageClass: "default"
@@ -101,7 +101,15 @@ enclave:
     launchMarble: false
     resources:
       limits:
+        memory: 8Gi
+        cpu: 4000m
         sgx.intel.com/epc: 4Gi
+        sgx.intel.com/provision: 10
+        sgx.intel.com/enclave: 10
+      requests:
+        memory: 6Gi
+        cpu: 2000m
+        sgx.intel.com/epc: 2Gi
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
     storage:
@@ -212,9 +220,17 @@ enclave02:
     launchMarble: false
     resources:
       limits:
-        sgx.intel.com/epc: "10Mi"
-        sgx.intel.com/provision: 1
-        sgx.intel.com/enclave: 1
+        memory: 8Gi
+        cpu: 4000m
+        sgx.intel.com/epc: 4Gi
+        sgx.intel.com/provision: 10
+        sgx.intel.com/enclave: 10
+      requests:
+        memory: 6Gi
+        cpu: 2000m
+        sgx.intel.com/epc: 2Gi
+        sgx.intel.com/provision: 10
+        sgx.intel.com/enclave: 10
     storage:
       spec:
         accessModes:
