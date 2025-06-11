@@ -109,7 +109,7 @@ enclave:
       requests:
         memory: 6Gi
         cpu: 2000m
-        sgx.intel.com/epc: 2Gi
+        sgx.intel.com/epc: 4Gi
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
     storage:
