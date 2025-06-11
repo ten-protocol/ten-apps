@@ -65,10 +65,10 @@ enclave:
   resources:
     limits:
       memory: 8Gi
-      cpu: 2000m
+      cpu: 4000m
     requests:
       memory: 8Gi
-      cpu: 1000m
+      cpu: 2000m
 
   # storage:
   #   storageClass: "default"
