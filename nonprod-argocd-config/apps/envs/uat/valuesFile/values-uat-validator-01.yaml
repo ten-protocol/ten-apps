@@ -78,7 +78,7 @@ config:
       l1blobarchiveurl: "https://eth-beacon-chain-sepolia.drpc.org/rest/"
       rpctimeout: 15s
     log:
-      level: 4
+      level: 3
       path: sys_out
     p2p:
       isdisabled: false
@@ -104,7 +104,7 @@ config:
       enableblockvalidation: false
       genesisjson: []
     log:
-      level: 4
+      level: 3
       path: sys_out
     rpc:
       bindaddress: 0.0.0.0:11001
