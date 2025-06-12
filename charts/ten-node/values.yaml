@@ -108,13 +108,13 @@ enclave:
         sgx.intel.com/enclave: 10
       requests:
         memory: 6Gi
-        cpu: 3000m
+        cpu: 2000m
         sgx.intel.com/epc: 6Gi
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
     storage:
       spec:
-        storageClassName: "premium2-disk-sc"
+        storageClassName: "ultra-disk-sc"
         accessModes:
           - ReadWriteOnce
         resources:
@@ -227,7 +227,7 @@ enclave02:
         sgx.intel.com/enclave: 10
       requests:
         memory: 6Gi
-        cpu: 3000m
+        cpu: 2000m
         sgx.intel.com/epc: 6Gi
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10

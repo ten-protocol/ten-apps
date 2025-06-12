@@ -11,6 +11,20 @@ enclave:
     kubernetes.io/hostname: aks-sgxpool-55812500-vmss000001
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
+  edb:
+    resources:
+      limits:
+        memory: 8Gi
+        cpu: 4000m
+        sgx.intel.com/epc: 6Gi
+        sgx.intel.com/provision: 10
+        sgx.intel.com/enclave: 10
+      requests:
+        memory: 6Gi
+        cpu: 3000m
+        sgx.intel.com/epc: 6Gi
+        sgx.intel.com/provision: 10
+        sgx.intel.com/enclave: 10
   
 host:
   image:
