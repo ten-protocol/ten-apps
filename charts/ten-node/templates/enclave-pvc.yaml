@@ -23,5 +23,5 @@ metadata:
     app: {{ .Release.Name }}-enclave
     {{- include "ten-node.labels" . | nindent 4 }}
 spec:
-    storageClassName: {{ .Values.enclave.storage.storageClassName | default "ultra-disk-sc" }}
+    storageClassName: {{ .Values.enclave.storage.storageClassName | default "default" }}
     {{- toYaml .Values.enclave.storage.spec | nindent 4 }}

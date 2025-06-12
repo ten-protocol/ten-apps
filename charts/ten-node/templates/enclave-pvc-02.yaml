@@ -23,7 +23,7 @@ metadata:
     app: {{ .Release.Name }}-enclave02
     {{- include "ten-node.labels" . | nindent 4 }}
 spec:
-    storageClassName: ultra-disk-sc
+    storageClassName: default
     {{- toYaml .Values.enclave02.storage.spec | nindent 4 }}
 
 {{- end }}
