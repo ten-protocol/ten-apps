@@ -114,7 +114,7 @@ enclave:
         sgx.intel.com/enclave: 10
     storage:
       spec:
-        storageClassName: "managed-premium"
+        storageClassName: "premium2-disk-sc"
         accessModes:
           - ReadWriteOnce
         resources:
