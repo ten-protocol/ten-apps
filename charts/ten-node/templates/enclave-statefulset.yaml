@@ -71,9 +71,9 @@ spec:
           securityContext:
             privileged: true
             runAsUser: 0
-          volumeMounts:
-          - name: {{ include "ten-node.fullname" . }}-enclave-db
-            mountPath: /data
+          # volumeMounts:
+          # - name: {{ include "ten-node.fullname" . }}-enclave-db
+          #   mountPath: /data
         - name: {{ .Chart.Name }}-enclave
           securityContext:
             privileged: true
