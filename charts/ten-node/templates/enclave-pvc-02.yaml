@@ -11,7 +11,7 @@ metadata:
   annotations:
      argocd.argoproj.io/sync-wave: "1"
 spec:
-    storageClassName: managed-premium
+    storageClassName: premium2-disk-sc
     {{- toYaml .Values.enclave02.edb.storage.spec | nindent 4 }}
 ---
 apiVersion: v1
@@ -23,7 +23,7 @@ metadata:
     app: {{ .Release.Name }}-enclave02
     {{- include "ten-node.labels" . | nindent 4 }}
 spec:
-    storageClassName: managed-premium
+    storageClassName: premium2-disk-sc
     {{- toYaml .Values.enclave02.storage.spec | nindent 4 }}
 
 {{- end }}
