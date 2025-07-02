@@ -88,7 +88,7 @@ spec:
             - name: NETWORK_BATCH_MAXINTERVAL
               value: {{ .Values.config.network.batch.maxinterval | default "1s" | quote }}
             - name: NETWORK_ROLLUP_INTERVAL
-              value: {{ .Values.config.network.rollup.interval | default "15m0s" | quote }}
+              value: {{ .Values.config.network.rollup.interval | default "6h" | quote }}
             - name: L1_ROLLUP_RETRY_INTERVAL
               value: {{ .Values.config.network.l1.rollupRetryDelay | default "10s" | quote }}
             - name: NETWORK_L1_CONTRACTS_BRIDGE
