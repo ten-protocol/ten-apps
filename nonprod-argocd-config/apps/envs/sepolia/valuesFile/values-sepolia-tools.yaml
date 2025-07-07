@@ -15,7 +15,7 @@ faucet:
   nodePort: "80"
   pk: "YOUR_FAUCET_PRIVATE_KEY"
   jwtSecret: "YOUR_JWT_SECRET"
-  host: "sepolia-faucet.tenscan.io"
+  host: "faucet-testnet.ten.xyz"
 
 tenscan:
   api:
