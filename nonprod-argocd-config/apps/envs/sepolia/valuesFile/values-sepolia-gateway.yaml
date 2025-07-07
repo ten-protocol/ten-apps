@@ -68,4 +68,4 @@ affinity: {}
 externalSecrets:
   enabled: true
   secretMappings:
-    dbConnectionURL: "sepoliatestnet-gateway-connection-string"
+    dbConnectionURL: "sepolia-gateway-connection-string"
