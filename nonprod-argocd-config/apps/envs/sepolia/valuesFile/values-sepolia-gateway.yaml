@@ -2,9 +2,9 @@ replicaCount: 1
 
 frontend:
   name: obscuro-gateway
-  domain: uat-gw-testnet.ten.xyz
+  domain: gateway-tmp.ten.xyz 
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_uat_testnet_fe
+    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_sepolia_testnet_fe_k8s
     tag: latest
     pullPolicy: IfNotPresent
   containerPort: 80
@@ -21,12 +21,12 @@ frontend:
 
 backend:
   name: obscuro-gateway
-  domain: rpc.uat-gw-testnet.ten.xyz
+  domain: rpc.gateway-tmp.ten.xyz 
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_uat_testnet
+    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_sepolia_testnet_k8s
     tag: latest
     pullPolicy: Always
-  nodeHost: "erpc.uat-testnet.ten.xyz"
+  nodeHost: "erpc.sepolia-testnet.ten.xyz"
   dbType: "cosmosDB"
   rateLimitUserComputeTime: 0
   rateLimitWindow: "1m"
@@ -34,9 +34,9 @@ backend:
   encryptionKeySource: "new"
   insideEnclave: true
   enableTLS: true
-  tlsDomain: "rpc.uat-gw-testnet.ten.xyz"
+  tlsDomain: "rpc.sepolia-gw-testnet.ten.xyz"
   nodePortHTTP: 80
-  nodePortWS: 443
+  nodePortWS: 81
   verbose: true
   ports:
     http: 80
@@ -61,6 +61,11 @@ resources:
     cpu: 500m
     memory: 5Gi
 nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool2-37956146-vmss000001
+    kubernetes.io/hostname: aks-sgxpool-54727109-vmss000000
 tolerations: []
 affinity: {}
+
+externalSecrets:
+  enabled: true
+  secretMappings:
+    dbConnectionURL: "sepoliatestnet-gateway-connection-string"

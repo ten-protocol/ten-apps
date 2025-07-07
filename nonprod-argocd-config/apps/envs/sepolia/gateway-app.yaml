@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: uat-gateway
+  name: sepolia-gateway
   namespace: argocd
 spec:
   project: default
@@ -11,10 +11,10 @@ spec:
     path: charts/ten-gateway             # <-- Path to actual chart
     helm:
       valueFiles:
-        - ../../nonprod-argocd-config/apps/envs/uat/valuesFile/values-uat-gateway.yaml
+        - ../../nonprod-argocd-config/apps/envs/sepolia/valuesFile/values-sepolia-gateway.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: uat
+    namespace: sepolia
   syncPolicy: 
     syncOptions:
       - CreateNamespace=true
