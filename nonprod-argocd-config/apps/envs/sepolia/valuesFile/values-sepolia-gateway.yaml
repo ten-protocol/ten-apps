@@ -21,12 +21,12 @@ frontend:
 
 backend:
   name: obscuro-gateway
-  domain: rpc.gateway-tmp.ten.xyz 
+  domain: testnet-tmp.ten.xyz
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_sepolia_testnet_k8s
     tag: latest
     pullPolicy: Always
-  nodeHost: "erpc.sepolia-testnet.ten.xyz"
+  nodeHost: "sepolia-validator-01.ten.xyz"
   dbType: "cosmosDB"
   rateLimitUserComputeTime: 0
   rateLimitWindow: "1m"
@@ -34,7 +34,7 @@ backend:
   encryptionKeySource: "new"
   insideEnclave: true
   enableTLS: true
-  tlsDomain: "rpc.sepolia-gw-testnet.ten.xyz"
+  tlsDomain: "testnet-tmp.ten.xyz"
   nodePortHTTP: 80
   nodePortWS: 81
   verbose: true
