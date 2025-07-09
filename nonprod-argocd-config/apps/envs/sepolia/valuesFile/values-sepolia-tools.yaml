@@ -24,7 +24,7 @@ tenscan:
       repository: testnetobscuronet.azurecr.io/obscuronet/api_obscuro_scan_sepolia_testnet
       tag: latest
     nodeHostAddress: "http://sepolia-validator-01.ten.xyz:80"
-    host: "sepolia-testnet-api.tenscan.io"
+    host: "sepolia-testnet-api-tmp.tenscan.io"
 
   fe:
     replicaCount: 1
@@ -32,10 +32,10 @@ tenscan:
       repository: testnetobscuronet.azurecr.io/obscuronet/fe_obscuro_scan_sepolia_testnet
       tag: latest
     env:
-      apiHost: "https://sepolia-testnet-api.tenscan.io"
+      apiHost: "https://sepolia-testnet-api-tmp.tenscan.io"
       version: "v1.0.0"
       environment: "sepolia"
-    host: "sepolia-testnet.tenscan.io"
+    host: "sepolia.tenscan.io"
 
 resources: {}
 nodeSelector: {}
