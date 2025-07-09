@@ -25,10 +25,18 @@ spec:
         - name: backend-pvc-volume
           persistentVolumeClaim:
             claimName: {{ include "ten-gateway.fullname" . }}-backend-pvc
-        - name: aesmd-sock
+        - name: aesmd-socket
           hostPath:
             path: /var/run/aesmd
             type: DirectoryOrCreate
+        - name: sgx-device-enclave
+          hostPath:
+            path: /dev/sgx_enclave
+            type: CharDevice
+        - name: sgx-device-provision
+          hostPath:
+            path: /dev/sgx_provision
+            type: CharDevice
     
       containers:
         - name: {{ include "ten-gateway.name" . }}
@@ -61,16 +69,28 @@ spec:
                 -nodeHost={{ .Values.backend.nodeHost }} \
                 -nodePortHTTP={{ .Values.backend.nodePortHTTP }} \
                 -nodePortWS={{ .Values.backend.nodePortWS }} \
-                -logLevel=warn 
+                -logLevel=debug 
           volumeMounts:
             - name: db-secret-volume
               mountPath: /secrets
               readOnly: true
             - name: backend-pvc-volume
               mountPath: /data
+            - name: aesmd-socket
+              mountPath: /var/run/aesmd
+            - name: sgx-device-enclave
+              mountPath: /dev/sgx_enclave
+            - name: sgx-device-provision
+              mountPath: /dev/sgx_provision
           env:
             - name: OE_SIMULATION
               value: {{ .Values.backend.env.OE_SIMULATION | quote }}
+            - name: AESM_PATH
+              value: "/var/run/aesmd/aesm.socket"
+            - name: PCCS_URL
+              value: "https://global.acccache.azure.net/sgx/certification/v4/"
+ 
+
           envFrom:
             - secretRef:
                 name: {{ include "ten-gateway.fullname" . }}-backend-secret
