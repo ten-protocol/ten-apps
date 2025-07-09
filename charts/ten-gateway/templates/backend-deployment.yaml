@@ -25,6 +25,11 @@ spec:
         - name: backend-pvc-volume
           persistentVolumeClaim:
             claimName: {{ include "ten-gateway.fullname" . }}-backend-pvc
+        # socket for AKS quote-helper
+        - name: aesmd-sock
+          hostPath:
+            path: /var/run/aesmd
+            type: DirectoryOrCreate
     
       containers:
         - name: {{ include "ten-gateway.name" . }}
@@ -64,7 +69,12 @@ spec:
               readOnly: true
             - name: backend-pvc-volume
               mountPath: /data
+            # mount the helper socket
+            - name: aesmd-sock
+              mountPath: /var/run/aesmd
           env:
+            - name: SGX_AESM_ADDR      # tell OE to use the helper
+              value: "1"
             - name: OE_SIMULATION
               value: {{ .Values.backend.env.OE_SIMULATION | quote }}
           envFrom:
@@ -78,6 +88,13 @@ spec:
             # - name: websocket
             #   containerPort: 443
           resources:
-            {{- toYaml .Values.backend.resources | nindent 12 }}
+            requests:
+              {{- if .Values.backend.resources.requests.cpu }}cpu: {{ .Values.backend.resources.requests.cpu }}{{ end }}
+              {{- if .Values.backend.resources.requests.memory }}memory: {{ .Values.backend.resources.requests.memory }}{{ end }}
+              sgx.intel.com/enclave: "1"
+            limits:
+              {{- if .Values.backend.resources.limits.cpu }}cpu: {{ .Values.backend.resources.limits.cpu }}{{ end }}
+              {{- if .Values.backend.resources.limits.memory }}memory: {{ .Values.backend.resources.limits.memory }}{{ end }}
+              sgx.intel.com/enclave: "1"
       nodeSelector:
         {{- toYaml .Values.backend.nodeSelector | nindent 8 }}
