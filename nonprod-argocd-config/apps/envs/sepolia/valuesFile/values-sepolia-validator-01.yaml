@@ -1,7 +1,7 @@
 global:
   imagePullSecrets: []
   imagePullPolicy: Always
-  destructiveDeployment: true
+  destructiveDeployment: false
 
 enclave:
   image:
@@ -51,10 +51,10 @@ config:
       maxinterval: 1s
       maxsize: 56320
     gas:
-      basefee: "1000000000"
-      mingasprice: "1000000000"
+      basefee: "100000000"
+      mingasprice: "100000000"
       paymentaddress: "0xd6C9230053f45F873Cb66D8A02439380a37A4fbF"
-      batchexecutionlimit: "30000000"
+      batchexecutionlimit: "300000000"
       localexecutioncap: "300000000000"
     l1:
       chainid: "11155111"
