@@ -68,7 +68,7 @@ config:
         enclaveRegistry: "{{ .Values.l1Config.enclaveRegistry }}"
         networkConfig: "{{ .Values.l1Config.networkConfig }}"
     rollup:
-      interval: 15m0s
+      interval: 6h
       maxinterval: 10m0s
       maxsize: 131072
     sequencer:
