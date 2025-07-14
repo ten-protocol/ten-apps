@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: uat-validator-02
+  name: dev-validator-02
   namespace: argocd
 spec:
   project: default
@@ -11,11 +11,11 @@ spec:
     path: charts/ten-node             # <-- Path to actual chart
     helm:
       valueFiles:
-        - ../../nonprod-argocd-config/apps/envs/uat/valuesFile/values-uat-validator-02.yaml
-        - ../../nonprod-argocd-config/apps/envs/uat/valuesFile/l1-values.yaml
+        - ../../nonprod-argocd-config/apps/envs/dev/valuesFile/values-dev-validator-02.yaml
+        - ../../nonprod-argocd-config/apps/envs/dev/valuesFile/l1-values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: uat
+    namespace: dev
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
