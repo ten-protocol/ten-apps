@@ -100,24 +100,24 @@ spec:
               containerPort: 80
             # - name: websocket
             #   containerPort: 443
-          readinessProbe:
-            httpGet:
-              scheme: HTTPS
-              port: 443
-              path: /v1/health/
-              host: {{ .Values.backend.tlsDomain | quote }}
-            initialDelaySeconds: 5
-            periodSeconds: 10
-            timeoutSeconds: 2
-          livenessProbe:
-            httpGet:
-              scheme: HTTPS
-              port: 443
-              path: /v1/health/
-              host: {{ .Values.backend.tlsDomain | quote }}
-            initialDelaySeconds: 15
-            periodSeconds: 20
-            timeoutSeconds: 2
+          # readinessProbe:
+          #   httpGet:
+          #     scheme: HTTPS
+          #     port: 443
+          #     path: /v1/health/
+          #     host: {{ .Values.backend.tlsDomain | quote }}
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 10
+          #   timeoutSeconds: 2
+          # livenessProbe:
+          #   httpGet:
+          #     scheme: HTTPS
+          #     port: 443
+          #     path: /v1/health/
+          #     host: {{ .Values.backend.tlsDomain | quote }}
+          #   initialDelaySeconds: 15
+          #   periodSeconds: 20
+          #   timeoutSeconds: 2
           resources:
             {{- toYaml .Values.backend.resources | nindent 12 }}
       nodeSelector:
