@@ -7,7 +7,7 @@ enclave:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.4.0"
+    tag: "v1.4.1-uat"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-10941456-vmss000000
   secretEnv:
@@ -31,7 +31,7 @@ enclave02:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.4.0"
+    tag: "v1.4.1-uat"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-10941456-vmss000002
   secretEnv:
@@ -40,7 +40,7 @@ enclave02:
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.4.0"
+    tag: "v1.4.1-uat"
   fqdn: uat-testnet-sequencer.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-10941456-vmss000000
@@ -72,7 +72,7 @@ config:
         enclaveRegistry: "{{ .Values.l1Config.enclaveRegistry }}"
         networkConfig: "{{ .Values.l1Config.networkConfig }}"
     rollup:
-      interval: 15m0s
+      interval: 6h
       maxinterval: 10m0s
       maxsize: 131072
     sequencer:
