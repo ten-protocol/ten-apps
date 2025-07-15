@@ -49,15 +49,15 @@ spec:
             - /home/ten/go-ten/tools/walletextension/main/entry.sh
           args:
             - sh
-            - '-c'
-            - >
+            - -c
+            - |
               ego run /home/ten/go-ten/tools/walletextension/main/main \
               -host=0.0.0.0 \
-              -port={{ .Values.backend.ports.https }} \
-              -portWS={{ .Values.backend.ports.websocket }} \
+              -port=443 \
+              -portWS=443 \
               -logPath=sys_out \
               -dbType={{ .Values.backend.dbType }} \
-              -dbConnectionURL="${dbConnectionURL}" \
+              -dbConnectionURL=${dbConnectionURL} \
               -rateLimitUserComputeTime={{ .Values.backend.rateLimitUserComputeTime }} \
               -rateLimitWindow={{ .Values.backend.rateLimitWindow }} \
               -maxConcurrentRequestsPerUser={{ .Values.backend.maxConcurrentRequestsPerUser }} \
@@ -68,7 +68,7 @@ spec:
               -nodeHost={{ .Values.backend.nodeHost }} \
               -nodePortHTTP={{ .Values.backend.nodePortHTTP }} \
               -nodePortWS={{ .Values.backend.nodePortWS }} \
-              -logLevel=warn
+              -logLevel={{ .Values.backend.logLevel }}
           volumeMounts:
             - name: db-secret-volume
               mountPath: /secrets
