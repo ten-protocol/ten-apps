@@ -46,30 +46,29 @@ spec:
           image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
           imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
           command:
-            - "/bin/bash"
-            - "-c"
+            - /home/ten/go-ten/tools/walletextension/main/entry.sh
           args:
-            - |
-              set -a
-              set +a
+            - sh
+            - '-c'
+            - >
               ego run /home/ten/go-ten/tools/walletextension/main/main \
-                -host=0.0.0.0 \
-                -port={{ .Values.backend.ports.https }} \
-                -portWS={{ .Values.backend.ports.websocket }} \
-                -logPath=sys_out \
-                -dbType={{ .Values.backend.dbType }} \
-                -dbConnectionURL="${dbConnectionURL}" \
-                -rateLimitUserComputeTime={{ .Values.backend.rateLimitUserComputeTime }} \
-                -rateLimitWindow={{ .Values.backend.rateLimitWindow }} \
-                -maxConcurrentRequestsPerUser={{ .Values.backend.maxConcurrentRequestsPerUser }} \
-                -encryptionKeySource={{ .Values.backend.encryptionKeySource }} \
-                -insideEnclave={{ .Values.backend.insideEnclave }} \
-                -enableTLS={{ .Values.backend.enableTLS }} \
-                -tlsDomain={{ .Values.backend.tlsDomain }} \
-                -nodeHost={{ .Values.backend.nodeHost }} \
-                -nodePortHTTP={{ .Values.backend.nodePortHTTP }} \
-                -nodePortWS={{ .Values.backend.nodePortWS }} \
-                -logLevel=debug 
+              -host=0.0.0.0 \
+              -port={{ .Values.backend.ports.https }} \
+              -portWS={{ .Values.backend.ports.websocket }} \
+              -logPath=sys_out \
+              -dbType={{ .Values.backend.dbType }} \
+              -dbConnectionURL="${dbConnectionURL}" \
+              -rateLimitUserComputeTime={{ .Values.backend.rateLimitUserComputeTime }} \
+              -rateLimitWindow={{ .Values.backend.rateLimitWindow }} \
+              -maxConcurrentRequestsPerUser={{ .Values.backend.maxConcurrentRequestsPerUser }} \
+              -encryptionKeySource={{ .Values.backend.encryptionKeySource }} \
+              -insideEnclave={{ .Values.backend.insideEnclave }} \
+              -enableTLS={{ .Values.backend.enableTLS }} \
+              -tlsDomain={{ .Values.backend.tlsDomain }} \
+              -nodeHost={{ .Values.backend.nodeHost }} \
+              -nodePortHTTP={{ .Values.backend.nodePortHTTP }} \
+              -nodePortWS={{ .Values.backend.nodePortWS }} \
+              -logLevel=warn
           volumeMounts:
             - name: db-secret-volume
               mountPath: /secrets
