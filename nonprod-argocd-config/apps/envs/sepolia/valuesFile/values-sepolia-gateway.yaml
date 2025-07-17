@@ -34,7 +34,7 @@ backend:
   encryptionKeySource: "https://testnet.ten.xyz"
   insideEnclave: true
   enableTLS: true
-  tlsDomain: "testnet-tmp.ten.xyz"
+  tlsDomain: "rpc-tmp.sepolia-testnet.ten.xyz"
   nodePortHTTP: 80
   nodePortWS: 81
   verbose: true
