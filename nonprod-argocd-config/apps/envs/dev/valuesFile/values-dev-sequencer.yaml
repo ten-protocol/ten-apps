@@ -6,10 +6,10 @@ global:
 enclave:
   replicaCount: 1
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.4.0"
+    repository: testnetobscuronet.azurecr.io/obscuronet/dev_enclave
+    tag: "latest"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-10941456-vmss000000
+    kubernetes.io/hostname: aks-sgxpool-10941456-vmss00000a
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
@@ -27,23 +27,23 @@ enclave:
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
 enclave02:
-  enabled: true
+  enabled: false
   replicaCount: 1
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.4.0"
+    repository: testnetobscuronet.azurecr.io/obscuronet/dev_enclave
+    tag: "latest"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-10941456-vmss000002
+    kubernetes.io/hostname: aks-sgxpool-10941456-vmss00000a
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
 
 host:
   image:
-    repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.4.0"
-  fqdn: dev-testnet-sequencer.ten.xyz
+    repository: "testnetobscuronet.azurecr.io/obscuronet/dev_host"
+    tag: "latest"
+  fqdn: dev-sequencer.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-10941456-vmss000000
+    kubernetes.io/hostname: aks-sgxpool-10941456-vmss00000a
 
 config:
   network:
