@@ -28,7 +28,7 @@ enclave:
         sgx.intel.com/enclave: 10
 enclave02:
   enabled: false
-  replicaCount: 1
+  replicaCount: 0
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/dev_enclave
     tag: "latest"
