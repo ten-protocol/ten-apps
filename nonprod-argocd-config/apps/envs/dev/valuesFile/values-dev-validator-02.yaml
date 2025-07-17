@@ -36,7 +36,7 @@ config:
       batchexecutionlimit: "300000000"
       localexecutioncap: "300000000000"
     l1:
-      chainid: "11155111"
+      chainid: "1337"
       blocktime: 15s
       starthash: "{{ .Values.l1Config.starthash }}"
       l1contracts:
@@ -52,7 +52,7 @@ config:
       maxsize: 131072
     sequencer:
       p2paddress: dev-sequencer-ten-node-host:10000
-      systemcontractsupgrader: "0x76d412eBaA22Ab58783531b585128Cf50768abbE"
+      systemcontractsupgrader: "0x11431A88Fc53F3eE5Ae263067F96EAF91A0f0974"
     crosschain:
       interval: 6s
   node:
@@ -74,9 +74,9 @@ config:
         - obscuronode-enclave:11001
       rpctimeout: 10s
     l1:
-      websocketurl: "ws://sepolia-l1-node-02.uksouth.cloudapp.azure.com:81?id=tenuserpwd"
-      l1beaconurl: "https://ethereum-sepolia-beacon-api.publicnode.com"
-      l1blobarchiveurl: "https://eth-beacon-chain-sepolia.drpc.org/rest/"
+      websocketurl: "ws://dev-testnet-eth2network-522.uksouth.cloudapp.azure.com:9000"
+      l1beaconurl: "ws://dev-testnet-eth2network-522.uksouth.cloudapp.azure.com:12600"
+      l1blobarchiveurl: ""
       rpctimeout: 15s
     log:
       level: 3
