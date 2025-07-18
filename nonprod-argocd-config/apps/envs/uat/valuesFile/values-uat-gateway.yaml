@@ -61,7 +61,7 @@ resources:
     cpu: 500m
     memory: 5Gi
 nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-10941456-vmss00000h
+    kubernetes.io/hostname: aks-sgxpool-27861497-vmss000002
 tolerations: []
 affinity: {}
 
