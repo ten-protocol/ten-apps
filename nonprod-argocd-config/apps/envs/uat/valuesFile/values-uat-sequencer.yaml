@@ -7,9 +7,9 @@ enclave:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.4.1"
+    tag: "ego-fix"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23126921-vmss000000
+    kubernetes.io/hostname: aks-sgxpool-23126921-vmss000005
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
@@ -31,19 +31,19 @@ enclave02:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.4.1"
+    tag: "ego-fix"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23126921-vmss000001
+    kubernetes.io/hostname: aks-sgxpool-23126921-vmss000006
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
 
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.4.1"
+    tag: "ego-fix"
   fqdn: uat-testnet-sequencer.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23126921-vmss000000
+    kubernetes.io/hostname: aks-sgxpool-23126921-vmss000005
 
 config:
   network:
