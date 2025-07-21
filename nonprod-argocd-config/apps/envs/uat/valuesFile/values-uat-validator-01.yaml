@@ -6,9 +6,9 @@ global:
 enclave:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "ego-fix"
+    tag: "1.4.1-ego-fix"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00000a
+    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00000d
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
@@ -29,10 +29,10 @@ enclave:
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "ego-fix"
+    tag: "1.4.1-ego-fix"
   fqdn: uat-validator-01.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00000a
+    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00000d
 
 config:
   network:
