@@ -68,9 +68,9 @@ backend:
       sgx.intel.com/epc: 1Gi
       sgx.intel.com/provision: 10
       sgx.intel.com/enclave: 10
-nodeSelector: {}
-tolerations: []
-affinity: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
 
 externalSecrets:
   enabled: true
