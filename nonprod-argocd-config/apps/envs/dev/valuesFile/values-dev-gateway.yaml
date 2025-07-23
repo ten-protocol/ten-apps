@@ -53,17 +53,17 @@ backend:
     accessMode: ReadWriteOnce
     size: 1Gi
 
-resources: 
-  limits:
-    cpu: 1
-    memory: 5Gi
-  requests:
-    cpu: 500m
-    memory: 5Gi
-nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-10941456-vmss00000a
-tolerations: []
-affinity: {}
+  resources: 
+    limits:
+      cpu: 1
+      memory: 5Gi
+    requests:
+      cpu: 500m
+      memory: 5Gi
+  nodeSelector:
+      kubernetes.io/hostname: aks-sgxpool-10941456-vmss00000a
+  tolerations: []
+  affinity: {}
 
 externalSecrets:
   enabled: true

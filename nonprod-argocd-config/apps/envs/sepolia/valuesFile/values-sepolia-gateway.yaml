@@ -53,23 +53,23 @@ backend:
     accessMode: ReadWriteOnce
     size: 1Gi
 
-resources: 
-  limits:
-    cpu: 1
-    memory: 2Gi
-    sgx.intel.com/epc: 1Gi
-    sgx.intel.com/provision: 10
-    sgx.intel.com/enclave: 10
-  requests:
-    cpu: 500m
-    memory: 2Gi
-    sgx.intel.com/epc: 1Gi
-    sgx.intel.com/provision: 10
-    sgx.intel.com/enclave: 10
-nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-54727109-vmss000000
-tolerations: []
-affinity: {}
+  resources: 
+    limits:
+      cpu: 1
+      memory: 2Gi
+      sgx.intel.com/epc: 1Gi
+      sgx.intel.com/provision: 10
+      sgx.intel.com/enclave: 10
+    requests:
+      cpu: 500m
+      memory: 2Gi
+      sgx.intel.com/epc: 1Gi
+      sgx.intel.com/provision: 10
+      sgx.intel.com/enclave: 10
+  nodeSelector:
+      kubernetes.io/hostname: aks-sgxpool-54727109-vmss000000
+  tolerations: []
+  affinity: {}
 
 externalSecrets:
   enabled: true
