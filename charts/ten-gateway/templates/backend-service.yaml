@@ -6,6 +6,7 @@ metadata:
     {{- include "ten-gateway.labels" . | nindent 4 }}
     app.kubernetes.io/component: backend
   annotations:
+    argocd.argoproj.io/sync-options: "Delete=false" 
 spec:
   type: LoadBalancer
   ports:
