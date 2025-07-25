@@ -75,7 +75,7 @@ config:
       rpctimeout: 10s
     l1:
       websocketurl: "ws://dev-testnet-eth2network-522.uksouth.cloudapp.azure.com:9000"
-      l1beaconurl: "ws://dev-testnet-eth2network-522.uksouth.cloudapp.azure.com:12600"
+      l1beaconurl: "dev-testnet-eth2network-522.uksouth.cloudapp.azure.com:12600"
       l1blobarchiveurl: ""
       rpctimeout: 15s
     log:
