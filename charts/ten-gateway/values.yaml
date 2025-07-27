@@ -27,7 +27,7 @@ backend:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_dev_testnet
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   nodeHost: "dev-validator-01.ten.xyz:10000"
   dbType: "cosmosDB"
   rateLimitUserComputeTime: 0

@@ -15,27 +15,27 @@ faucet:
   nodePort: "80"
   pk: "YOUR_FAUCET_PRIVATE_KEY"
   jwtSecret: "YOUR_JWT_SECRET"
-  host: "dev-faucet.tenscan.io"
+  host: "dev-faucet.ten.xyz"
 
 tenscan:
   api:
-    replicaCount: 1
+    replicaCount: 0
     image:
       repository: testnetobscuronet.azurecr.io/obscuronet/api_obscuro_scan_dev_testnet
       tag: latest
     nodeHostAddress: "http://dev-validator-01.ten.xyz:80"
-    host: "dev-testnet-api.tenscan.io"
+    host: "dev-testnet-api.ten.xyz"
 
   fe:
-    replicaCount: 1
+    replicaCount: 0
     image:
       repository: testnetobscuronet.azurecr.io/obscuronet/fe_obscuro_scan_dev_testnet
       tag: latest
     env:
-      apiHost: "https://dev-testnet-api.tenscan.io"
+      apiHost: "https://dev-testnet-api.ten.xyz"
       version: "v1.0.0"
       environment: "dev"
-    host: "dev-testnet.tenscan.io"
+    host: "dev-testnet.ten.xyz"
 
 resources: {}
 nodeSelector: {}
