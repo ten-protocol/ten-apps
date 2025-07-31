@@ -8,7 +8,7 @@ enclave:
     repository: testnetobscuronet.azurecr.io/obscuronet/dev_enclave
     tag: "latest"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00000m
+    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00000p
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
 
@@ -18,7 +18,7 @@ host:
     tag: "latest"
   fqdn: dev-validator-02.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00000m
+    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00000p
 
 
 config:
