@@ -12,6 +12,11 @@ enclave:
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
+    image:
+      repository: "testnetobscuronet.azurecr.io/obscuronet/ten-edb"
+      tag: "v0.3.3.2"
+      pullPolicy: "Always"
+      imagePullSecrets: []
     resources:
       limits:
         memory: 8Gi
