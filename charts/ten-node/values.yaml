@@ -86,8 +86,8 @@ enclave:
     resources: {} # Define any specific resources for this sidecar if needed
   edb:
     image:
-      repository: "ghcr.io/edgelesssys"
-      tag: "v0.3.2"
+      repository: "testnetobscuronet.azurecr.io/obscuronet/ten-edb"
+      tag: "v0.3.3.2"
       pullPolicy: "Always"
       imagePullSecrets: []
     sqlApiHost: "0.0.0.0"
