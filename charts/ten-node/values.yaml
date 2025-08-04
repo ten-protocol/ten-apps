@@ -205,7 +205,7 @@ enclave02:
     command: ["ego", "run", "/home/ten/go-ten/tools/edbconnect/main/main", "0.0.0.0"]
   edb:
     image:
-      repository: "ghcr.io/edgelesssys"
+      repository: "testnetobscuronet.azurecr.io/obscuronet/ten-edb"
       tag: "v0.3.2"
       pullPolicy: "Always"
       imagePullSecrets: []
