@@ -59,7 +59,7 @@ spec:
           args: [ "-marble" ]
           {{- end }}
           name: edgelessdb
-          image: "{{ .Values.enclave.edb.image.repository }}/edgelessdb-sgx-{{ .Values.enclave.edb.heapSize }}gb:{{ .Values.enclave.edb.image.tag }}"
+          image: "{{ .Values.enclave.edb.image.repository }}:{{ .Values.enclave.edb.image.tag }}"
           imagePullPolicy: {{ .Values.enclave.edb.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.enclave.edb.sqlApiPort }}
