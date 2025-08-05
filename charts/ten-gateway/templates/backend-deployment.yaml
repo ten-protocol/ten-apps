@@ -98,8 +98,6 @@ spec:
               containerPort: 443
             - name: http
               containerPort: 80
-            # - name: websocket
-            #   containerPort: 443
           # readinessProbe:
           #   httpGet:
           #     scheme: HTTPS
