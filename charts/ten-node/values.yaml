@@ -87,7 +87,7 @@ enclave:
   edb:
     image:
       repository: "testnetobscuronet.azurecr.io/obscuronet/ten-edb-1024"
-      tag: "v0.3.3.6"
+      tag: "v0.3.3.7"
       pullPolicy: "Always"
       imagePullSecrets: []
     sqlApiHost: "0.0.0.0"
@@ -206,7 +206,7 @@ enclave02:
   edb:
     image:
       repository: "testnetobscuronet.azurecr.io/obscuronet/ten-edb-1024"
-      tag: "v0.3.3.6"
+      tag: "v0.3.3.7"
       pullPolicy: "Always"
       imagePullSecrets: []
     sqlApiHost: "0.0.0.0"
