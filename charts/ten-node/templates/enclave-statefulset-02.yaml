@@ -9,7 +9,7 @@ metadata:
     app: {{ .Release.Name }}-enclave02
     {{- include "ten-node.labels" . | nindent 4 }}
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "2"
 
 spec:
   serviceName: {{ include "ten-node.fullname" . }}-enclave02

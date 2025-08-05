@@ -8,7 +8,7 @@ metadata:
     app: {{ .Release.Name }}-enclave
     {{- include "ten-node.labels" . | nindent 4 }}
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   serviceName: {{ include "ten-node.fullname" . }}-enclave
   replicas: {{ .Values.enclave.replicaCount }}
