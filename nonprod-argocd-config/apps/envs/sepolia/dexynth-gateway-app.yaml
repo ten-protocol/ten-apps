@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dexynth-sepolia-gateway
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ten-protocol/ten-apps.git
+    targetRevision: main
+    path: charts/ten-gateway             # <-- Path to actual chart
+    helm:
+      valueFiles:
+        - ../../nonprod-argocd-config/apps/envs/sepolia/valuesFile/values-sepolia-gateway.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: sepolia
+  syncPolicy: 
+    syncOptions:
+      - CreateNamespace=true
