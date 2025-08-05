@@ -44,6 +44,7 @@ backend:
     http: 80
     https: 443
     websocket: 443
+    websocket81: 81
   env: 
     OE_SIMULATION: "0"
   dbConnectionURL: "REPLACE_ME"
