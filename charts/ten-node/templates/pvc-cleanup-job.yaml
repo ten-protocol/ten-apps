@@ -39,10 +39,10 @@ spec:
               PVC_ENCLAVE_DB="{{ include "ten-node.fullname" . }}-enclave-db"
               PVC_ENCLAVE_DATA="{{ include "ten-node.fullname" . }}-enclave"
              
-              kubectl delete deploy "$DEPLOY_HOST" -n {{ .Release.Namespace }} --ignore-not-found=true
-              kubectl delete sts "$STS_ENCLAVE" -n {{ .Release.Namespace }} --ignore-not-found=true
-              kubectl delete pvc "$PVC_ENCLAVE_DB" -n {{ .Release.Namespace }} --ignore-not-found=true
-              kubectl delete pvc "$PVC_ENCLAVE_DATA" -n {{ .Release.Namespace }} --ignore-not-found=true
+              kubectl delete deploy "$DEPLOY_HOST" -n {{ .Release.Namespace }} --ignore-not-found=true --grace-period=0 --force
+              kubectl delete sts "$STS_ENCLAVE" -n {{ .Release.Namespace }} --ignore-not-found=true --grace-period=0 --force
+              kubectl delete pvc "$PVC_ENCLAVE_DB" -n {{ .Release.Namespace }} --ignore-not-found=true --grace-period=0 --force
+              kubectl delete pvc "$PVC_ENCLAVE_DATA" -n {{ .Release.Namespace }} --ignore-not-found=true --grace-period=0 --force
               
               
               {{- if .Values.enclave02.enabled }}
@@ -50,9 +50,9 @@ spec:
               STS_ENCLAVE02="{{ include "ten-node.fullname" . }}-enclave02"
               PVC_ENCLAVE02_DB="{{ include "ten-node.fullname" . }}-enclave02-db"
               PVC_ENCLAVE02_DATA="{{ include "ten-node.fullname" . }}-enclave02"
-              kubectl delete sts "$STS_ENCLAVE02" -n {{ .Release.Namespace }} --ignore-not-found=true 
-              kubectl delete pvc "$PVC_ENCLAVE02_DB" -n {{ .Release.Namespace }} --ignore-not-found=true
-              kubectl delete pvc "$PVC_ENCLAVE02_DATA" -n {{ .Release.Namespace }} --ignore-not-found=true
+              kubectl delete sts "$STS_ENCLAVE02" -n {{ .Release.Namespace }} --ignore-not-found=true --grace-period=0 --force
+              kubectl delete pvc "$PVC_ENCLAVE02_DB" -n {{ .Release.Namespace }} --ignore-not-found=true --grace-period=0 --force
+              kubectl delete pvc "$PVC_ENCLAVE02_DATA" -n {{ .Release.Namespace }} --ignore-not-found=true --grace-period=0 --force
               {{- end }}
               echo "PVC deletion process completed."
 {{- end }}
