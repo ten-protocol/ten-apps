@@ -6,8 +6,8 @@ global:
 enclave:
   replicaCount: 1
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/dev_enclave
-    tag: "latest"
+    repository: testnetobscuronet.azurecr.io/obscuronet/enclave
+    tag: "signer-change"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00000w
   secretEnv:
@@ -30,8 +30,8 @@ enclave02:
   enabled: false
   replicaCount: 0
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/dev_enclave
-    tag: "latest"
+    repository: testnetobscuronet.azurecr.io/obscuronet/enclave
+    tag: "signer-change"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00000w
   secretEnv:
@@ -39,8 +39,8 @@ enclave02:
 
 host:
   image:
-    repository: "testnetobscuronet.azurecr.io/obscuronet/dev_host"
-    tag: "latest"
+    repository: "testnetobscuronet.azurecr.io/obscuronet/host"
+    tag: "signer-change"
   fqdn: dev-sequencer.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00000w
