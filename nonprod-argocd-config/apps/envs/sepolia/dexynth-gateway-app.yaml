@@ -11,7 +11,7 @@ spec:
     path: charts/ten-gateway             # <-- Path to actual chart
     helm:
       valueFiles:
-        - ../../nonprod-argocd-config/apps/envs/sepolia/valuesFile/values-sepolia-gateway.yaml
+        - ../../nonprod-argocd-config/apps/envs/sepolia/valuesFile/values-dexynth-sepolia-gateway.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: sepolia
