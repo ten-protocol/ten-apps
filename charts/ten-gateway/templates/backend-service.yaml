@@ -18,10 +18,10 @@ spec:
       targetPort: https
       protocol: TCP
       name: https
-    # - port: {{ .Values.backend.ports.websocket }}
-    #   targetPort: websocket
-    #   protocol: TCP
-    #   name: websocket
+    - port: {{ .Values.backend.ports.websocket81 }}
+      targetPort: https
+      protocol: TCP
+      name: websocket81
   selector:
     {{- include "ten-gateway.selectorLabels" . | nindent 4 }}
     app.kubernetes.io/component: backend
