@@ -206,7 +206,7 @@ enclave02:
   edb:
     image:
       repository: "testnetobscuronet.azurecr.io/obscuronet/ten-edb"
-      tag: "v0.3.2"
+      tag: "v0.3.3.3"
       pullPolicy: "Always"
       imagePullSecrets: []
     sqlApiHost: "0.0.0.0"
