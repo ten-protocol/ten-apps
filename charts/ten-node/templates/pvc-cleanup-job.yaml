@@ -38,6 +38,10 @@ spec:
               STS_ENCLAVE="{{ include "ten-node.fullname" . }}-enclave"
               PVC_ENCLAVE_DB="{{ include "ten-node.fullname" . }}-enclave-db"
               PVC_ENCLAVE_DATA="{{ include "ten-node.fullname" . }}-enclave"
+
+              # First, remove the finalizer from the PVCs to allow immediate deletion
+              kubectl patch pvc "$PVC_ENCLAVE_DB" -n {{ .Release.Namespace }} --type=merge -p '{"metadata":{"finalizers":null}}' --ignore-not-found=true
+              kubectl patch pvc "$PVC_ENCLAVE_DATA" -n {{ .Release.Namespace }} --type=merge -p '{"metadata":{"finalizers":null}}' --ignore-not-found=true
              
               kubectl delete deploy "$DEPLOY_HOST" -n {{ .Release.Namespace }} --ignore-not-found=true --grace-period=0 --force
               kubectl delete sts "$STS_ENCLAVE" -n {{ .Release.Namespace }} --ignore-not-found=true --grace-period=0 --force
