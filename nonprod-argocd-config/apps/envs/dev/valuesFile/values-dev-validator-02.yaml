@@ -6,7 +6,7 @@ global:
 enclave:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "latest"
+    tag: "signer-change"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss000010
   secretEnv:
