@@ -9,7 +9,7 @@ enclave:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "signer-change"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00000z
+    kubernetes.io/hostname: aks-sgxpool-23126921-vmss000012
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
@@ -33,7 +33,7 @@ enclave02:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "signer-change"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00000z
+    kubernetes.io/hostname: aks-sgxpool-23126921-vmss000012
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
 
@@ -43,7 +43,7 @@ host:
     tag: "signer-change"
   fqdn: dev-sequencer.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00000z
+    kubernetes.io/hostname: aks-sgxpool-23126921-vmss000012
 
 config:
   network:
