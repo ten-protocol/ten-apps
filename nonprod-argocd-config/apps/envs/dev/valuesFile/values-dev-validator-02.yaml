@@ -4,6 +4,7 @@ global:
   destructiveDeployment: true
 
 enclave:
+  replicaCount: 0
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/dev_enclave
     tag: "latest"
