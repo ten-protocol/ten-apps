@@ -24,6 +24,6 @@ spec:
             - --nodePort={{ .Values.faucet.nodePort }}
             - --pk={{ .Values.faucet.pk }}
             - --jwtSecret={{ .Values.faucet.jwtSecret }}
-            - --defaultAmount={{ .Values.faucet.defaultAmount | default 0.25 }}
+            - --defaultAmount={{ .Values.faucet.defaultAmount | default 100 }}
           ports:
             - containerPort: 80
