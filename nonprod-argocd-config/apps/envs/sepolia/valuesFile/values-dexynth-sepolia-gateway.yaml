@@ -21,7 +21,7 @@ frontend:
 
 backend:
   name: obscuro-gateway
-  domain: dexynth-gateway.ten.xyz
+  domain: pentest-gateway.ten.xyz
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_sepolia_testnet_k8s
     tag: latest
@@ -34,7 +34,7 @@ backend:
   encryptionKeySource: "https://testnet.ten.xyz"
   insideEnclave: true
   enableTLS: true
-  tlsDomain: "rpc.dexynth-gateway.ten.xyz"
+  tlsDomain: "rpc.pentest-gateway.ten.xyz"
   nodePortHTTP: 80
   nodePortWS: 81
   verbose: true
@@ -67,7 +67,7 @@ backend:
       sgx.intel.com/provision: 10
       sgx.intel.com/enclave: 10
   nodeSelector:
-      kubernetes.io/hostname: aks-sgxpool-54727109-vmss000000
+      kubernetes.io/hostname: aks-sgxpool-54727109-vmss000008
   tolerations: []
   affinity: {}
 
