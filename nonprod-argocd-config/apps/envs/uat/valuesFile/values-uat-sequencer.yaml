@@ -114,7 +114,7 @@ config:
         - obscuronode-enclave02:11001
       rpctimeout: 10s
     l1:
-      websocketurl: "ws://sepolia-l1-node-02.uksouth.cloudapp.azure.com:81?id=tenuserpwd"
+      websocketurl: "ws://l1.sepolia.ten.xyz:8546"
       l1beaconurl: "https://ethereum-sepolia-beacon-api.publicnode.com"
       l1blobarchiveurl: "https://eth-beacon-chain-sepolia.drpc.org/rest/"
       rpctimeout: 15s
