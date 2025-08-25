@@ -13,6 +13,10 @@ enclave:
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
+    image:
+      repository: "ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
+      tag: "v0.3.2"
+      pullPolicy: "Always"
     resources:
       limits:
         memory: 8Gi
@@ -37,6 +41,10 @@ enclave02:
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
+    image:
+      repository: "ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
+      tag: "v0.3.2"
+      pullPolicy: "Always"
     resources:
       limits:
         memory: 6Gi
