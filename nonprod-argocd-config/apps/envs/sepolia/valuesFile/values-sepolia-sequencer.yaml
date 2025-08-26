@@ -42,8 +42,8 @@ enclave02:
   enabled: true
   replicaCount: 1
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
-    tag: "latest"
+    repository: testnetobscuronet.azurecr.io/obscuronet/enclave
+    tag: "v1.4.4"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000b
   secretEnv:
