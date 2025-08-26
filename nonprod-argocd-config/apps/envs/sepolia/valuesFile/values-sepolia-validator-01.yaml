@@ -1,17 +1,21 @@
 global:
   imagePullSecrets: []
   imagePullPolicy: Always
-  destructiveDeployment: false
+  destructiveDeployment: ture
 
 enclave:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.4.3"
+    tag: "v1.4.4"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-54727109-vmss000001
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
+    image:
+      repository: "ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
+      tag: "v0.3.2"
+      pullPolicy: "Always"
     resources:
       limits:
         memory: 8Gi
@@ -26,18 +30,18 @@ enclave:
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
     storage:
-      spec:
-        storageClassName: "premium2-disk-sc"
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 512Gi
+        spec:
+          storageClassName: "premium2-disk-sc"
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 512Gi
   
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.4.3"
+    tag: "v1.4.4"
   fqdn: sepolia-validator-01.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-54727109-vmss000001
@@ -95,8 +99,8 @@ config:
         - obscuronode-enclave:11001
       rpctimeout: 10s
     l1:
-      websocketurl: "ws://sepolia-l1-node-02.uksouth.cloudapp.azure.com:81?id=tenuserpwd"
-      l1beaconurl: "https://ethereum-sepolia-beacon-api.publicnode.com"
+      websocketurl: "ws://l1.sepolia.ten.xyz:8546"
+      l1beaconurl: "http://beacon.sepolia.ten.xyz:5052"
       l1blobarchiveurl: "https://eth-beacon-chain-sepolia.drpc.org/rest/"
       rpctimeout: 15s
     log:
