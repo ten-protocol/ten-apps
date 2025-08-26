@@ -9,7 +9,7 @@ enclave:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "v1.4.4"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-54727109-vmss000000
+    kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000a
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
@@ -45,7 +45,7 @@ enclave02:
     repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
     tag: "latest"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00001n
+    kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000b
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
@@ -82,7 +82,7 @@ host:
     tag: "v1.4.4"
   fqdn: sepolia-testnet-sequencer.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-54727109-vmss000000
+    kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000a
 
 config:
   network:
