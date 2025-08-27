@@ -1,7 +1,7 @@
 global:
   imagePullSecrets: []
   imagePullPolicy: Always
-  destructiveDeployment: ture
+  destructiveDeployment: false
 
 enclave:
   image:
