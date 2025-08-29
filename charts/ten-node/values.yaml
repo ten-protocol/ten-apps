@@ -394,7 +394,7 @@ cleanupJob:
     image:
       repository: postgres
       tag: "15-alpine" # Or any version with psql client
-      pullPolicy: IfNotPresent
+      pullPolicy: Always
     # Assumes the secret '{{ include "ten-node.fullname" . }}-node-secrets'
     # contains keys like DB_HOST, DB_USER, DB_PASSWORD, DB_NAME
     # These will be mapped to PGHOST, PGUSER, PGPASSWORD, PGDATABASE
@@ -412,7 +412,7 @@ cleanupJob:
     image:
       repository: bitnami/kubectl
       tag: "latest"
-      pullPolicy: IfNotPresent
+      pullPolicy: Always
     serviceAccount:
       create: true
       name: "" # Defaults to {{ include "ten-node.fullname" . }}-pvc-cleaner
