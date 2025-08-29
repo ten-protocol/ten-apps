@@ -6,7 +6,7 @@ frontend:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_sepolia_testnet_fe_k8s
     tag: latest
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   containerPort: 80
   service:
     type: ClusterIP

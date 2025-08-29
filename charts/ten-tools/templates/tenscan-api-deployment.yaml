@@ -15,7 +15,7 @@ spec:
       containers:
         - name: tenscan-api
           image: "{{ .Values.tenscan.api.image.repository }}:{{ .Values.tenscan.api.image.tag }}"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           command: ["./cmd/backend"]
           args:
             - "--nodeHostAddress={{ .Values.tenscan.api.nodeHostAddress }}"

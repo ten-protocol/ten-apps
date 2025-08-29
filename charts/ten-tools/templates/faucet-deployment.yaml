@@ -17,7 +17,7 @@ spec:
       containers:
         - name: faucet
           image: "{{ .Values.faucet.image.repository }}:{{ .Values.faucet.image.tag }}"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           command: ["./faucet"]
           args:
             - --nodeHost={{ .Values.faucet.nodeHost }}
