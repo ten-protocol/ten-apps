@@ -5,7 +5,7 @@ metadata:
   name: {{ include "ten-tools.fullname" . }}-bridge-frontend
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - match: Host(`{{ .Values.bridge.frontend.host }}`)
       kind: Rule
