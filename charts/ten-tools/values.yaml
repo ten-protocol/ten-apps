@@ -38,6 +38,31 @@ tenscan:
       environment: "uat"
     host: "tenscan.io"
 
+bridge:
+  frontend:
+    enabled: false
+    replicaCount: 1
+    image:
+      repository: "testnetobscuronet.azurecr.io/obscuronet/bridge-fe"
+      tag: "latest"
+      pullPolicy: Always
+    command: ["pnpm", "run", "start-prod"]
+    containerPort: 80
+    service:
+      port: 80
+    host: "uat-bridge.ten.xyz"
+    env:
+      apiHost: "https://uat-gw-testnet.ten.xyz//v1"
+    # You can add other environment variables here
+    extraEnv: []
+    resources:
+      limits:
+        cpu: "2"
+        memory: 2Gi
+      requests:
+        cpu: "1"
+        memory: 1Gi
+
 resources: {}
 nodeSelector: {}
 tolerations: []

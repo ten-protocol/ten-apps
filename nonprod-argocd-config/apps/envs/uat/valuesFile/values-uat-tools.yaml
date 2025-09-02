@@ -36,7 +36,9 @@ tenscan:
       version: "v1.0.0"
       environment: "uat"
     host: "uat-testnet.tenscan.io"
-
+bridge:
+  frontend:
+    enabled: true
 resources: {}
 nodeSelector: {}
 tolerations: []

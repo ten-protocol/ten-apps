@@ -1,0 +1,42 @@
+{{- if .Values.bridge.frontend.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ten-tools.fullname" . }}-bridge-frontend
+spec:
+  replicas: {{ .Values.bridge.frontend.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ include "ten-tools.name" . }}-bridge-frontend
+  template:
+    metadata:
+      labels:
+        app: {{ include "ten-tools.name" . }}-bridge-frontend
+    spec:
+      containers:
+        - name: bridge-frontend
+          image: "{{ .Values.bridge.frontend.image.repository }}:{{ .Values.bridge.frontend.image.tag }}"
+          imagePullPolicy: {{ .Values.bridge.frontend.image.pullPolicy | default "Always" }}
+          {{- with .Values.bridge.frontend.command }}
+          command:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.bridge.frontend.args }}
+          args:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.bridge.frontend.containerPort | default 80 }}
+              protocol: TCP
+          env:
+            - name: NEXT_PUBLIC_BRIDGE_API_HOST
+              value: "{{ .Values.bridge.frontend.env.apiHost }}"
+            - name: NEXT_PUBLIC_FE_VERSION
+              value: "{{ .Values.bridge.frontend.env.version }}"
+            {{- with .Values.bridge.frontend.extraEnv }}
+            {{- . | toYaml | nindent 12 }}
+            {{- end }}
+          resources:
+            {{- toYaml .Values.bridge.frontend.resources | nindent 12 }}
+{{- end }}
