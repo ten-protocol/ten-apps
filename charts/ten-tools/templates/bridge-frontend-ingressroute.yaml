@@ -12,4 +12,6 @@ spec:
       services:
         - name: {{ include "ten-tools.fullname" . }}-bridge-frontend
           port: {{ .Values.bridge.frontend.service.port | default 80 }}
+  tls:
+    certResolver: le
 {{- end }}
