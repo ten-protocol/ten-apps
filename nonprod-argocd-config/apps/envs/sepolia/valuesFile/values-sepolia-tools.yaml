@@ -36,6 +36,21 @@ tenscan:
       version: "v1.0.0"
       environment: "sepolia"
     host: "sepolia.tenscan.io"
+bridge:
+  frontend:
+    enabled: true
+    image:
+      repository: "testnetobscuronet.azurecr.io/obscuronet/fe_bridge_sepolia_testnet"
+      tag: "latest"
+      pullPolicy: Always
+    command: ["pnpm", "run", "start-prod"]
+    containerPort: 80
+    service:
+      port: 80
+    host: "sepolia-bridge.ten.xyz"
+    env:
+      apiHost: "https://testnet.ten.xyz/v1"
+    # You can add other environment variables here
 
 resources: {}
 nodeSelector: {}
