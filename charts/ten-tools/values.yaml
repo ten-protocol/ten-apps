@@ -52,7 +52,7 @@ bridge:
       port: 80
     host: "uat-bridge.ten.xyz"
     env:
-      apiHost: "https://uat-gw-testnet.ten.xyz/v1"
+      apiHost: "https://rpc.uat-gw-testnet.ten.xyz/v1"
     # You can add other environment variables here
     extraEnv: []
     resources:
