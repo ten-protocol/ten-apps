@@ -38,6 +38,7 @@ backend:
   nodePortHTTP: 80
   nodePortWS: 81
   tenChainID: 443
+  frontendURL: "https://testnet.ten.xyz"
   verbose: true
   ports:
     http: 80
