@@ -15,6 +15,7 @@ faucet:
   nodePort: "80"
   pk: "YOUR_FAUCET_PRIVATE_KEY"
   jwtSecret: "YOUR_JWT_SECRET"
+  chainID: 8443
   host: "uat-faucet.ten.xyz"
 
 tenscan:
