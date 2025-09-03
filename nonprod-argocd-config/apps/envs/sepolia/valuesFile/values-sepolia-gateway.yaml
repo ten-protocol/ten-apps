@@ -37,7 +37,8 @@ backend:
   tlsDomain: "rpc-tmp.sepolia-testnet.ten.xyz"
   nodePortHTTP: 80
   nodePortWS: 81
-  chainID: 443
+  tenChainID: 443
+  frontendURL: "https://testnet.ten.xyz"
   verbose: true
   ports:
     http: 80

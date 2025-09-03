@@ -40,7 +40,8 @@ backend:
   verbose: false
   nodePortHTTP: 80
   nodePortWS: 443
-  chainID: 443
+  tenChainID: 443
+  frontendURL: "https://gw-dev.ten.xyz"
   ports:
     http: 80
     https: 443
