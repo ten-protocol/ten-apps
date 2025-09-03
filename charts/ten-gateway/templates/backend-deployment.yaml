@@ -69,7 +69,8 @@ spec:
               -nodePortHTTP={{ .Values.backend.nodePortHTTP }} \
               -nodePortWS={{ .Values.backend.nodePortWS }} \
               -logLevel={{ .Values.backend.logLevel }} \
-              -chainID={{ .Values.backend.chainID }}
+              -tenChainID={{ .Values.backend.tenChainID }} \
+              -frontendURL={{ .Values.backend.frontendURL }}
           volumeMounts:
             - name: db-secret-volume
               mountPath: /secrets
