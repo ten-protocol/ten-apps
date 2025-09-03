@@ -40,6 +40,7 @@ backend:
   verbose: false
   nodePortHTTP: 80
   nodePortWS: 443
+  chainID: 443
   ports:
     http: 80
     https: 443

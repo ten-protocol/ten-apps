@@ -37,6 +37,7 @@ backend:
   tlsDomain: "rpc.uat-gw-testnet.ten.xyz"
   nodePortHTTP: 80
   nodePortWS: 81
+  chainID: 8443
   verbose: true
   ports:
     http: 80
@@ -61,7 +62,7 @@ backend:
       cpu: 500m
       memory: 5Gi
   nodeSelector:
-      kubernetes.io/hostname: aks-sgxpool-23126921-vmss00001p
+      kubernetes.io/hostname: aks-sgxpool-23126921-vmss00001u
   tolerations: []
   affinity: {}
 

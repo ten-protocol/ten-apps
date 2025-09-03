@@ -37,6 +37,7 @@ backend:
   tlsDomain: "rpc.dexynth-gateway.ten.xyz"
   nodePortHTTP: 80
   nodePortWS: 81
+  chainID: 443
   verbose: true
   ports:
     http: 80
