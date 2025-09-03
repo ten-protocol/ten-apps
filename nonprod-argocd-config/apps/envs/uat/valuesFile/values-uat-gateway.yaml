@@ -37,7 +37,7 @@ backend:
   tlsDomain: "rpc.uat-gw-testnet.ten.xyz"
   nodePortHTTP: 80
   nodePortWS: 81
-  chainID: 8443
+  tenChainID: 8443
   verbose: true
   ports:
     http: 80
