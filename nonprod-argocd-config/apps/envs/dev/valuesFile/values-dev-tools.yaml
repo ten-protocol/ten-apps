@@ -16,6 +16,7 @@ faucet:
   pk: "YOUR_FAUCET_PRIVATE_KEY"
   jwtSecret: "YOUR_JWT_SECRET"
   defaultAmount: 100
+  chainID: 443
   host: "dev-faucet.ten.xyz"
 
 tenscan:

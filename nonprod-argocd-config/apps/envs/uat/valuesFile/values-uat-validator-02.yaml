@@ -8,7 +8,7 @@ enclave:
     repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
     tag: "latest"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00001r
+    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00001u
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
@@ -36,12 +36,12 @@ host:
     tag: "latest"
   fqdn: uat-validator-02.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00001r
+    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00001u
 
 
 config:
   network:
-    chainid: 443
+    chainid: 8443
     genesisjson: '{}'
     batch:
       interval: 1s
