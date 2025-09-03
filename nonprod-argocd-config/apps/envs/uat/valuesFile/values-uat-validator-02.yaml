@@ -41,7 +41,7 @@ host:
 
 config:
   network:
-    chainid: 443
+    chainid: 8443
     genesisjson: '{}'
     batch:
       interval: 1s
