@@ -61,7 +61,7 @@ enclave02:
 
 host:
   image:
-    repository: " testnetobscuronet.azurecr.io/obscuronet/testnetobscuronet.azurecr.io/obscuronet/host"
+    repository: "testnetobscuronet.azurecr.io/obscuronet/testnetobscuronet.azurecr.io/obscuronet/host"
     tag: "v1.5.0"
   fqdn: uat-testnet-sequencer.ten.xyz
   nodeSelector:
