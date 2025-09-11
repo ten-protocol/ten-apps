@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains the Kubernetes deployment infrastructure for **Ten Protocol** (formerly Obscuro), a privacy-focused Layer 2 blockchain network. The project uses **Helm charts** and **ArgoCD GitOps** to deploy and manage various components of the Ten ecosystem across multiple environments.
+This repository contains the Kubernetes deployment infrastructure for **Ten Protocol** , a privacy-focused Layer 2 blockchain network. The project uses **Helm charts** and **ArgoCD GitOps** to deploy and manage various components of the Ten ecosystem across multiple environments.
 
 ## 🏗️ Architecture
 
@@ -348,10 +348,10 @@ This project is licensed under the terms specified in the Ten Protocol main repo
 ## 🆘 Support
 
 ### Community Resources
-- **📖 Documentation**: [docs.ten.org](https://docs.ten.org)
+- **📖 Documentation**: [docs.ten.xyz](https://docs.ten.xyz)
 - **💬 Discord**: [Ten Protocol Community](https://discord.gg/tenprotocol)  
 - **🐛 Issues**: [GitHub Issues](https://github.com/ten-protocol/ten-apps/issues)
-- **📧 Email**: [support@ten.org](mailto:support@ten.org)
+- **📧 Email**: [support@ten.org](mailto:support@ten.xyz)
 
 ### Enterprise Support
 For enterprise deployments and support, contact the Ten Protocol team through official channels.
