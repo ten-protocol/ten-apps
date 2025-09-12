@@ -16,7 +16,6 @@ spec:
         - name: tenscan-fe
           image: "{{ .Values.tenscan.fe.image.repository }}:{{ .Values.tenscan.fe.image.tag }}"
           imagePullPolicy: Always
-          command: ["pnpm", "run", "start-prod"]
           env:
             - name: NEXT_PUBLIC_API_HOST
               value: "{{ .Values.tenscan.fe.env.apiHost }}"
