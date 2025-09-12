@@ -6,7 +6,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`{{ .Values.tenscan.fe.host }}`)
+    - match: Host(`{{ .Values.tenscan.fe.host }}`){{- if .Values.tenscan.fe.host2 }} || Host(`{{ .Values.tenscan.fe.host2 }}`){{- end }}
       kind: Rule
       services:
         - name: {{ include "ten-tools.fullname" . }}-tenscan-fe
