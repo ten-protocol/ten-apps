@@ -5,17 +5,13 @@ global:
 
 enclave:
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.4.4"
+    repository: obscuronet.azurecr.io/obscuronet/enclave
+    tag: "v1.5.2"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-54727109-vmss000009
+    kubernetes.io/hostname: mainnet-sgx-node-05
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
-    image:
-      repository: "ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
-      tag: "v0.3.2"
-      pullPolicy: "Always"
     resources:
       limits:
         memory: 8Gi
@@ -31,25 +27,24 @@ enclave:
         sgx.intel.com/enclave: 10
     storage:
         spec:
-          storageClassName: "premium2-disk-sc"
+          storageClassName: "premium-disk-sc"
           accessModes:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 512Gi
+              storage: 1Ti
 
 host:
   image:
-    repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.4.4"
-  fqdn: sepolia-validator-02.ten.xyz
+    repository: "obscuronet.azurecr.io/obscuronet/host"
+    tag: "v1.5.2"
+  fqdn: mainnet-validator-02.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-54727109-vmss000009
-
+    kubernetes.io/hostname: mainnet-sgx-node-05
 
 config:
   network:
-    chainid: 8443
+    chainid: 443
     genesisjson: '{}'
     batch:
       interval: 1s
@@ -62,8 +57,8 @@ config:
       batchexecutionlimit: "300000000"
       localexecutioncap: "300000000000"
     l1:
-      chainid: "11155111"
-      blocktime: 15s
+      chainid: "1"
+      blocktime: 12s
       starthash: "{{ .Values.l1Config.starthash }}"
       l1contracts:
         messagebus: "{{ .Values.l1Config.messagebus }}"
@@ -77,15 +72,15 @@ config:
       maxinterval: 10m0s
       maxsize: 131072
     sequencer:
-      p2paddress: sepolia-sequencer-ten-node-host:10000
+      p2paddress: mainnet-sequencer-ten-node-host:10000
       systemcontractsupgrader: "0xA58C60cc047592DE97BF1E8d2f225Fc5D959De77"
     crosschain:
       interval: 6s
   node:
     nodetype: "validator"
-    name: "ten-sepolia-validator-02"
+    name: "ten-mainnet-validator-02"
     isgenesis: false
-    hostAddress: "sepolia-validator-02.ten.xyz:10000"
+    hostAddress: "mainnet-validator-02.ten.xyz:10000"
   host:
     db:
       useinmemory: false
@@ -94,18 +89,18 @@ config:
       enablemetrics: true
       metricshttpport: 0
       enableprofiler: false
-      enabledebugnamespace: true
+      enabledebugnamespace: false
     enclave:
       rpcaddresses:
         - obscuronode-enclave:11001
       rpctimeout: 10s
     l1:
-      websocketurl: "ws://l1.sepolia.ten.xyz:8546"
-      l1beaconurl: "https://ethereum-sepolia-beacon-api.publicnode.com"
-      l1blobarchiveurl: "https://eth-beacon-chain-sepolia.drpc.org/rest/"
+      websocketurl: "wss://ethereum.publicnode.com"
+      l1beaconurl: "https://ethereum-beacon-api.publicnode.com"
+      l1blobarchiveurl: "https://eth-beacon-chain.drpc.org/rest/"
       rpctimeout: 15s
     log:
-      level: 3
+      level: 1
       path: sys_out
     p2p:
       isdisabled: false
@@ -125,13 +120,13 @@ config:
       edgelessdbhost: obscuronode-edgelessdb
       sqlitepath: ""
     debug:
-      enabledebugnamespace: true
+      enabledebugnamespace: false
       enableprofiler: false
     l1:
-      enableblockvalidation: false
+      enableblockvalidation: true
       genesisjson: []
     log:
-      level: 3
+      level: 1
       path: sys_out
     rpc:
       bindaddress: 0.0.0.0:11001
@@ -140,5 +135,5 @@ config:
 externalSecrets:
   enabled: true
   secretMappings:
-    NODE_PRIVATEKEY: "SEPOLIA-VALIDATOR-02-NODE-PRIVATEKEY"
-    HOST_DB_POSTGRESHOST: "sepolia-val-02-db-connstring"
+    NODE_PRIVATEKEY: "MAINNET-VALIDATOR-02-NODE-PRIVATEKEY"
+    HOST_DB_POSTGRESHOST: "mainnet-val-02-db-connstring"

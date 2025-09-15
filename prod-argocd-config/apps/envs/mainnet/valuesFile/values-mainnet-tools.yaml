@@ -1,0 +1,61 @@
+nameOverride: ""
+fullnameOverride: ""
+
+imagePullSecrets: []
+podAnnotations: {}
+podSecurityContext: {}
+securityContext: {}
+
+faucet:
+  replicaCount: 1
+  image:
+    repository: obscuronet.azurecr.io/obscuronet/faucet_mainnet
+    tag: latest
+  nodeHost: "erpc.ten.xyz"
+  nodePort: "80"
+  pk: "YOUR_FAUCET_PRIVATE_KEY"
+  jwtSecret: "YOUR_JWT_SECRET"
+  chainID: 443
+  host: "faucet.ten.xyz"
+
+tenscan:
+  api:
+    replicaCount: 1
+    image:
+      repository: obscuronet.azurecr.io/obscuronet/api_obscuro_scan_mainnet
+      tag: latest
+    nodeHostAddress: "http://erpc.ten.xyz:80"
+    host: "api.tenscan.io"
+
+  fe:
+    replicaCount: 1
+    image:
+      repository: obscuronet.azurecr.io/obscuronet/fe_obscuro_scan_mainnet
+      tag: latest
+    env:
+      apiHost: "https://api.tenscan.io"
+      version: "v1.0.0"
+      environment: "mainnet"
+    host: "tenscan.io"
+    host2: "www.tenscan.io"
+
+bridge:
+  frontend:
+    enabled: true
+    image:
+      repository: "obscuronet.azurecr.io/obscuronet/fe_bridge_mainnet"
+      tag: "latest"
+      pullPolicy: Always
+    command: ["pnpm", "run", "start-prod"]
+    containerPort: 80
+    service:
+      port: 80
+    host: "bridge.ten.xyz"
+    env:
+      apiHost: "https://ten.xyz/v1"
+    # You can add other environment variables here
+
+resources: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}

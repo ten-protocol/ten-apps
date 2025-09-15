@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mainnet-validator-02
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ten-protocol/ten-apps.git
+    targetRevision: main
+    path: charts/ten-node             # <-- Path to actual chart
+    helm:
+      valueFiles:
+        - ../../prod-argocd-config/apps/envs/mainnet/valuesFile/values-mainnet-validator-02.yaml
+        - ../../prod-argocd-config/apps/envs/mainnet/valuesFile/l1-values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mainnet
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
