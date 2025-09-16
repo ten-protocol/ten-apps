@@ -2,9 +2,9 @@ replicaCount: 1
 
 frontend:
   name: obscuro-gateway
-  domain: dexynth-gateway.ten.xyz 
+  domain: gateway.ten.xyz
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_sepolia_testnet_fe_k8s
+    repository: obscuronet.azurecr.io/obscuronet/obscuro_gateway_mainnet_fe_k8s
     tag: latest
     pullPolicy: Always
   containerPort: 80
@@ -21,30 +21,30 @@ frontend:
 
 backend:
   name: obscuro-gateway
-  domain: dexynth-gateway.ten.xyz
+  domain: rpc.ten.xyz
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_sepolia_testnet_k8s
+    repository: obscuronet.azurecr.io/obscuronet/obscuro_gateway_mainnet_k8s
     tag: latest
     pullPolicy: Always
-  nodeHost: "sepolia-validator-01.ten.xyz"
+  nodeHost: "erpc.ten.xyz"
   dbType: "cosmosDB"
   rateLimitUserComputeTime: 0
   rateLimitWindow: "1m"
   maxConcurrentRequestsPerUser: 5
-  encryptionKeySource: "https://testnet.ten.xyz"
+  encryptionKeySource: "new"
   insideEnclave: true
   enableTLS: true
-  tlsDomain: "rpc.dexynth-gateway.ten.xyz"
+  tlsDomain: "rpc.ten.xyz"
   nodePortHTTP: 80
   nodePortWS: 81
-  tenChainID: 8443
-  frontendURL: "https://dexynth-gateway.ten.xyz"
-  verbose: true
+  tenChainID: 443
+  frontendURL: "https://gateway.ten.xyz"
+  verbose: false
   ports:
     http: 80
     https: 443
     websocket: 443
-  env: 
+  env:
     OE_SIMULATION: "0"
   dbConnectionURL: "REPLACE_ME"
 
@@ -55,25 +55,19 @@ backend:
     accessMode: ReadWriteOnce
     size: 1Gi
 
-  resources: 
+  resources:
     limits:
-      cpu: 1
-      memory: 2Gi
-      sgx.intel.com/epc: 1Gi
-      sgx.intel.com/provision: 10
-      sgx.intel.com/enclave: 10
+      cpu: 2
+      memory: 8Gi
     requests:
-      cpu: 500m
-      memory: 2Gi
-      sgx.intel.com/epc: 1Gi
-      sgx.intel.com/provision: 10
-      sgx.intel.com/enclave: 10
+      cpu: 1
+      memory: 8Gi
   nodeSelector:
-      kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000b
+      kubernetes.io/hostname: mainnet-sgx-node-03
   tolerations: []
   affinity: {}
 
 externalSecrets:
   enabled: true
   secretMappings:
-    dbConnectionURL: "sepolia-gateway-connection-string"
+    dbConnectionURL: "mainnet-gateway-connection-string"

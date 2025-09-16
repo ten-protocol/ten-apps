@@ -1,0 +1,8 @@
+l1Config:
+    networkConfig: 0x0000000000000000000000000000000000000000  # TODO: Replace with mainnet contract address
+    messagebus: 0x0000000000000000000000000000000000000000    # TODO: Replace with mainnet contract address
+    bridge: 0x0000000000000000000000000000000000000000        # TODO: Replace with mainnet contract address
+    crosschain: 0x0000000000000000000000000000000000000000    # TODO: Replace with mainnet contract address
+    rollup: 0x0000000000000000000000000000000000000000        # TODO: Replace with mainnet contract address
+    enclaveRegistry: 0x0000000000000000000000000000000000000000  # TODO: Replace with mainnet contract address
+    starthash: 0x0000000000000000000000000000000000000000000000000000000000000000  # TODO: Replace with mainnet start hash
