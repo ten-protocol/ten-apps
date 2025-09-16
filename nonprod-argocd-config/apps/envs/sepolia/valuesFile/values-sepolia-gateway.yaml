@@ -31,7 +31,7 @@ backend:
   rateLimitUserComputeTime: 0
   rateLimitWindow: "1m"
   maxConcurrentRequestsPerUser: 5
-  encryptionKeySource: "https://testnet.ten.xyz"
+  encryptionKeySource: "new"
   insideEnclave: true
   enableTLS: true
   tlsDomain: "testnet-rpc.ten.xyz"
