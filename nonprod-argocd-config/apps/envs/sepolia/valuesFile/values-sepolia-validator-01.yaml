@@ -100,7 +100,7 @@ config:
       rpctimeout: 10s
     l1:
       websocketurl: "ws://l1.sepolia.ten.xyz:8546"
-      l1beaconurl: "https://ethereum-sepolia-beacon-api.publicnode.com"
+      l1beaconurl: "http://beacon.sepolia.ten.xyz:5052"
       l1blobarchiveurl: "https://eth-beacon-chain-sepolia.drpc.org/rest/"
       rpctimeout: 15s
     log:
