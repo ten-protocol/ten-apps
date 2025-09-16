@@ -7,16 +7,16 @@ enclave:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.4.4"
+    tag: "v1.5.2"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000a
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
-    image:
-      repository: "ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
-      tag: "v0.3.2"
-      pullPolicy: "Always"
+    # image:
+    #   repository: "ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
+    #   tag: "v0.3.2"
+    #   pullPolicy: "Always"
     resources:
       limits:
         memory: 8Gi
@@ -43,16 +43,16 @@ enclave02:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.4.4"
+    tag: "v1.5.2"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000b
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
-    image:
-      repository: "ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
-      tag: "v0.3.2"
-      pullPolicy: "Always"
+    # image:
+    #   repository: "ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
+    #   tag: "v0.3.2"
+    #   pullPolicy: "Always"
     resources:
       limits:
         memory: 8Gi
@@ -79,7 +79,7 @@ enclave02:
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.4.4"
+    tag: "v1.5.2"
   fqdn: sepolia-testnet-sequencer.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000a
