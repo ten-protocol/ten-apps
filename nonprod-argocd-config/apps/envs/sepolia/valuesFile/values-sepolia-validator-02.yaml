@@ -6,16 +6,16 @@ global:
 enclave:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.4.4"
+    tag: "v1.5.2"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-54727109-vmss000009
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
-    image:
-      repository: "ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
-      tag: "v0.3.2"
-      pullPolicy: "Always"
+    # image:
+    #   repository: "ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
+    #   tag: "v0.3.2"
+    #   pullPolicy: "Always"
     resources:
       limits:
         memory: 8Gi
@@ -41,7 +41,7 @@ enclave:
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.4.4"
+    tag: "v1.5.2"
   fqdn: sepolia-validator-02.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-54727109-vmss000009
