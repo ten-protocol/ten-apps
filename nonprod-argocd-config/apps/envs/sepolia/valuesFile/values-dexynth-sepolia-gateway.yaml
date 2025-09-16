@@ -69,7 +69,7 @@ backend:
       sgx.intel.com/provision: 10
       sgx.intel.com/enclave: 10
   nodeSelector:
-      kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000b
+      kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000f
   tolerations: []
   affinity: {}
 
