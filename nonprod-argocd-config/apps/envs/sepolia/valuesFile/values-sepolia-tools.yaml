@@ -45,7 +45,6 @@ bridge:
       repository: "testnetobscuronet.azurecr.io/obscuronet/fe_bridge_sepolia_testnet"
       tag: "latest"
       pullPolicy: Always
-    command: ["pnpm", "run", "start-prod"]
     containerPort: 80
     service:
       port: 80
