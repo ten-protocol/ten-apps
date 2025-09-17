@@ -50,7 +50,7 @@ bridge:
       port: 80
     host: "sepolia-bridge.ten.xyz"
     env:
-      apiHost: "https://testnet.ten.xyz/v1"
+      apiHost: "https://testnet-rpc.ten.xyz/v1"
     # You can add other environment variables here
 
 resources: {}
