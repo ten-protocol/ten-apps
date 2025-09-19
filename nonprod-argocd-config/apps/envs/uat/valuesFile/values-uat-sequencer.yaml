@@ -1,13 +1,13 @@
 global:
   imagePullSecrets: []
   imagePullPolicy: Always
-  destructiveDeployment: true
+  destructiveDeployment: false
 
 enclave:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.5.2"
+    tag: "v1.5.5"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00001s
   secretEnv:
@@ -111,6 +111,7 @@ config:
     db:
       useinmemory: false
       sqlitepath: ""
+      historicalTxCount: 5107067
     debug:
       enablemetrics: true
       metricshttpport: 0
