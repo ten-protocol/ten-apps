@@ -186,6 +186,8 @@ spec:
               value: {{ .Values.config.host.debug.enabledebugnamespace | default "true" | quote }}
             - name: HOST_DB_USEINMEMORY
               value: {{ .Values.config.host.db.useinmemory | default "false" | quote }}
+            - name: HOST_DB_HISTORICALTXCOUNT
+              value : {{ .Values.config.host.db.historicaltxcount | default 0 | quote }}
             - name: HOST_DB_SQLITEPATH
               value: {{ .Values.config.host.db.sqlitepath | default "" | quote }}
           envFrom:
