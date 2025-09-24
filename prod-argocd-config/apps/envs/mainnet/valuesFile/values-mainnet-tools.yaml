@@ -7,22 +7,13 @@ podSecurityContext: {}
 securityContext: {}
 
 faucet:
-  replicaCount: 1
-  image:
-    repository: obscuronet.azurecr.io/obscuronet/faucet_mainnet
-    tag: latest
-  nodeHost: "erpc.ten.xyz"
-  nodePort: "80"
-  pk: "YOUR_FAUCET_PRIVATE_KEY"
-  jwtSecret: "YOUR_JWT_SECRET"
-  chainID: 443
-  host: "faucet.ten.xyz"
-
+  enabled: false
+  
 tenscan:
   api:
     replicaCount: 1
     image:
-      repository: obscuronet.azurecr.io/obscuronet/api_obscuro_scan_mainnet
+      repository: testnetobscuronet.azurecr.io/obscuronet/api_obscuro_scan_mainnet
       tag: latest
     nodeHostAddress: "http://erpc.ten.xyz:80"
     host: "api.tenscan.io"
@@ -30,7 +21,7 @@ tenscan:
   fe:
     replicaCount: 1
     image:
-      repository: obscuronet.azurecr.io/obscuronet/fe_obscuro_scan_mainnet
+      repository: testnetobscuronet.azurecr.io/obscuronet/fe_obscuro_scan_mainnet_testnet
       tag: latest
     env:
       apiHost: "https://api.tenscan.io"
@@ -46,7 +37,6 @@ bridge:
       repository: "obscuronet.azurecr.io/obscuronet/fe_bridge_mainnet"
       tag: "latest"
       pullPolicy: Always
-    command: ["pnpm", "run", "start-prod"]
     containerPort: 80
     service:
       port: 80
