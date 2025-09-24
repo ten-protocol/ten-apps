@@ -1,8 +1,8 @@
 l1Config:
-    networkConfig: 0x0000000000000000000000000000000000000000  # TODO: Replace with mainnet contract address
-    messagebus: 0x0000000000000000000000000000000000000000    # TODO: Replace with mainnet contract address
-    bridge: 0x0000000000000000000000000000000000000000        # TODO: Replace with mainnet contract address
-    crosschain: 0x0000000000000000000000000000000000000000    # TODO: Replace with mainnet contract address
-    rollup: 0x0000000000000000000000000000000000000000        # TODO: Replace with mainnet contract address
-    enclaveRegistry: 0x0000000000000000000000000000000000000000  # TODO: Replace with mainnet contract address
-    starthash: 0x0000000000000000000000000000000000000000000000000000000000000000  # TODO: Replace with mainnet start hash
+    networkConfig: 0x8D062676d36FC6Cac77F85DfA11eA2623a9e32f5 
+    messagebus: 0x0470d0d7D5522336F29e13051F1e9bB66431bF4F    
+    bridge: 0x166c0b23D079eDF0C625154B760cDBF8aE6634E4        
+    crosschain: 0x1A5d86ac611d7D570A405a62F740Eb3bfff87Ff9   
+    rollup: 0xF1476036cBA0718766AB4b185b273146DD3278de       
+    enclaveRegistry: 0xeb7a85B757DF97Bd0E052D52749E2Da136bdB9bf  
+    starthash: 0x25f352f2d46caac47c878be1771ceb1807feb5989ddf91ca604f8678d7353e57 

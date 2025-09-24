@@ -6,9 +6,9 @@ global:
 enclave:
   image:
     repository: obscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.5.2"
+    tag: "v1.5.5"
   nodeSelector:
-    kubernetes.io/hostname: mainnet-sgx-node-05
+    kubernetes.io/hostname: aks-sgxpool02-25481487-vmss000003
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
@@ -37,10 +37,10 @@ enclave:
 host:
   image:
     repository: "obscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.5.2"
-  fqdn: mainnet-validator-02.ten.xyz
+    tag: "v1.5.5"
+  fqdn: validator-02.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: mainnet-sgx-node-05
+    kubernetes.io/hostname: aks-sgxpool02-25481487-vmss000003
 
 config:
   network:
@@ -53,7 +53,7 @@ config:
     gas:
       basefee: "100000000"
       mingasprice: "100000000"
-      paymentaddress: "0xd6C9230053f45F873Cb66D8A02439380a37A4fbF"
+      paymentaddress: "0x5EE3113aA489A61c5E17cC17f09a10218498b9BC"
       batchexecutionlimit: "300000000"
       localexecutioncap: "300000000000"
     l1:
@@ -73,14 +73,14 @@ config:
       maxsize: 131072
     sequencer:
       p2paddress: mainnet-sequencer-ten-node-host:10000
-      systemcontractsupgrader: "0xA58C60cc047592DE97BF1E8d2f225Fc5D959De77"
+      systemcontractsupgrader: "0x5EE3113aA489A61c5E17cC17f09a10218498b9BC"
     crosschain:
       interval: 6s
   node:
     nodetype: "validator"
     name: "ten-mainnet-validator-02"
     isgenesis: false
-    hostAddress: "mainnet-validator-02.ten.xyz:10000"
+    hostAddress: "validator-02.ten.xyz:10000"
   host:
     db:
       useinmemory: false
@@ -95,8 +95,8 @@ config:
         - obscuronode-enclave:11001
       rpctimeout: 10s
     l1:
-      websocketurl: "wss://ethereum.publicnode.com"
-      l1beaconurl: "https://ethereum-beacon-api.publicnode.com"
+      websocketurl: "ws://l1.mainnet.ten.xyz:8546"
+      l1beaconurl: "http://beacon.mainnet.ten.xyz:5052"
       l1blobarchiveurl: "https://eth-beacon-chain.drpc.org/rest/"
       rpctimeout: 15s
     log:

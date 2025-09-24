@@ -7,9 +7,9 @@ enclave:
   replicaCount: 1
   image:
     repository: obscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.5.2"
+    tag: "v1.5.5"
   nodeSelector:
-    kubernetes.io/hostname: mainnet-sgx-node-01
+    kubernetes.io/hostname: aks-sgxpool01-61714098-vmss000004
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
@@ -31,9 +31,9 @@ enclave02:
   replicaCount: 1
   image:
     repository: obscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.5.2"
+    tag: "v1.5.5"
   nodeSelector:
-    kubernetes.io/hostname: mainnet-sgx-node-02
+    kubernetes.io/hostname: aks-sgxpool02-25481487-vmss000004
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
@@ -54,10 +54,10 @@ enclave02:
 host:
   image:
     repository: "obscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.5.2"
-  fqdn: mainnet-sequencer.ten.xyz
+    tag: "v1.5.5"
+  fqdn: sequencer.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: mainnet-sgx-node-01
+    kubernetes.io/hostname: aks-sgxpool01-61714098-vmss000004
 
 config:
   network:
@@ -70,7 +70,7 @@ config:
     gas:
       basefee: "100000000"
       mingasprice: "100000000"
-      paymentaddress: "0xd6C9230053f45F873Cb66D8A02439380a37A4fbF"
+      paymentaddress: "0x5EE3113aA489A61c5E17cC17f09a10218498b9BC"
       batchexecutionlimit: "300000000"
       localexecutioncap: "300000000000"
     l1:
@@ -90,15 +90,15 @@ config:
       maxinterval: 10m0s
       maxsize: 131072
     sequencer:
-      p2paddress: mainnet-sequencer.ten.xyz:10000
-      systemcontractsupgrader: "0x76d412eBaA22Ab58783531b585128Cf50768abbE"
+      p2paddress: sequencer.ten.xyz:10000
+      systemcontractsupgrader: "0x5EE3113aA489A61c5E17cC17f09a10218498b9BC"
     crosschain:
       interval: 6s
   node:
     nodetype: "sequencer"
     name: "obscuronode"
     isgenesis: true
-    hostAddress: "mainnet-sequencer.ten.xyz:10000"
+    hostAddress: "sequencer.ten.xyz:10000"
   host:
     db:
       useinmemory: false
@@ -114,8 +114,8 @@ config:
         - obscuronode-enclave02:11001
       rpctimeout: 10s
     l1:
-      websocketurl: "wss://ethereum.publicnode.com"
-      l1beaconurl: "https://ethereum-beacon-api.publicnode.com"
+      websocketurl: "ws://l1.mainnet.ten.xyz:8546"
+      l1beaconurl: "http://beacon.mainnet.ten.xyz:5052"
       l1blobarchiveurl: "https://eth-beacon-chain.drpc.org/rest/"
       rpctimeout: 15s
     log:
