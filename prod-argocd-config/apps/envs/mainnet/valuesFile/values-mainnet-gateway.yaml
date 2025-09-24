@@ -63,7 +63,7 @@ backend:
       cpu: 1
       memory: 8Gi
   nodeSelector:
-      kubernetes.io/hostname: mainnet-sgx-node-03
+      kubernetes.io/hostname: aks-sgxpool02-25481487-vmss000004
   tolerations: []
   affinity: {}
 

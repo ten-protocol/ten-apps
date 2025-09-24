@@ -52,7 +52,7 @@ bridge:
       port: 80
     host: "bridge.ten.xyz"
     env:
-      apiHost: "https://ten.xyz/v1"
+      apiHost: "https://gateway.ten.xyz/v1"
     # You can add other environment variables here
 
 resources: {}
