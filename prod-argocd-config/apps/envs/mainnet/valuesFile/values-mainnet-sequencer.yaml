@@ -6,7 +6,7 @@ global:
 enclave:
   replicaCount: 1
   image:
-    repository: obscuronet.azurecr.io/obscuronet/enclave
+    repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "v1.5.5"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool01-61714098-vmss000004
@@ -26,11 +26,19 @@ enclave:
         sgx.intel.com/epc: 6Gi
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
+    storage:
+        spec:
+          storageClassName: "premium2-disk-sc"
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Ti
 enclave02:
   enabled: true
   replicaCount: 1
   image:
-    repository: obscuronet.azurecr.io/obscuronet/enclave
+    repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "v1.5.5"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool02-25481487-vmss000004
@@ -50,10 +58,18 @@ enclave02:
         sgx.intel.com/epc: 6Gi
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
+    storage:
+        spec:
+          storageClassName: "premium2-disk-sc"
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Ti
 
 host:
   image:
-    repository: "obscuronet.azurecr.io/obscuronet/host"
+    repository: "testnetobscuronet.azurecr.io/obscuronet/host"
     tag: "v1.5.5"
   fqdn: sequencer.ten.xyz
   nodeSelector:

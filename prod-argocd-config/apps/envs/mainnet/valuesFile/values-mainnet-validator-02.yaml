@@ -5,7 +5,7 @@ global:
 
 enclave:
   image:
-    repository: obscuronet.azurecr.io/obscuronet/enclave
+    repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "v1.5.5"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool02-25481487-vmss000003
@@ -27,7 +27,7 @@ enclave:
         sgx.intel.com/enclave: 10
     storage:
         spec:
-          storageClassName: "premium-disk-sc"
+          storageClassName: "premium2-disk-sc"
           accessModes:
             - ReadWriteOnce
           resources:
@@ -36,7 +36,7 @@ enclave:
 
 host:
   image:
-    repository: "obscuronet.azurecr.io/obscuronet/host"
+    repository: "testnetobscuronet.azurecr.io/obscuronet/host"
     tag: "v1.5.5"
   fqdn: validator-02.ten.xyz
   nodeSelector:
