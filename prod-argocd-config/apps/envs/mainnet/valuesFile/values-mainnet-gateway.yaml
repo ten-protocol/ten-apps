@@ -4,7 +4,7 @@ frontend:
   name: obscuro-gateway
   domain: gateway.ten.xyz
   image:
-    repository: obscuronet.azurecr.io/obscuronet/obscuro_gateway_mainnet_fe_k8s
+    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_mainnet_testnet_fe_k8s
     tag: latest
     pullPolicy: Always
   containerPort: 80
@@ -23,7 +23,7 @@ backend:
   name: obscuro-gateway
   domain: rpc.ten.xyz
   image:
-    repository: obscuronet.azurecr.io/obscuronet/obscuro_gateway_mainnet_k8s
+    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_mainnet_testnet_k8s
     tag: latest
     pullPolicy: Always
   nodeHost: "erpc.ten.xyz"
