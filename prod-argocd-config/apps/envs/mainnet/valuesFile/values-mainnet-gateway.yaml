@@ -39,7 +39,7 @@ backend:
   nodePortWS: 81
   tenChainID: 443
   frontendURL: "https://gateway.ten.xyz"
-  verbose: false
+  verbose: true
   ports:
     http: 80
     https: 443

@@ -89,7 +89,7 @@ config:
       enablemetrics: true
       metricshttpport: 0
       enableprofiler: false
-      enabledebugnamespace: false
+      enabledebugnamespace: true
     enclave:
       rpcaddresses:
         - obscuronode-enclave:11001
@@ -100,7 +100,7 @@ config:
       l1blobarchiveurl: "https://eth-beacon-chain.drpc.org/rest/"
       rpctimeout: 15s
     log:
-      level: 1
+      level: 3
       path: sys_out
     p2p:
       isdisabled: false
@@ -120,13 +120,13 @@ config:
       edgelessdbhost: obscuronode-edgelessdb
       sqlitepath: ""
     debug:
-      enabledebugnamespace: false
+      enabledebugnamespace: true
       enableprofiler: false
     l1:
       enableblockvalidation: true
       genesisjson: []
     log:
-      level: 1
+      level: 3
       path: sys_out
     rpc:
       bindaddress: 0.0.0.0:11001
