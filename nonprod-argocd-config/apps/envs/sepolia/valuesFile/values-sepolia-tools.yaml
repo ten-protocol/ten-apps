@@ -37,7 +37,7 @@ tenscan:
       version: "v1.0.0"
       environment: "sepolia"
     host: "sepolia.tenscan.io"
-    host2: "tenscan.io"
+    host2: "testnet.tenscan.io"
 bridge:
   frontend:
     enabled: true
