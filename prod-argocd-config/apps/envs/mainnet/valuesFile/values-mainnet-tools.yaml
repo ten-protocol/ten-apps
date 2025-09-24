@@ -16,7 +16,7 @@ tenscan:
       repository: testnetobscuronet.azurecr.io/obscuronet/api_obscuro_scan_mainnet
       tag: latest
     nodeHostAddress: "http://erpc.ten.xyz:80"
-    host: "api.tenscan.io"
+    host: "mainnet-api.tenscan.io"
 
   fe:
     replicaCount: 1
@@ -24,7 +24,7 @@ tenscan:
       repository: testnetobscuronet.azurecr.io/obscuronet/fe_obscuro_scan_mainnet_testnet
       tag: latest
     env:
-      apiHost: "https://api.tenscan.io"
+      apiHost: "https://mainnet-api.tenscan.io"
       version: "v1.0.0"
       environment: "mainnet"
     host: "tenscan.io"
