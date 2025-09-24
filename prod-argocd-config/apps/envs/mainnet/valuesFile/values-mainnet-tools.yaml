@@ -21,7 +21,7 @@ tenscan:
   fe:
     replicaCount: 1
     image:
-      repository: testnettestnetobscuronet.azurecr.io/obscuronet/fe_obscuro_scan_mainnet_testnet
+      repository: testnetobscuronet.azurecr.io/obscuronet/fe_obscuro_scan_mainnet_testnet
       tag: latest
     env:
       apiHost: "https://mainnet-api.tenscan.io"
