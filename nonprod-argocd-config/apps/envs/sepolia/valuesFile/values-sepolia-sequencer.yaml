@@ -128,7 +128,7 @@ config:
     db:
       useinmemory: false
       sqlitepath: ""
-      historicaltxCount: 5107067
+      historicaltxcount: 5107
     debug:
       enablemetrics: true
       metricshttpport: 0
