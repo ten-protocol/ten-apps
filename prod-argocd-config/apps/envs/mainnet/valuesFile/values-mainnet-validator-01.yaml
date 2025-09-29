@@ -6,7 +6,7 @@ global:
 enclave:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.5.7.1"
+    tag: "v1.5.7.2"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool01-61714098-vmss000005
   secretEnv:
@@ -37,7 +37,7 @@ enclave:
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.5.7.1"
+    tag: "v1.5.7.2"
   fqdn: validator-01.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool01-61714098-vmss000005
