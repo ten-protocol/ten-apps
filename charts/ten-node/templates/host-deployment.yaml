@@ -188,6 +188,8 @@ spec:
               value: {{ .Values.config.host.db.useinmemory | default "false" | quote }}
             - name: HOST_DB_HISTORICALTXCOUNT
               value : {{ .Values.config.host.db.historicaltxcount | default 0 | quote }}
+            - name: HOST_DB_HISTORICALCONTRACTCOUNT
+            - value: {{ .Values.config.host.db.historicalcontractcount | default 0 | quote }}
             - name: HOST_DB_SQLITEPATH
               value: {{ .Values.config.host.db.sqlitepath | default "" | quote }}
           envFrom:
