@@ -340,6 +340,7 @@ config:
         useinmemory: false
         sqlitepath: ""
         historicaltxcount: 0
+        historicalcontractcount: 0
     debug:
         enablemetrics: true
         metricshttpport: 0
