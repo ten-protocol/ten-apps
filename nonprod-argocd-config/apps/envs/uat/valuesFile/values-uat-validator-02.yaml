@@ -82,7 +82,8 @@ config:
     db:
       useinmemory: false
       sqlitepath: ""
-      historicaltxCount: 5107067
+      historicaltxcount: "51070"
+      historicalcontractcount: "1076"
     debug:
       enablemetrics: true
       metricshttpport: 0
