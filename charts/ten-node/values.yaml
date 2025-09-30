@@ -412,8 +412,8 @@ cleanupJob:
   # Configuration for the PVC cleanup job
   pvc:
     image:
-      repository: rancher/kubectl
-      tag: "v1.33.5"
+      repository: bitnami/kubectl
+      tag: "1.30"
       pullPolicy: Always
     serviceAccount:
       create: true
