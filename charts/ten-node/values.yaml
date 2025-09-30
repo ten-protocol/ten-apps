@@ -412,8 +412,8 @@ cleanupJob:
   # Configuration for the PVC cleanup job
   pvc:
     image:
-      repository: cgr.dev/chainguard/kubectl
-      tag: "latest"
+      repository: bitnamilegacy/kubectl
+      tag: "1.33.4"
       pullPolicy: Always
     serviceAccount:
       create: true
