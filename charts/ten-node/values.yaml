@@ -412,8 +412,8 @@ cleanupJob:
   # Configuration for the PVC cleanup job
   pvc:
     image:
-      repository: rancher/kubectl
-      tag: "v1.33.5"
+      repository: cgr.dev/chainguard/kubectl
+      tag: "latest"
       pullPolicy: Always
     serviceAccount:
       create: true
