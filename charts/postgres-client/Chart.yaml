@@ -1,0 +1,6 @@
+apiVersion: v2
+name: postgres-client
+description: PostgreSQL client pod for database access via terminal
+type: application
+version: 1.0.0
+appVersion: "16"
