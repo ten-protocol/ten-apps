@@ -1,14 +1,14 @@
 global:
   imagePullSecrets: []
   imagePullPolicy: Always
-  destructiveDeployment: false
+  destructiveDeployment: true
 
 enclave:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "v1.6.0"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000h
+    kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000k
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
@@ -44,7 +44,7 @@ host:
     tag: "v1.6.0"
   fqdn: sepolia-validator-01.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000h
+    kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000k
 
 config:
   network:
