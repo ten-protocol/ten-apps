@@ -1,7 +1,7 @@
 global:
   imagePullSecrets: []
   imagePullPolicy: Always
-  destructiveDeployment: true
+  destructiveDeployment: false
 
 enclave:
   image:
