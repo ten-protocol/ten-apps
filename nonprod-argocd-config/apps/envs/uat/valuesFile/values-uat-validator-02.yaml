@@ -2,11 +2,10 @@ global:
   imagePullSecrets: []
   imagePullPolicy: Always
   destructiveDeployment: true
-
 enclave:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
-    tag: "latest"
+    tag: "d353238"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002h
   secretEnv:
@@ -29,16 +28,13 @@ enclave:
         sgx.intel.com/epc: 6Gi
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
-
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/uat_host"
-    tag: "latest"
+    tag: "d353238"
   fqdn: uat-validator-02.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002h
-
-
 config:
   network:
     chainid: 7443
@@ -130,9 +126,14 @@ config:
     rpc:
       bindaddress: 0.0.0.0:11001
       timeout: 5s
-
 externalSecrets:
   enabled: true
   secretMappings:
     NODE_PRIVATEKEY: "UAT-VALIDATOR-02-NODE-PRIVATEKEY"
     HOST_DB_POSTGRESHOST: "val-02-db-connstring"
+enclave02:
+  image:
+    tag: d353238
+gateway:
+  image:
+    tag: d353238

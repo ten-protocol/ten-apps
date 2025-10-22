@@ -1,5 +1,4 @@
 replicaCount: 1
-
 frontend:
   name: obscuro-gateway
   domain: uat-gw-testnet.ten.xyz
@@ -18,7 +17,6 @@ frontend:
     requests:
       cpu: 500m
       memory: 1Gi
-
 backend:
   name: obscuro-gateway
   domain: rpc.uat-gw-testnet.ten.xyz
@@ -44,18 +42,16 @@ backend:
     http: 80
     https: 443
     websocket: 443
-  env: 
+  env:
     OE_SIMULATION: "0"
   dbConnectionURL: "REPLACE_ME"
-
   pvc:
     enabled: true
     name: ""
     storageClassName: "managed"
     accessMode: ReadWriteOnce
     size: 1Gi
-
-  resources: 
+  resources:
     limits:
       cpu: 1
       memory: 5Gi
@@ -63,11 +59,22 @@ backend:
       cpu: 500m
       memory: 5Gi
   nodeSelector:
-      kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002g
+    kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002g
   tolerations: []
   affinity: {}
-
 externalSecrets:
   enabled: true
   secretMappings:
     dbConnectionURL: "uattestnet-gateway-connection-string"
+enclave:
+  image:
+    tag: d353238
+enclave02:
+  image:
+    tag: d353238
+host:
+  image:
+    tag: d353238
+gateway:
+  image:
+    tag: d353238

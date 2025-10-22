@@ -1,11 +1,9 @@
 nameOverride: ""
 fullnameOverride: ""
-
 imagePullSecrets: []
 podAnnotations: {}
 podSecurityContext: {}
 securityContext: {}
-
 faucet:
   replicaCount: 1
   image:
@@ -17,7 +15,6 @@ faucet:
   jwtSecret: "YOUR_JWT_SECRET"
   chainID: 7443
   host: "uat-faucet.ten.xyz"
-
 tenscan:
   api:
     replicaCount: 1
@@ -26,7 +23,6 @@ tenscan:
       tag: latest
     nodeHostAddress: "http://uat-validator-01.ten.xyz:80"
     host: "uat-testnet-api.tenscan.io"
-
   fe:
     replicaCount: 1
     image:
@@ -44,3 +40,15 @@ resources: {}
 nodeSelector: {}
 tolerations: []
 affinity: {}
+enclave:
+  image:
+    tag: d353238
+enclave02:
+  image:
+    tag: d353238
+host:
+  image:
+    tag: d353238
+gateway:
+  image:
+    tag: d353238
