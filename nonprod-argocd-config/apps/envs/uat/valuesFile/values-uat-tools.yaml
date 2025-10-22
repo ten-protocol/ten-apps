@@ -53,4 +53,4 @@ gateway:
   image:
     tag: db56732
 global:
-  destructiveDeployment: false
+  destructiveDeployment: true
