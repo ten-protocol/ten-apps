@@ -4,7 +4,7 @@ global:
   destructiveDeployment: true
 enclave:
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
+    repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "689b04c"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002h
@@ -30,7 +30,7 @@ enclave:
         sgx.intel.com/enclave: 10
 host:
   image:
-    repository: "testnetobscuronet.azurecr.io/obscuronet/uat_host"
+    repository: "testnetobscuronet.azurecr.io/obscuronet/host"
     tag: "689b04c"
   fqdn: uat-validator-02.ten.xyz
   nodeSelector:
