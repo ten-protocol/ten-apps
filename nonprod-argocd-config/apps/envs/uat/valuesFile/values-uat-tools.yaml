@@ -52,3 +52,5 @@ host:
 gateway:
   image:
     tag: 8f1aa01
+global:
+  destructiveDeployment: false
