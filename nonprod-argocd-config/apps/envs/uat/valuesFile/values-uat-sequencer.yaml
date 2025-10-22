@@ -59,7 +59,7 @@ enclave02:
         sgx.intel.com/enclave: 10
 host:
   image:
-    repository: "testnetobscuronet.azurecr.io/obscuronet/uat_host"
+    repository: "testnetobscuronet.azurecr.io/obscuronet/host"
     tag: "689b04c"
   fqdn: uat-testnet-sequencer.ten.xyz
   nodeSelector:
