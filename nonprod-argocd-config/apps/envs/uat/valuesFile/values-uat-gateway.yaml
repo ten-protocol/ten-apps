@@ -68,15 +68,15 @@ externalSecrets:
     dbConnectionURL: "uattestnet-gateway-connection-string"
 enclave:
   image:
-    tag: 8f1aa01
+    tag: db56732
 enclave02:
   image:
-    tag: 8f1aa01
+    tag: db56732
 host:
   image:
-    tag: 8f1aa01
+    tag: db56732
 gateway:
   image:
-    tag: 8f1aa01
+    tag: db56732
 global:
   destructiveDeployment: false
