@@ -42,15 +42,15 @@ tolerations: []
 affinity: {}
 enclave:
   image:
-    tag: "530119c"
+    tag: "033270b"
 enclave02:
   image:
-    tag: "530119c"
+    tag: "033270b"
 host:
   image:
-    tag: "530119c"
+    tag: "033270b"
 gateway:
   image:
-    tag: "530119c"
+    tag: "033270b"
 global:
   destructiveDeployment: true
