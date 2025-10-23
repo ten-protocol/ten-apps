@@ -5,7 +5,7 @@ global:
 enclave:
   replicaCount: 1
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
+    repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "0714063"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002e
@@ -33,7 +33,7 @@ enclave02:
   enabled: true
   replicaCount: 1
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
+    repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "0714063"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002f
@@ -59,7 +59,7 @@ enclave02:
         sgx.intel.com/enclave: 10
 host:
   image:
-    repository: "testnetobscuronet.azurecr.io/obscuronet/uat_host"
+    repository: "testnetobscuronet.azurecr.io/obscuronet/host"
     tag: "0714063"
   fqdn: uat-testnet-sequencer.ten.xyz
   nodeSelector:
