@@ -4,8 +4,8 @@ global:
   destructiveDeployment: true
 enclave:
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "7cd2d43"
+    repository: testnetobscuronet.azurecr.io/obscuronet/uat_enclave
+    tag: "latest"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002g
   secretEnv:
@@ -30,8 +30,8 @@ enclave:
         sgx.intel.com/enclave: 10
 host:
   image:
-    repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "7cd2d43"
+    repository: "testnetobscuronet.azurecr.io/obscuronet/uat_host"
+    tag: "latest"
   fqdn: uat-validator-01.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002g
@@ -133,7 +133,7 @@ externalSecrets:
     HOST_DB_POSTGRESHOST: "val-01-db-connstring"
 enclave02:
   image:
-    tag: 7cd2d43
+    tag: latest
 gateway:
   image:
-    tag: 7cd2d43
+    tag: latest
