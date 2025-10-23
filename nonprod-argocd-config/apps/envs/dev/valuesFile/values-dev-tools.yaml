@@ -1,11 +1,9 @@
 nameOverride: ""
 fullnameOverride: ""
-
 imagePullSecrets: []
 podAnnotations: {}
 podSecurityContext: {}
 securityContext: {}
-
 faucet:
   replicaCount: 1
   image:
@@ -18,7 +16,6 @@ faucet:
   defaultAmount: 100
   chainID: 443
   host: "dev-faucet.ten.xyz"
-
 tenscan:
   api:
     replicaCount: 0
@@ -27,7 +24,6 @@ tenscan:
       tag: latest
     nodeHostAddress: "http://dev-validator-01.ten.xyz:80"
     host: "dev-testnet-api.ten.xyz"
-
   fe:
     replicaCount: 0
     image:
@@ -38,8 +34,9 @@ tenscan:
       version: "v1.0.0"
       environment: "dev"
     host: "dev-testnet.ten.xyz"
-
 resources: {}
 nodeSelector: {}
 tolerations: []
 affinity: {}
+global:
+  destructiveDeployment: true
