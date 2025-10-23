@@ -2,7 +2,6 @@ global:
   imagePullSecrets: []
   imagePullPolicy: Always
   destructiveDeployment: true
-
 enclave:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/dev_enclave
@@ -25,7 +24,6 @@ enclave:
         sgx.intel.com/epc: 10Gi
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
-  
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/dev_host"
@@ -33,7 +31,6 @@ host:
   fqdn: dev-validator-01.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00001f
-
 config:
   network:
     chainid: 443
@@ -123,7 +120,6 @@ config:
     rpc:
       bindaddress: 0.0.0.0:11001
       timeout: 5s
-
 externalSecrets:
   enabled: true
   secretMappings:

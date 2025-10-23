@@ -2,7 +2,6 @@ global:
   imagePullSecrets: []
   imagePullPolicy: Always
   destructiveDeployment: true
-
 enclave:
   replicaCount: 1
   image:
@@ -36,7 +35,6 @@ enclave02:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00001h
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
-
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/dev_host"
@@ -44,7 +42,6 @@ host:
   fqdn: dev-sequencer.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00001h
-
 config:
   network:
     chainid: 443
@@ -136,7 +133,6 @@ config:
     rpc:
       bindaddress: 0.0.0.0:11001
       timeout: 5s
-
 externalSecrets:
   enabled: true
   secretMappings:
