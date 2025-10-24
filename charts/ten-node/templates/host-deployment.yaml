@@ -158,7 +158,11 @@ spec:
             - name: HOST_P2P_TIMEOUT
               value: {{ .Values.config.host.p2p.timeout | default "5s" | quote }}
             - name: HOST_L1_BEACONURL
-              value: {{ .Values.config.host.l1.l1beaconurl | default "" | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "ten-node.fullname" . }}-node-secrets
+                  key: DRPC_BEACON_URL
+                  optional: true
             - name: HOST_L1_BLOBARCHIVEURL
               value: {{ .Values.config.host.l1.l1blobarchiveurl | default "" | quote }}
             - name: HOST_L1_WSURL
