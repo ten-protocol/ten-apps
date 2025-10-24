@@ -91,8 +91,8 @@ config:
       rpctimeout: 10s
     l1:
       websocketurl: "ws://l1.sepolia.ten.xyz:8546"
-      l1beaconurl: "http://beacon.sepolia.ten.xyz:5052"
-      l1blobarchiveurl: "https://eth-beacon-chain-sepolia.drpc.org/rest/"
+      l1beaconurl: "https://lb.drpc.live/eth-beacon-chain-sepolia/{BEACON_API_KEY}/"
+      l1blobarchiveurl: "https://ethereum-sepolia-beacon-api.publicnode.com"
       rpctimeout: 15s
     log:
       level: 3
@@ -131,6 +131,7 @@ externalSecrets:
   secretMappings:
     NODE_PRIVATEKEY: "UAT-VALIDATOR-02-NODE-PRIVATEKEY"
     HOST_DB_POSTGRESHOST: "val-02-db-connstring"
+    BEACON_API_KEY: "DRPC_SEPOLIA_API_KEY"
 enclave02:
   image:
     tag: "fa8eca8"
