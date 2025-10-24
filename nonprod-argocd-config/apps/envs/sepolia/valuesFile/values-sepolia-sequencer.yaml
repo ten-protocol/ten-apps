@@ -143,7 +143,7 @@ config:
     l1:
       websocketurl: "ws://l1.sepolia.ten.xyz:8546"
       l1beaconurl: "https://lb.drpc.live/eth-beacon-chain-sepolia/{BEACON_API_KEY}/"
-      l1blobarchiveurl: "https://ethereum-sepolia-beacon-api.publicnode.com"
+      l1blobarchiveurl: "https://ethereum-sepolia-beacon-api.publicnode.com/"
       rpctimeout: 15s
     log:
       level: 3
