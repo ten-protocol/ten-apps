@@ -5,7 +5,7 @@ global:
 enclave:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "e454320"
+    tag: "a959347"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002h
   secretEnv:
@@ -31,7 +31,7 @@ enclave:
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "e454320"
+    tag: "a959347"
   fqdn: uat-validator-02.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002h
@@ -134,7 +134,7 @@ externalSecrets:
     DRPC_BEACON_URL: "DRPC-SEPOLIA-BEACON-URL"
 enclave02:
   image:
-    tag: "e454320"
+    tag: "a959347"
 gateway:
   image:
     tag: "e454320"
