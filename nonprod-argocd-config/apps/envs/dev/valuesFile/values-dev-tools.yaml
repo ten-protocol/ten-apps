@@ -40,3 +40,12 @@ tolerations: []
 affinity: {}
 global:
   destructiveDeployment: true
+enclave:
+  image:
+    tag: 81e8790
+enclave02:
+  image:
+    tag: 81e8790
+host:
+  image:
+    tag: 81e8790

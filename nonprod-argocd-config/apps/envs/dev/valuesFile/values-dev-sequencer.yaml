@@ -6,7 +6,7 @@ enclave:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/dev_enclave
-    tag: "latest"
+    tag: "81e8790"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00001h
   secretEnv:
@@ -30,7 +30,7 @@ enclave02:
   replicaCount: 0
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/dev_enclave
-    tag: "latest"
+    tag: "81e8790"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00001h
   secretEnv:
@@ -38,7 +38,7 @@ enclave02:
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/dev_host"
-    tag: "latest"
+    tag: "81e8790"
   fqdn: dev-sequencer.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00001h
