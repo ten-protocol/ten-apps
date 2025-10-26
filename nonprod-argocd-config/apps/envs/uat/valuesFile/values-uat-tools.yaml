@@ -42,13 +42,13 @@ tolerations: []
 affinity: {}
 enclave:
   image:
-    tag: "a959347"
+    tag: "81e8790"
 enclave02:
   image:
-    tag: "a959347"
+    tag: "81e8790"
 host:
   image:
-    tag: "a959347"
+    tag: "81e8790"
 gateway:
   image:
     tag: "e454320"
