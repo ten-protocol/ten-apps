@@ -66,17 +66,3 @@ externalSecrets:
   enabled: true
   secretMappings:
     dbConnectionURL: "uattestnet-gateway-connection-string"
-enclave:
-  image:
-    tag: "b04d96b"
-enclave02:
-  image:
-    tag: "b04d96b"
-host:
-  image:
-    tag: "b04d96b"
-gateway:
-  image:
-    tag: "e454320"
-global:
-  destructiveDeployment: true
