@@ -129,7 +129,7 @@ externalSecrets:
   enabled: true
   secretMappings:
     NODE_PRIVATEKEY: "UAT-VALIDATOR-03-NODE-PRIVATEKEY"
-    HOST_DB_POSTGRESHOST: "val-03-db-connstring"
+    HOST_DB_POSTGRESHOST: "val-02-db-connstring"
     BEACON_API_KEY: "DRPC-SEPOLIA-API-KEY"
     DRPC_BEACON_URL: "DRPC-SEPOLIA-BEACON-URL"
 enclave02:
