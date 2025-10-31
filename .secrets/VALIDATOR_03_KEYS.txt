@@ -1,0 +1,171 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                 VALIDATOR-03 KEYS - SEPOLIA ENVIRONMENT                        ║
+║                                                                                ║
+║  ⚠️  CONFIDENTIAL - STORE IN SECURE LOCATION (PASSWORD MANAGER / KEY VAULT)  ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+🔐 KEY GENERATION DATE: October 31, 2025
+📍 ENVIRONMENT: Sepolia (& UAT)
+🎯 NODE: validator-03
+📊 KEY ALGORITHM: secp256k1 (Ethereum Standard)
+
+════════════════════════════════════════════════════════════════════════════════
+
+1️⃣  PRIVATE KEY
+────────────────────────────────────────────────────────────────────────────────
+This key must be kept SECRET and securely stored in Azure Key Vault.
+
+Format: Hexadecimal with 0x prefix (66 characters total)
+
+PRIVATE_KEY:
+0x2e4b189ff0bf958dc0b7f9a0a0d37d2b8d40f6992863751746646334d5b78428
+
+════════════════════════════════════════════════════════════════════════════════
+
+2️⃣  PUBLIC KEY
+────────────────────────────────────────────────────────────────────────────────
+Derived from the private key. Safe to share.
+
+Format: Hexadecimal with 0x prefix (130 characters total)
+
+PUBLIC_KEY:
+0xb354267e0d3462a4a56e6bb566dbddcdd24b51d654303ba9eaeac3a9eb4203739c06cb50d04a66c584dc2b7a1a8c99a4143088a2d42986c7e9f381bf59e2d618
+
+════════════════════════════════════════════════════════════════════════════════
+
+3️⃣  ACCOUNT ADDRESS
+────────────────────────────────────────────────────────────────────────────────
+Ethereum checksum address derived from public key.
+Can be used to receive test tokens from faucet.
+
+Format: Checksum format (42 characters with 0x prefix)
+
+ACCOUNT_ADDRESS:
+0xcDE62f24835E5c40f49aEcCCFfA303b2B43b58e7
+
+════════════════════════════════════════════════════════════════════════════════
+
+🔒 SECURITY CHECKLIST
+════════════════════════════════════════════════════════════════════════════════
+
+BEFORE STORING:
+☐ Copy private key to password manager (1Password, Bitwarden, etc.)
+☐ Store in Azure Key Vault with proper access controls
+☐ Document in secure document with restricted access
+☐ NEVER commit keys to Git or version control
+☐ NEVER share private key via email or unsecured channels
+☐ Backup private key in secure location (encrypted)
+
+════════════════════════════════════════════════════════════════════════════════
+
+📋 AZURE KEY VAULT SETUP INSTRUCTIONS
+════════════════════════════════════════════════════════════════════════════════
+
+1. STORE PRIVATE KEY IN SEPOLIA VAULT:
+   ───────────────────────────────────
+   
+   az keyvault secret set \
+     --vault-name <your-keyvault-name> \
+     --name "SEPOLIA-VALIDATOR-03-NODE-PRIVATEKEY" \
+     --value "0x2e4b189ff0bf958dc0b7f9a0a0d37d2b8d40f6992863751746646334d5b78428"
+
+2. STORE PRIVATE KEY IN UAT VAULT:
+   ────────────────────────────────
+   
+   az keyvault secret set \
+     --vault-name <your-keyvault-name> \
+     --name "UAT-VALIDATOR-03-NODE-PRIVATEKEY" \
+     --value "0x2e4b189ff0bf958dc0b7f9a0a0d37d2b8d40f6992863751746646334d5b78428"
+
+3. VERIFY SECRETS CREATED:
+   ──────────────────────
+   
+   az keyvault secret list --vault-name <vault-name> | grep VALIDATOR-03
+
+4. SET ACCESS POLICY:
+   ─────────────────────
+   
+   az keyvault set-policy \
+     --vault-name <your-keyvault-name> \
+     --object-id <user-or-sp-object-id> \
+     --secret-permissions get list
+
+════════════════════════════════════════════════════════════════════════════════
+
+📝 PASSWORD MANAGER ENTRY (1Password/Bitwarden)
+════════════════════════════════════════════════════════════════════════════════
+
+Title: Validator-03 Keys (Sepolia & UAT)
+Vault: Infrastructure / Secrets
+
+Field Name                              Value
+─────────────────────────────────────  ──────────────────────────────────
+Environment                            Sepolia / UAT
+Node Name                              validator-03
+Node Type                              Validator
+Private Key                            0x2e4b189ff0bf958dc0b7f9a0a0d37d2b8d40f6992863751746646334d5b78428
+Public Key                             0xb354267e0d3462a4a56e6bb566dbddcdd24b51d654303ba9eaeac3a9eb4203739c06cb50d04a66c584dc2b7a1a8c99a4143088a2d42986c7e9f381bf59e2d618
+Account Address                        0xcDE62f24835E5c40f49aEcCCFfA303b2B43b58e7
+Key Vault (UAT)                        UAT-VALIDATOR-03-NODE-PRIVATEKEY
+Key Vault (Sepolia)                    SEPOLIA-VALIDATOR-03-NODE-PRIVATEKEY
+Generated Date                         October 31, 2025
+Algorithm                              secp256k1 (Ethereum Standard)
+Key Size                               256-bit
+
+════════════════════════════════════════════════════════════════════════════════
+
+🧪 VERIFICATION AFTER DEPLOYMENT
+════════════════════════════════════════════════════════════════════════════════
+
+1. CHECK SECRET IN KEY VAULT:
+   ─────────────────────────
+   az keyvault secret show \
+     --vault-name <vault-name> \
+     --name "SEPOLIA-VALIDATOR-03-NODE-PRIVATEKEY"
+
+2. VERIFY IN KUBERNETES:
+   ──────────────────────
+   kubectl get externalsecrets -n sepolia
+   kubectl describe externalsecret sepolia-validator-03 -n sepolia
+
+3. CONFIRM POD HAS KEY:
+   ────────────────────
+   kubectl exec -it pod/sepolia-validator-03-0 -n sepolia -- \
+     env | grep NODE_PRIVATEKEY
+
+4. TEST DEPLOYMENT:
+   ────────────────
+   kubectl logs -f pod/sepolia-validator-03-0 -n sepolia -c host
+
+════════════════════════════════════════════════════════════════════════════════
+
+⚠️  IMPORTANT NOTES
+════════════════════════════════════════════════════════════════════════════════
+
+1. KEY REUSE:
+   - Same keys used for both UAT and Sepolia (for testing)
+   - Generate separate keys for production environments
+   - Consider rotation after migration
+
+2. DATABASE CREDENTIALS STILL NEEDED:
+   - val-03-db-connstring (UAT)
+   - sepolia-val-03-db-connstring (Sepolia)
+   - Format: postgresql://user:password@host:port/database
+
+3. FAUCET FUNDING:
+   - Account Address: 0xcDE62f24835E5c40f49aEcCCFfA303b2B43b58e7
+   - Sepolia Faucet: https://faucet.sepolia.ten.xyz
+   - UAT Faucet: https://uat-faucet.ten.xyz
+
+4. BACKUP & ROTATION:
+   - Backup encrypted private key
+   - Enable Key Vault soft-delete and purge protection
+   - Log all access to sensitive keys
+   - Implement rotation schedule
+
+════════════════════════════════════════════════════════════════════════════════
+
+Document Generated: October 31, 2025
+Status: ✅ READY FOR DEPLOYMENT
+
+════════════════════════════════════════════════════════════════════════════════
