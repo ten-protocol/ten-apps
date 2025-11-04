@@ -1,11 +1,11 @@
 global:
   imagePullSecrets: []
   imagePullPolicy: Always
-  destructiveDeployment: false
+  destructiveDeployment: true
 enclave:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.7.0"
+    tag: "v1.6.0"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002h
   secretEnv:
@@ -31,7 +31,7 @@ enclave:
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.7.0"
+    tag: "v1.6.0"
   fqdn: uat-validator-02.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002h
@@ -128,13 +128,13 @@ config:
 externalSecrets:
   enabled: true
   secretMappings:
-    NODE_PRIVATEKEY: "UAT-VALIDATOR-02-NODE-PRIVATEKEY"
-    HOST_DB_POSTGRESHOST: "val-02-db-connstring"
-    BEACON_API_KEY: "DRPC-SEPOLIA-API-KEY"
-    DRPC_BEACON_URL: "DRPC-SEPOLIA-BEACON-URL"
+    NODE_PRIVATEKEY: "uat-validator-02-node-privatekey"
+    HOST_DB_POSTGRESHOST: "uat-validator-02-db-postgreshost"
+    BEACON_API_KEY: "uat-validator-02-beacon-api-key"
+    DRPC_BEACON_URL: "uat-validator-03-drpc-beacon-url"
 enclave02:
   image:
-    tag: "v1.7.0"
+    tag: "v1.6.0"
 gateway:
   image:
     tag: "e454320"

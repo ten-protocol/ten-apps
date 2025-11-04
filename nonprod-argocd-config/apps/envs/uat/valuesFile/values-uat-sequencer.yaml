@@ -1,12 +1,12 @@
 global:
   imagePullSecrets: []
   imagePullPolicy: Always
-  destructiveDeployment: false
+  destructiveDeployment: true
 enclave:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.7.0"
+    tag: "v1.6.0"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002e
   secretEnv:
@@ -34,7 +34,7 @@ enclave02:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.7.0"
+    tag: "v1.6.0"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002f
   secretEnv:
@@ -60,7 +60,7 @@ enclave02:
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.7.0"
+    tag: "v1.6.0"
   fqdn: uat-testnet-sequencer.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-23126921-vmss00002e
@@ -159,10 +159,10 @@ config:
 externalSecrets:
   enabled: true
   secretMappings:
-    NODE_PRIVATEKEY: "UAT-SEQUENCER-NODE-PRIVATEKEY"
-    HOST_DB_POSTGRESHOST: "seq-db-connstring"
-    BEACON_API_KEY: "DRPC-SEPOLIA-API-KEY"
-    DRPC_BEACON_URL: "DRPC-SEPOLIA-BEACON-URL"
+    NODE_PRIVATEKEY: "uat-sequencer-node-privatekey"
+    HOST_DB_POSTGRESHOST: "uat-sequencer-db-postgreshost"
+    BEACON_API_KEY: "uat-sequencer-beacon-api-key"
+    DRPC_BEACON_URL: "uat-sequencer-drpc-beacon-url"
 gateway:
   image:
     tag: "e454320"

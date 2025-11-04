@@ -65,4 +65,4 @@ backend:
 externalSecrets:
   enabled: true
   secretMappings:
-    dbConnectionURL: "uattestnet-gateway-connection-string"
+    dbConnectionURL: "uat-gateway-cosmosdb-connectionstring"
