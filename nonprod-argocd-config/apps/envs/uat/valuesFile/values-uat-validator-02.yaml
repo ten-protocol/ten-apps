@@ -7,7 +7,7 @@ enclave:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "v1.6.1"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxtmp-19589649-vmss000001
+    kubernetes.io/hostname: aks-sgxtmp-19589649-vmss000002
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   edb:
@@ -34,7 +34,7 @@ host:
     tag: "v1.6.1"
   fqdn: uat-validator-02.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxtmp-19589649-vmss000001
+    kubernetes.io/hostname: aks-sgxtmp-19589649-vmss000002
 config:
   network:
     chainid: 7443
