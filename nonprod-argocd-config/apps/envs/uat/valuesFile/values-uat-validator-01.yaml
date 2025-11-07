@@ -132,9 +132,4 @@ externalSecrets:
     HOST_DB_POSTGRESHOST: "uat-validator-01-db-postgreshost"
     BEACON_API_KEY: "uat-sequencer-beacon-api-key"
     DRPC_BEACON_URL: "uat-sequencer-drpc-beacon-url"
-enclave02:
-  image:
-    tag: "v1.6.1"
-gateway:
-  image:
-    tag: "e454320"
+
