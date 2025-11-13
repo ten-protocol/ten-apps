@@ -113,6 +113,10 @@ spec:
               value: {{ .Values.config.network.gas.mingasprice | default "1000000000" | quote }}
             - name: NETWORK_ROLLUP_MAXINTERVAL
               value: {{ .Values.config.network.rollup.maxinterval | default "10m0s" | quote }}
+            - name: NETWORK_ROLLUP_BATCHCOMPRESSIONFACTOR
+              value: {{ .Values.config.network.rollup.batchCompressionFactor | default "0.1" | quote }}
+            - name: NETWORK_ROLLUP_TXCOMPRESSIONFACTOR
+              value: {{ .Values.config.network.rollup.txCompressionFactor | default "0.85" | quote }}
             - name: NETWORK_L1_CHAINID
               value: {{ .Values.config.network.l1.chainid | default "1337" | quote }}
             - name: NETWORK_CHAINID

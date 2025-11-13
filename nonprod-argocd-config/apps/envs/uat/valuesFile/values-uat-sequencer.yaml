@@ -94,6 +94,8 @@ config:
       interval: 6h
       maxinterval: 10m0s
       maxsize: 131072
+      batchCompressionFactor: 0.1
+      txCompressionFactor: 0.85
     sequencer:
       p2paddress: uat-sequencer.ten.xyz:10000
       systemcontractsupgrader: "0x76d412eBaA22Ab58783531b585128Cf50768abbE"

@@ -76,6 +76,8 @@ config:
       interval: 6h
       maxinterval: 10m0s
       maxsize: 131072
+      batchCompressionFactor: 0.1
+      txCompressionFactor: 0.85
     sequencer:
       p2paddress: sepolia-sequencer-ten-node-host:10000
       systemcontractsupgrader: "0xA58C60cc047592DE97BF1E8d2f225Fc5D959De77"
