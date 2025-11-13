@@ -72,7 +72,7 @@ config:
       maxinterval: 10m0s
       maxsize: 131072
       batchCompressionFactor: 0.1
-      txCompressionFactor: 0.8
+      txCompressionFactor: 0.85
     sequencer:
       p2paddress: mainnet-sequencer-ten-node-host:10000
       systemcontractsupgrader: "0x5EE3113aA489A61c5E17cC17f09a10218498b9BC"
