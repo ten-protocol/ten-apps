@@ -18,8 +18,7 @@ enclave:
   autoscaling:
     enabled: false
 
-  nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool2-37956146-vmss000005
+  nodeSelector: {}
   storage:
     spec:
       accessModes:
@@ -138,8 +137,7 @@ enclave02:
     enabled: false
     targetCPUUtilizationPercentage: 80
 
-  nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool2-37956146-vmss000001
+  nodeSelector: {}
   storage:
     spec:
       accessModes:
