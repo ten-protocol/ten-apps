@@ -55,6 +55,8 @@ spec:
             value: "localhost"
           - name: OE_SIMULATION
             value: {{ if .Values.enclave.edb.simulation }}"1"{{ else }}"0"{{ end }}
+          - name: PCCS_URL
+            value: "http://sgx-pccs:8081"
           {{- if .Values.enclave.edb.launchMarble }}
           args: [ "-marble" ]
           {{- end }}
@@ -94,6 +96,8 @@ spec:
               value: {{ include "ten-node.fullname" . }}-host:10000
             - name: OE_SIMULATION
               value: {{ if .Values.enclave.simulation }}"1"{{ else }}"0"{{ end }}
+            - name: PCCS_URL
+              value: "http://sgx-pccs:8081"
             - name: ENCLAVE_L1_ENABLEBLOCKVALIDATION
               value: {{ .Values.config.enclave.l1.enableblockvalidation | default "false" | quote }}
             - name: ENCLAVE_LOG_LEVEL
