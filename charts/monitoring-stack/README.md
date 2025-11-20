@@ -31,8 +31,8 @@ Create an ArgoCD Application with the following configuration:
 
 **Helm Parameters** (Set in ArgoCD UI):
 ```yaml
-mimir.url: "https://mimir.ten.xyz"
-mimir.auth.username: "ten"
+mimir.url: "mimir-url"
+mimir.auth.username: "mimir-username"
 mimir.auth.password: "your-password-here"
 ```
 
@@ -48,9 +48,9 @@ Set these parameters in the ArgoCD UI under "Parameters":
 
 | Parameter | Description | Example |
 |-----------|-------------|---------|
-| `mimir.url` | Mimir endpoint URL (without /api/v1/push) | `https://mimir.ten.xyz` |
-| `mimir.auth.username` | Basic auth username | `ten` |
-| `mimir.auth.password` | Basic auth password | `secret` |
+| `mimir.url` | Mimir endpoint URL (without /api/v1/push) | `mimir url` |
+| `mimir.auth.username` | Basic auth username | `username` |
+| `mimir.auth.password` | Basic auth password | `password` |
 
 ### Component Configuration
 
