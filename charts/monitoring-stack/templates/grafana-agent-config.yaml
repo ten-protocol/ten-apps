@@ -1,0 +1,146 @@
+{{- if .Values.grafana-agent.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-agent-config
+  namespace: {{ .Release.Namespace }}
+data:
+  config.river: |
+    // Scrape metrics from kube-state-metrics
+    discovery.kubernetes "kube_state_metrics" {
+      role = "service"
+      namespaces {
+        names = ["{{ .Release.Namespace }}"]
+      }
+      selectors {
+        role = "service"
+        label = "app.kubernetes.io/name=kube-state-metrics"
+      }
+    }
+    
+    prometheus.scrape "kube_state_metrics" {
+      targets    = discovery.kubernetes.kube_state_metrics.targets
+      forward_to = [prometheus.remote_write.mimir.receiver]
+    }
+    
+    // Scrape node-exporter for node metrics
+    discovery.kubernetes "node_exporter" {
+      role = "pod"
+      namespaces {
+        names = ["{{ .Release.Namespace }}"]
+      }
+      selectors {
+        role = "pod"
+        label = "app.kubernetes.io/name=prometheus-node-exporter"
+      }
+    }
+    
+    prometheus.scrape "node_exporter" {
+      targets    = discovery.kubernetes.node_exporter.targets
+      forward_to = [prometheus.remote_write.mimir.receiver]
+    }
+    
+    // Scrape all pods with prometheus annotations
+    discovery.kubernetes "pods" {
+      role = "pod"
+    }
+    
+    discovery.relabel "pod_metrics" {
+      targets = discovery.kubernetes.pods.targets
+      
+      rule {
+        source_labels = ["__meta_kubernetes_pod_annotation_prometheus_io_scrape"]
+        action = "keep"
+        regex = "true"
+      }
+      
+      rule {
+        source_labels = ["__meta_kubernetes_pod_annotation_prometheus_io_path"]
+        action = "replace"
+        target_label = "__metrics_path__"
+        regex = "(.+)"
+      }
+      
+      rule {
+        source_labels = ["__address__", "__meta_kubernetes_pod_annotation_prometheus_io_port"]
+        action = "replace"
+        regex = "([^:]+)(?::\\d+)?;(\\d+)"
+        replacement = "$1:$2"
+        target_label = "__address__"
+      }
+    }
+    
+    prometheus.scrape "pods" {
+      targets    = discovery.relabel.pod_metrics.output
+      forward_to = [prometheus.remote_write.mimir.receiver]
+    }
+    
+    // Scrape kubelet metrics
+    discovery.kubernetes "nodes" {
+      role = "node"
+    }
+    
+    discovery.relabel "kubelet" {
+      targets = discovery.kubernetes.nodes.targets
+      
+      rule {
+        target_label = "__address__"
+        replacement  = "kubernetes.default.svc:443"
+      }
+      
+      rule {
+        source_labels = ["__meta_kubernetes_node_name"]
+        regex         = "(.+)"
+        replacement   = "/api/v1/nodes/$1/proxy/metrics"
+        target_label  = "__metrics_path__"
+      }
+    }
+    
+    prometheus.scrape "kubelet" {
+      targets      = discovery.relabel.kubelet.output
+      scheme       = "https"
+      bearer_token_file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      tls_config {
+        ca_file = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+      }
+      forward_to   = [prometheus.remote_write.mimir.receiver]
+    }
+    
+    // Scrape cAdvisor metrics for container metrics
+    discovery.relabel "cadvisor" {
+      targets = discovery.kubernetes.nodes.targets
+      
+      rule {
+        target_label = "__address__"
+        replacement  = "kubernetes.default.svc:443"
+      }
+      
+      rule {
+        source_labels = ["__meta_kubernetes_node_name"]
+        regex         = "(.+)"
+        replacement   = "/api/v1/nodes/$1/proxy/metrics/cadvisor"
+        target_label  = "__metrics_path__"
+      }
+    }
+    
+    prometheus.scrape "cadvisor" {
+      targets      = discovery.relabel.cadvisor.output
+      scheme       = "https"
+      bearer_token_file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+      tls_config {
+        ca_file = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+      }
+      forward_to   = [prometheus.remote_write.mimir.receiver]
+    }
+    
+    prometheus.remote_write "mimir" {
+      endpoint {
+        url = "{{ .Values.mimir.url }}/api/v1/push"
+        
+        basic_auth {
+          username = "{{ .Values.mimir.auth.username }}"
+          password = "{{ .Values.mimir.auth.password }}"
+        }
+      }
+    }
+{{- end }}

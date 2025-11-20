@@ -1,0 +1,28 @@
+# Global monitoring configuration
+mimir:
+  # Mimir endpoint URL (without /api/v1/push)
+  url: "https://mimir.ten.xyz"
+  # Basic auth credentials - Set these via ArgoCD UI parameters
+  auth:
+    username: ""
+    password: ""
+
+# Kube-state-metrics configuration
+kube-state-metrics:
+  enabled: true
+
+# Node-exporter configuration  
+node-exporter:
+  enabled: true
+
+# Grafana Agent configuration
+grafana-agent:
+  enabled: true
+  agent:
+    mode: flow
+    configMap:
+      create: false
+      name: grafana-agent-config
+  
+  controller:
+    type: daemonset

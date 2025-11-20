@@ -1,0 +1,23 @@
+apiVersion: v2
+name: monitoring-stack
+description: Monitoring stack with kube-state-metrics, node-exporter, and grafana-agent for metrics collection
+type: application
+version: 1.0.0
+appVersion: 1.0.0
+
+dependencies:
+  - name: kube-state-metrics
+    version: 5.27.0
+    repository: https://prometheus-community.github.io/helm-charts
+    condition: kube-state-metrics.enabled
+  
+  - name: prometheus-node-exporter
+    version: 4.44.0
+    repository: https://prometheus-community.github.io/helm-charts
+    alias: node-exporter
+    condition: node-exporter.enabled
+  
+  - name: grafana-agent
+    version: 0.54.0
+    repository: https://grafana.github.io/helm-charts
+    condition: grafana-agent.enabled

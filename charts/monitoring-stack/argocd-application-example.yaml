@@ -1,0 +1,67 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitoring-stack-sepolia
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  
+  source:
+    repoURL: https://github.com/ten-protocol/ten-apps.git
+    path: charts/monitoring-stack
+    targetRevision: main
+    helm:
+      parameters:
+        # Mimir configuration - SET THESE IN ARGOCD UI
+        - name: mimir.url
+          value: "https://mimir.ten.xyz"
+        - name: mimir.auth.username
+          value: ""  # Set in ArgoCD UI
+        - name: mimir.auth.password
+          value: ""  # Set in ArgoCD UI
+  
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    # No automated sync - manual sync only
+    automated: null
+
+---
+# Example for another environment (UAT)
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitoring-stack-uat
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  
+  source:
+    repoURL: https://github.com/ten-protocol/ten-apps.git
+    path: charts/monitoring-stack
+    targetRevision: main
+    helm:
+      parameters:
+        - name: mimir.url
+          value: "https://mimir-uat.ten.xyz"  # Different Mimir endpoint for UAT
+        - name: mimir.auth.username
+          value: ""  # Set in ArgoCD UI
+        - name: mimir.auth.password
+          value: ""  # Set in ArgoCD UI
+  
+  destination:
+    server: https://uat-cluster.ten.xyz  # Different cluster
+    namespace: monitoring
+  
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated: null
