@@ -26,13 +26,13 @@ enclave:
     resources:
       limits:
         memory: 5Gi
-        cpu: 2500m
+        cpu: 2200m
         sgx.intel.com/epc: 6Gi
         sgx.intel.com/provision: "1"
         sgx.intel.com/enclave: "1"
       requests:
         memory: 4Gi
-        cpu: 1800m
+        cpu: 1600m
         sgx.intel.com/epc: 6Gi
         sgx.intel.com/provision: "1"
         sgx.intel.com/enclave: "1"
