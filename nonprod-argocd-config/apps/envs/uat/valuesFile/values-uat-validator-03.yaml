@@ -7,7 +7,7 @@ enclave:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "v1.7.0"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-35313246-vmss000002
+    kubernetes.io/hostname: aks-sgxpool-35313246-vmss000000
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   storage:
@@ -28,21 +28,21 @@ enclave:
         memory: 6.4Gi
         cpu: 3200m
         sgx.intel.com/epc: 6Gi
-        sgx.intel.com/provision: 10
-        sgx.intel.com/enclave: 10
+        sgx.intel.com/provision: "1"
+        sgx.intel.com/enclave: "1"
       requests:
         memory: 4.8Gi
         cpu: 2400m
         sgx.intel.com/epc: 6Gi
-        sgx.intel.com/provision: 10
-        sgx.intel.com/enclave: 10
+        sgx.intel.com/provision: "1"
+        sgx.intel.com/enclave: "1"
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
     tag: "v1.7.0"
   fqdn: uat-validator-03.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-35313246-vmss000002
+    kubernetes.io/hostname: aks-sgxpool-35313246-vmss000000
 config:
   network:
     chainid: 7443
