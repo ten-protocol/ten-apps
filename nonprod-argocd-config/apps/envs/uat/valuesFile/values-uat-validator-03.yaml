@@ -42,7 +42,7 @@ host:
     tag: "v1.7.0"
   fqdn: uat-validator-03.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-35313246-vmss000000
+    kubernetes.io/hostname: aks-sgxpool-35313246-vmss000001
 config:
   network:
     chainid: 7443
