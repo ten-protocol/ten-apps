@@ -10,6 +10,14 @@ enclave:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss000002
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
+  storage:
+    spec:
+      storageClassName: azurefile
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
   edb:
     # image:
     #   repository: "ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
