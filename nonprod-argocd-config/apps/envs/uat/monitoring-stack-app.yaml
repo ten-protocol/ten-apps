@@ -17,9 +17,9 @@ spec:
         - name: mimir.url
           value: "https://mimir.ten.xyz"
         - name: mimir.auth.username
-          value: ""  # Set in ArgoCD UI or via helm parameters
+          value: "ten"
         - name: mimir.auth.password
-          value: ""  # Set in ArgoCD UI or via helm parameters
+          value: "ten"
 
   destination:
     server: https://kubernetes.default.svc
