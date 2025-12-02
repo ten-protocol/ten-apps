@@ -1,0 +1,149 @@
+{
+  "dashboard": {
+    "title": "UAT Cluster Overview",
+    "tags": ["uat", "kubernetes", "infrastructure"],
+    "timezone": "browser",
+    "schemaVersion": 38,
+    "version": 1,
+    "refresh": "30s",
+    "panels": [
+      {
+        "title": "UAT Cluster CPU Usage",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+        "targets": [
+          {
+            "datasource": {"type": "prometheus", "uid": "prom"},
+            "expr": "sum(rate(container_cpu_usage_seconds_total{cluster=\"uat\"}[5m])) by (node)",
+            "legendFormat": "{{node}}"
+          }
+        ]
+      },
+      {
+        "title": "UAT Cluster Memory Usage",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+        "targets": [
+          {
+            "datasource": {"type": "prometheus", "uid": "prom"},
+            "expr": "sum(container_memory_usage_bytes{cluster=\"uat\"}) by (node) / 1024 / 1024 / 1024",
+            "legendFormat": "{{node}} (GB)"
+          }
+        ]
+      },
+      {
+        "title": "UAT Pod Status",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 6, "x": 0, "y": 8},
+        "targets": [
+          {
+            "datasource": {"type": "prometheus", "uid": "prom"},
+            "expr": "count(kube_pod_status_phase{cluster=\"uat\", phase=\"Running\"})"
+          }
+        ],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "textMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "thresholds"},
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": null, "color": "green"}
+              ]
+            },
+            "unit": "short"
+          }
+        }
+      },
+      {
+        "title": "UAT Failed Pods",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 6, "x": 6, "y": 8},
+        "targets": [
+          {
+            "datasource": {"type": "prometheus", "uid": "prom"},
+            "expr": "count(kube_pod_status_phase{cluster=\"uat\", phase=\"Failed\"})"
+          }
+        ],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "textMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {"mode": "thresholds"},
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": null, "color": "green"},
+                {"value": 1, "color": "red"}
+              ]
+            },
+            "unit": "short"
+          }
+        }
+      },
+      {
+        "title": "UAT Network Traffic",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 12},
+        "targets": [
+          {
+            "datasource": {"type": "prometheus", "uid": "prom"},
+            "expr": "sum(rate(container_network_receive_bytes_total{cluster=\"uat\"}[5m])) by (pod)",
+            "legendFormat": "RX: {{pod}}"
+          },
+          {
+            "datasource": {"type": "prometheus", "uid": "prom"},
+            "expr": "sum(rate(container_network_transmit_bytes_total{cluster=\"uat\"}[5m])) by (pod)",
+            "legendFormat": "TX: {{pod}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "Bps"
+          }
+        }
+      },
+      {
+        "title": "UAT Traces by Service",
+        "type": "bargauge",
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 12},
+        "targets": [
+          {
+            "datasource": {"type": "prometheus", "uid": "prom"},
+            "expr": "sum(rate(traces_spanmetrics_calls_total{cluster=\"uat\"}[5m])) by (service_name)"
+          }
+        ],
+        "options": {
+          "orientation": "horizontal",
+          "displayMode": "gradient"
+        }
+      },
+      {
+        "title": "UAT Service Latency (p95)",
+        "type": "timeseries",
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 20},
+        "targets": [
+          {
+            "datasource": {"type": "prometheus", "uid": "prom"},
+            "expr": "histogram_quantile(0.95, sum(rate(traces_spanmetrics_latency_bucket{cluster=\"uat\"}[5m])) by (service_name, le))",
+            "legendFormat": "{{service_name}}"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "s"
+          }
+        }
+      }
+    ]
+  },
+  "folderId": 0,
+  "overwrite": true
+}
