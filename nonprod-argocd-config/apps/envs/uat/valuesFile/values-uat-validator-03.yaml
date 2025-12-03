@@ -23,6 +23,14 @@ enclave:
     #   repository: "ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
     #   tag: "v0.3.2"
     #   pullPolicy: "Always"
+    storage:
+        spec:
+          storageClassName: "premium2-disk-sc"
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 512Gi
     resources:
       limits:
         memory: 5Gi
