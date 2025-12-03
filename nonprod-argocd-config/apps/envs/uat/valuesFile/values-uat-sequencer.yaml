@@ -29,6 +29,14 @@ enclave:
         sgx.intel.com/epc: 6Gi
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
+    storage:
+        spec:
+          storageClassName: "premium2-disk-sc"
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 512Gi
 enclave02:
   enabled: true
   replicaCount: 1
@@ -57,6 +65,14 @@ enclave02:
         sgx.intel.com/epc: 6Gi
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
+    storage:
+        spec:
+          storageClassName: "premium2-disk-sc"
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 512Gi
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
