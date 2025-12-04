@@ -6,7 +6,7 @@ enclave:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.8.0"
+    tag: "v1.8.1"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss000000
   secretEnv:
@@ -50,7 +50,7 @@ enclave02:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.8.0"
+    tag: "v1.8.1"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss000002
   secretEnv:
@@ -92,7 +92,7 @@ enclave02:
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.8.0"
+    tag: "v1.8.1"
   fqdn: uat-testnet-sequencer.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss000000
@@ -159,7 +159,7 @@ config:
       l1blobarchiveurl: "https://ethereum-sepolia-beacon-api.publicnode.com/"
       rpctimeout: 15s
     log:
-      level: 3
+      level: 4
       path: sys_out
     p2p:
       isdisabled: false
@@ -185,7 +185,7 @@ config:
       enableblockvalidation: false
       genesisjson: []
     log:
-      level: 3
+      level: 4
       path: sys_out
     rpc:
       bindaddress: 0.0.0.0:11001
