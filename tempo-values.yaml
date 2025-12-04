@@ -1,0 +1,86 @@
+# Tempo Distributed Configuration for Central Monitoring
+# Using existing MinIO from LGTM stack
+
+# Disable MinIO deployment - use existing LGTM MinIO
+minio:
+  enabled: false
+
+# Ingester configuration
+ingester:
+  replicas: 2
+  persistence:
+    enabled: true
+    size: 10Gi
+
+# Distributor receives traces
+distributor:
+  replicas: 1
+  service:
+    type: ClusterIP
+  config:
+    log_received_spans:
+      enabled: true
+
+# Querier for trace queries
+querier:
+  replicas: 1
+
+# Query frontend
+queryFrontend:
+  replicas: 1
+
+# Compactor for trace compaction
+compactor:
+  replicas: 1
+  persistence:
+    enabled: true
+    size: 10Gi
+
+# Metrics generator (optional but useful)
+metricsGenerator:
+  enabled: true
+  replicas: 1
+
+# Gateway (NGINX) for unified endpoint
+gateway:
+  enabled: true
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 80
+  ingress:
+    enabled: false
+
+# Global trace configuration
+traces:
+  otlp:
+    grpc:
+      enabled: true
+    http:
+      enabled: true
+  zipkin:
+    enabled: true
+  jaeger:
+    thriftHttp:
+      enabled: true
+  opencensus:
+    enabled: true
+
+# Storage configuration - use existing LGTM MinIO
+storage:
+  trace:
+    backend: s3
+    s3:
+      bucket: tempo-traces
+      endpoint: lgtm-minio.monitoring.svc:9000
+      access_key: grafana-mimir
+      secret_key: supersecret
+      insecure: true
+
+# Enable service monitors for Prometheus scraping
+serviceMonitor:
+  enabled: false
+
+# Enable persistence for components
+persistence:
+  enabled: true

@@ -7,6 +7,12 @@ mimir:
     username: ""
     password: ""
 
+# Tempo configuration for distributed tracing
+tempo:
+  enabled: false
+  # Tempo OTLP endpoint (include port and protocol)
+  url: "tempo.ten.xyz:4317"
+
 # Kube-state-metrics configuration
 kube-state-metrics:
   enabled: true

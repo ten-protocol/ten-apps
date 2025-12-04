@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: monitoring-stack-uat
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/ten-protocol/ten-apps.git
+    path: charts/monitoring-stack
+    targetRevision: main
+    helm:
+      parameters:
+        - name: mimir.url
+          value: "https://mimir.ten.xyz"
+        - name: mimir.auth.username
+          value: "ten"
+        - name: mimir.auth.password
+          value: "ten"
+        - name: tempo.enabled
+          value: "true"
+        - name: tempo.url
+          value: "tempo.ten.xyz:4317"
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    # Manual sync only
+    automated: null

@@ -11,6 +11,14 @@ enclave:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss000000
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
+  storage:
+    spec:
+      storageClassName: "premium2-disk-sc"
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
   edb:
     # image:
     #   repository: "ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
@@ -29,6 +37,14 @@ enclave:
         sgx.intel.com/epc: 6Gi
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
+    storage:
+        spec:
+          storageClassName: "premium2-disk-sc"
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 512Gi
 enclave02:
   enabled: true
   replicaCount: 1
@@ -39,6 +55,14 @@ enclave02:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss000002
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
+  storage:
+    spec:
+      storageClassName: "premium2-disk-sc"
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
   edb:
     # image:
     #   repository: "ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
@@ -57,6 +81,14 @@ enclave02:
         sgx.intel.com/epc: 6Gi
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
+    storage:
+        spec:
+          storageClassName: "premium2-disk-sc"
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 512Gi
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"

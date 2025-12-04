@@ -1,4 +1,4 @@
-{{- if .Values.grafana-agent.enabled }}
+{{- if index .Values "grafana-agent" "enabled" }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -136,11 +136,66 @@ data:
     prometheus.remote_write "mimir" {
       endpoint {
         url = "{{ .Values.mimir.url }}/api/v1/push"
-        
+
         basic_auth {
           username = "{{ .Values.mimir.auth.username }}"
           password = "{{ .Values.mimir.auth.password }}"
         }
       }
     }
+    {{- if .Values.tempo.enabled }}
+
+    // OTLP receiver for traces
+    otelcol.receiver.otlp "default" {
+      grpc {
+        endpoint = "0.0.0.0:4317"
+      }
+
+      http {
+        endpoint = "0.0.0.0:4318"
+      }
+
+      output {
+        traces  = [otelcol.exporter.otlp.tempo.input]
+      }
+    }
+
+    // Jaeger receiver for traces
+    otelcol.receiver.jaeger "default" {
+      protocols {
+        grpc {
+          endpoint = "0.0.0.0:14250"
+        }
+        thrift_http {
+          endpoint = "0.0.0.0:14268"
+        }
+        thrift_compact {
+          endpoint = "0.0.0.0:6831"
+        }
+      }
+
+      output {
+        traces = [otelcol.exporter.otlp.tempo.input]
+      }
+    }
+
+    // Zipkin receiver for traces
+    otelcol.receiver.zipkin "default" {
+      endpoint = "0.0.0.0:9411"
+
+      output {
+        traces = [otelcol.exporter.otlp.tempo.input]
+      }
+    }
+
+    // Export traces to Tempo
+    otelcol.exporter.otlp "tempo" {
+      client {
+        endpoint = "{{ .Values.tempo.url }}"
+        tls {
+          insecure = false
+        }
+      }
+    }
+    {{- end }}
 {{- end }}
