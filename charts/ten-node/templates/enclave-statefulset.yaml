@@ -179,6 +179,8 @@ spec:
               value: {{ .Values.config.node.nodetype | default "validator" | quote }}
             - name: NODE_NAME
               value: {{ .Values.config.node.name | default "tennode" | quote }}
+            - name: ENCLAVE_STOREEXECUTEDTRANSACTIONS
+              value: {{ if eq (.Values.config.node.nodetype | default "validator") "sequencer" }}"false"{{ else }}"true"{{ end }}
           envFrom:
             - secretRef:
                 name: {{ include "ten-node.fullname" . }}-enclave
