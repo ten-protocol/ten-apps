@@ -196,4 +196,5 @@ externalSecrets:
     NODE_PRIVATEKEY: "uat-sequencer-node-privatekey"
     HOST_DB_POSTGRESHOST: "uat-sequencer-db-postgreshost"
     BEACON_API_KEY: "uat-sequencer-beacon-api-key"
-    DRPC_BEACON_URL: "uat-sequencer-drpc-beacon-url"
+    DRPC_BEACON_URL: "uat-drpc-beacon-url"
+    DRPC_L1_WS_URL: "uat-drpc-l1-ws-url"

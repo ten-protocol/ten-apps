@@ -149,5 +149,6 @@ externalSecrets:
     NODE_PRIVATEKEY: "uat-validator-01-node-privatekey"
     HOST_DB_POSTGRESHOST: "uat-validator-01-db-postgreshost"
     BEACON_API_KEY: "uat-sequencer-beacon-api-key"
-    DRPC_BEACON_URL: "uat-sequencer-drpc-beacon-url"
+    DRPC_BEACON_URL: "uat-drpc-beacon-url"
+    DRPC_L1_WS_URL: "uat-drpc-l1-ws-url"
 
