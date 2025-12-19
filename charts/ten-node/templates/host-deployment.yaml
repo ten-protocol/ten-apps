@@ -84,9 +84,9 @@ spec:
             - name: NETWORK_L1_STARTHASH
               value: {{ tpl .Values.config.network.l1.starthash .| default "" | quote }}
             - name: NETWORK_L1_TIMEOUTBLOCKS
-              value: {{ .Values.config.network.l1.timeoutBlocks .| default "5" | quote }}
+              value: {{ .Values.config.network.l1.timeoutBlocks | default "5" | quote }}
             - name: NETWORK_L1_MAXBLOBRETRIES
-              value: {{ .Values.config.network.l1.maxBlobRetries .| default "5" | quote }}
+              value: {{ .Values.config.network.l1.maxBlobRetries | default "5" | quote }}
             - name: NETWORK_GAS_BATCHEXECUTIONLIMIT
               value: {{ .Values.config.network.gas.batchexecutionlimit | default "300000000000" | quote }}
             - name: NETWORK_BATCH_MAXINTERVAL
