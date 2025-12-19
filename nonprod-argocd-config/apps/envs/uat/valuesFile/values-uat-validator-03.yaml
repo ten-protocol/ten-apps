@@ -5,7 +5,7 @@ global:
 enclave:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.8.4-6"
+    tag: "v1.8.5"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss000000
   secretEnv:
@@ -47,7 +47,7 @@ enclave:
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.8.4-6"
+    tag: "v1.8.5"
   fqdn: uat-validator-03.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss000001
@@ -69,6 +69,8 @@ config:
       chainid: "11155111"
       blocktime: 15s
       starthash: "{{ .Values.l1Config.starthash }}"
+      timeoutBlocks: 5
+      maxBlobRetries: 5
       l1contracts:
         messagebus: "{{ .Values.l1Config.messagebus }}"
         bridge: "{{ .Values.l1Config.bridge }}"
