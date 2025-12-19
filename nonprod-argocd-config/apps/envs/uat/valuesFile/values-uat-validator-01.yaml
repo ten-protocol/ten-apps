@@ -69,8 +69,8 @@ config:
       chainid: "11155111"
       blocktime: 15s
       starthash: "{{ .Values.l1Config.starthash }}"
-      timeoutBlocks: 5
-      maxBlobRetries: 5
+      timeoutBlocks: "5"
+      maxBlobRetries: "5"
       l1contracts:
         messagebus: "{{ .Values.l1Config.messagebus }}"
         bridge: "{{ .Values.l1Config.bridge }}"
