@@ -79,9 +79,8 @@ geth:
     timeoutSeconds: 5
     failureThreshold: 3
 
-  # Pod disruption budget disabled due to chart using deprecated v1beta1 API
-  podDisruptionBudget:
-    enabled: false
+  # Pod disruption budget disabled (empty object = disabled)
+  podDisruptionBudget: {}
 
   # Termination grace period for clean shutdown
   terminationGracePeriodSeconds: 300
@@ -159,9 +158,8 @@ prysm:
     timeoutSeconds: 5
     failureThreshold: 3
 
-  # Pod disruption budget disabled due to chart using deprecated v1beta1 API
-  podDisruptionBudget:
-    enabled: false
+  # Pod disruption budget disabled (empty object = disabled)
+  podDisruptionBudget: {}
 
   # Termination grace period
   terminationGracePeriodSeconds: 300
