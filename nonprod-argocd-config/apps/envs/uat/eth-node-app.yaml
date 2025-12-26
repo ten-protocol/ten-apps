@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: uat-eth-node
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://ethpandaops.github.io/ethereum-helm-charts
+      chart: ethereum-node
+      targetRevision: 0.2.4
+      helm:
+        valueFiles:
+          - $values/nonprod-argocd-config/apps/envs/uat/valuesFile/values-uat-eth-node.yaml
+    - repoURL: https://github.com/ten-protocol/ten-apps.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: uat
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

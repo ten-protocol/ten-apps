@@ -1,0 +1,237 @@
+# Ethereum Node Configuration for UAT - Sepolia Testnet
+# Geth (Execution Layer) + Prysm (Consensus Layer)
+# Production-ready configuration with 2TB persistence
+
+global:
+  network: sepolia
+  checkpointSync:
+    enabled: true
+
+# Geth Execution Client Configuration
+# Latest version: v1.16.7 (Fusaka hardfork support - Dec 3, 2025)
+geth:
+  enabled: true
+  nameOverride: execution
+
+  image:
+    repository: ethereum/client-go
+    tag: v1.16.7
+    pullPolicy: IfNotPresent
+
+  # Sepolia network configuration
+  extraArgs:
+    - --sepolia
+    - --http
+    - --http.addr=0.0.0.0
+    - --http.api=eth,net,web3,engine,admin,debug
+    - --http.vhosts=*
+    - --http.corsdomain=*
+    - --ws
+    - --ws.addr=0.0.0.0
+    - --ws.api=eth,net,web3,engine
+    - --ws.origins=*
+    - --authrpc.addr=0.0.0.0
+    - --authrpc.vhosts=*
+    - --authrpc.jwtsecret=/data/jwt.hex
+    - --metrics
+    - --metrics.addr=0.0.0.0
+    - --syncmode=snap
+    - --cache=8192
+    - --maxpeers=100
+
+  # 2TB Persistence for execution layer
+  persistence:
+    enabled: true
+    size: 2Ti
+    storageClassName: premium2-disk-sc
+    accessModes:
+      - ReadWriteOnce
+
+  # Production-ready resources
+  resources:
+    requests:
+      cpu: 4000m
+      memory: 16Gi
+    limits:
+      cpu: 8000m
+      memory: 32Gi
+
+  # Service configuration
+  httpPort: 8545
+  wsPort: 8546
+  p2pPort: 30303
+  metricsPort: 6060
+
+  # P2P NodePort for external connectivity
+  p2pNodePort:
+    enabled: true
+    port: 30303
+
+  # JWT secret for engine API authentication
+  jwt:
+    existingSecret: ""
+    secretKey: "jwt.hex"
+
+  # Liveness and readiness probes
+  livenessProbe:
+    initialDelaySeconds: 300
+    periodSeconds: 30
+    timeoutSeconds: 10
+    failureThreshold: 3
+
+  readinessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+
+  # Pod disruption budget for HA
+  podDisruptionBudget:
+    enabled: true
+    maxUnavailable: 1
+
+  # Termination grace period for clean shutdown
+  terminationGracePeriodSeconds: 300
+
+  # Service account
+  serviceAccount:
+    create: true
+
+# Prysm Consensus Client Configuration
+# Latest version: v7.1.1 (Fulu hardfork support)
+prysm:
+  enabled: true
+  nameOverride: beacon
+
+  image:
+    repository: gcr.io/prylabs-dev/prysm/beacon-chain
+    tag: v7.1.1
+    pullPolicy: IfNotPresent
+
+  # Sepolia network with checkpoint sync
+  extraArgs:
+    - --sepolia
+    - --accept-terms-of-use
+    - --jwt-secret=/data/jwt.hex
+    - --rpc-host=0.0.0.0
+    - --grpc-gateway-host=0.0.0.0
+    - --monitoring-host=0.0.0.0
+    - --p2p-max-peers=100
+    - --block-batch-limit=512
+    - --block-batch-limit-burst-factor=10
+    - --checkpoint-sync-url=https://checkpoint-sync.sepolia.ethpandaops.io
+    - --genesis-beacon-api-url=https://checkpoint-sync.sepolia.ethpandaops.io
+
+  # Checkpoint sync for faster initial sync
+  checkpointSync:
+    enabled: true
+    url: https://checkpoint-sync.sepolia.ethpandaops.io
+
+  # Persistence for consensus layer (500Gi should be sufficient for beacon chain)
+  persistence:
+    enabled: true
+    size: 500Gi
+    storageClassName: premium2-disk-sc
+    accessModes:
+      - ReadWriteOnce
+
+  # Production-ready resources
+  resources:
+    requests:
+      cpu: 2000m
+      memory: 8Gi
+    limits:
+      cpu: 4000m
+      memory: 16Gi
+
+  # Service ports
+  httpPort: 5052
+  p2pPort: 9000
+  metricsPort: 8080
+
+  # P2P NodePort for external connectivity
+  p2pNodePort:
+    enabled: true
+    port: 9000
+
+  # JWT secret for engine API authentication
+  jwt:
+    existingSecret: ""
+    secretKey: "jwt.hex"
+
+  # Liveness and readiness probes
+  livenessProbe:
+    initialDelaySeconds: 300
+    periodSeconds: 30
+    timeoutSeconds: 10
+    failureThreshold: 3
+
+  readinessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+
+  # Pod disruption budget
+  podDisruptionBudget:
+    enabled: true
+    maxUnavailable: 1
+
+  # Termination grace period
+  terminationGracePeriodSeconds: 300
+
+  # Service account
+  serviceAccount:
+    create: true
+
+# Ethereum Metrics Exporter for monitoring
+ethereum-metrics-exporter:
+  enabled: true
+  config:
+    consensus:
+      enabled: true
+      url: http://{{ .Release.Name }}-beacon:5052
+    execution:
+      enabled: true
+      url: http://{{ .Release.Name }}-execution:8545
+      modules:
+        - eth
+        - net
+        - web3
+
+# Disable other clients (only using Geth + Prysm)
+besu:
+  enabled: false
+
+erigon:
+  enabled: false
+
+ethereumjs:
+  enabled: false
+
+nethermind:
+  enabled: false
+
+reth:
+  enabled: false
+
+grandine:
+  enabled: false
+
+lighthouse:
+  enabled: false
+
+lodestar:
+  enabled: false
+
+nimbus:
+  enabled: false
+
+teku:
+  enabled: false
+
+xatu-sentry:
+  enabled: false
+
+tracoor-agent:
+  enabled: false
