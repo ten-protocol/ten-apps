@@ -79,10 +79,9 @@ geth:
     timeoutSeconds: 5
     failureThreshold: 3
 
-  # Pod disruption budget for HA
+  # Pod disruption budget disabled due to chart using deprecated v1beta1 API
   podDisruptionBudget:
-    enabled: true
-    maxUnavailable: 1
+    enabled: false
 
   # Termination grace period for clean shutdown
   terminationGracePeriodSeconds: 300
@@ -160,10 +159,9 @@ prysm:
     timeoutSeconds: 5
     failureThreshold: 3
 
-  # Pod disruption budget
+  # Pod disruption budget disabled due to chart using deprecated v1beta1 API
   podDisruptionBudget:
-    enabled: true
-    maxUnavailable: 1
+    enabled: false
 
   # Termination grace period
   terminationGracePeriodSeconds: 300
