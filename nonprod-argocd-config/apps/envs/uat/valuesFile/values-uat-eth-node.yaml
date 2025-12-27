@@ -13,6 +13,16 @@ geth:
   enabled: true
   nameOverride: execution
 
+  # Schedule on dedicated eth-sepolia node
+  nodeSelector:
+    kubernetes.io/hostname: aks-ethsepolia-11656774-vmss000002
+
+  tolerations:
+    - key: "ethereum"
+      operator: "Equal"
+      value: "sepolia"
+      effect: "NoSchedule"
+
   image:
     repository: ethereum/client-go
     tag: v1.16.7
@@ -94,6 +104,16 @@ geth:
 prysm:
   enabled: true
   nameOverride: beacon
+
+  # Schedule on dedicated eth-sepolia node
+  nodeSelector:
+    kubernetes.io/hostname: aks-ethsepolia-11656774-vmss000002
+
+  tolerations:
+    - key: "ethereum"
+      operator: "Equal"
+      value: "sepolia"
+      effect: "NoSchedule"
 
   image:
     repository: gcr.io/prylabs-dev/prysm/beacon-chain
