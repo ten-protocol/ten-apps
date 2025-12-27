@@ -5,6 +5,14 @@ metadata:
   namespace: argocd
 spec:
   project: default
+  # Ignore service type changes (manually set to LoadBalancer for external access)
+  ignoreDifferences:
+    - group: ""
+      kind: Service
+      name: uat-eth-node-execution
+      jsonPointers:
+        - /spec/type
+        - /spec/ports
   sources:
     - repoURL: https://ethpandaops.github.io/ethereum-helm-charts
       chart: ethereum-node
