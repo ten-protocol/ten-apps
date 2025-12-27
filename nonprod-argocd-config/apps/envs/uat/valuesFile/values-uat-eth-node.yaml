@@ -71,10 +71,9 @@ geth:
   p2pPort: 30303
   metricsPort: 6060
 
-  # P2P NodePort for external connectivity
+  # P2P NodePort disabled (use ClusterIP instead)
   p2pNodePort:
-    enabled: true
-    port: 30303
+    enabled: false
 
   # Liveness and readiness probes
   livenessProbe:
@@ -160,10 +159,9 @@ prysm:
   p2pPort: 9000
   metricsPort: 8080
 
-  # P2P NodePort for external connectivity
+  # P2P NodePort disabled (use ClusterIP instead)
   p2pNodePort:
-    enabled: true
-    port: 9000
+    enabled: false
 
   # Liveness and readiness probes
   livenessProbe:
