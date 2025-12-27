@@ -47,6 +47,7 @@ geth:
     - --syncmode=snap
     - --cache=8192
     - --maxpeers=100
+    - --nat=any
 
   # 2TB Persistence for execution layer
   persistence:
@@ -115,8 +116,8 @@ prysm:
       effect: "NoSchedule"
 
   image:
-    repository: gcr.io/prylabs-dev/prysm/beacon-chain
-    tag: v7.1.1
+    repository: gcr.io/offchainlabs/prysm/beacon-chain
+    tag: stable
     pullPolicy: IfNotPresent
 
   # Sepolia network with checkpoint sync
