@@ -124,6 +124,7 @@ prysm:
   extraArgs:
     - --sepolia
     - --accept-terms-of-use
+    - --execution-endpoint=http://uat-eth-node-execution:8551
     - --rpc-host=0.0.0.0
     - --grpc-gateway-host=0.0.0.0
     - --monitoring-host=0.0.0.0
