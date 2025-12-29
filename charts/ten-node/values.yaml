@@ -98,7 +98,7 @@ enclave:
     heapSize: 4
     marbleType: EdgelessDB
     launchMarble: false
-    pccsUrl: "http://sgx-pccs:8081"  # SGX PCCS service URL for attestation
+    pccsUrl: ""  # SGX PCCS service URL for attestation (leave empty to disable)
     resources:
       limits:
         memory: 8Gi
@@ -365,7 +365,7 @@ config:
   enclave:
     simulation: false
     enableattestation: true
-    pccsUrl: "http://sgx-pccs:8081"  # SGX PCCS service URL for attestation
+    pccsUrl: ""  # SGX PCCS service URL for attestation (leave empty to disable)
     db:
         useinmemory: false
         edgelessdbhost: obscuronode-edgelessdb
