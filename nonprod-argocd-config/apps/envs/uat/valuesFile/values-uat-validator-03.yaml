@@ -70,7 +70,7 @@ config:
       blocktime: 15s
       starthash: "{{ .Values.l1Config.starthash }}"
       timeoutBlocks: 5
-      maxBlobRetries: 5
+      maxBlobRetries: 10
       maxDynamicRetries: 5
       l1contracts:
         messagebus: "{{ .Values.l1Config.messagebus }}"
