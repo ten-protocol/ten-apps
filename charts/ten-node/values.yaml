@@ -386,6 +386,22 @@ config:
 externalSecrets:
   enabled: false
 
+sharedLoadBalancer:
+  enabled: false
+  name: "validators-lb"
+  selector:
+    ten.xyz/role: validator
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+    - name: ws
+      port: 81
+      targetPort: 81
+    - name: p2p
+      port: 10000
+      targetPort: 10000
+
 cleanupJob:
   # Configuration for the PostgreSQL table cleanup job
   postgres:

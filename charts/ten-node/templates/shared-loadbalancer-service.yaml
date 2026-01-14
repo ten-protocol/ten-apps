@@ -1,0 +1,22 @@
+{{- if .Values.sharedLoadBalancer.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.sharedLoadBalancer.name | default "validators-lb" }}
+  labels:
+    app: {{ .Values.sharedLoadBalancer.name | default "validators-lb" }}
+    {{- include "ten-node.labels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-options: "Delete=false"
+spec:
+  type: LoadBalancer
+  selector:
+    {{- toYaml .Values.sharedLoadBalancer.selector | nindent 4 }}
+  ports:
+    {{- range .Values.sharedLoadBalancer.ports }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: {{ .protocol | default "TCP" }}
+    {{- end }}
+{{- end }}

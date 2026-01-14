@@ -51,6 +51,8 @@ host:
   fqdn: uat-validator-01.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss000001
+  extraPodLabels:
+    ten.xyz/role: validator
 config:
   network:
     chainid: 7443
@@ -152,4 +154,20 @@ externalSecrets:
   secretMappings:
     NODE_PRIVATEKEY: "uat-validator-01-node-privatekey"
     HOST_DB_POSTGRESHOST: "uat-validator-01-db-postgreshost"
+
+sharedLoadBalancer:
+  enabled: true
+  name: "uat-validators-lb"
+  selector:
+    ten.xyz/role: validator
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+    - name: ws
+      port: 81
+      targetPort: 81
+    - name: p2p
+      port: 10000
+      targetPort: 10000
 

@@ -51,6 +51,8 @@ host:
   fqdn: uat-validator-02.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss000002
+  extraPodLabels:
+    ten.xyz/role: validator
 config:
   network:
     chainid: 7443
