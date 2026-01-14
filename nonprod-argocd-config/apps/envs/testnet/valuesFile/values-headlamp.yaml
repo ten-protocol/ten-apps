@@ -1,0 +1,43 @@
+replicaCount: 1
+
+config:
+  oidc:
+    clientID: "2dfb5fd5-4773-4e7c-b000-0eab395222f9"
+    clientSecretKey: "clientSecret"
+    issuerURL: "https://login.microsoftonline.com/6ecc106d-6ece-4212-930d-289825fa8379/v2.0"
+    scopes:
+      - openid
+      - profile
+      - email
+
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: headlamp-testnet.ten.xyz
+      paths:
+        - path: /
+          type: Prefix
+  tls:
+    - secretName: headlamp-tls
+      hosts:
+        - headlamp-testnet.ten.xyz
+
+# Use existing OIDC secret from ArgoCD
+env:
+  - name: HEADLAMP_CONFIG_OIDC_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: headlamp-oidc-secret
+        key: clientSecret
+
+serviceAccount:
+  create: true
+  name: headlamp
+
+clusterRoleBinding:
+  create: true

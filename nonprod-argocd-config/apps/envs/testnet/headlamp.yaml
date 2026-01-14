@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: testnet-headlamp
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://headlamp-k8s.github.io/headlamp/
+    chart: headlamp
+    targetRevision: 0.25.0
+    helm:
+      valueFiles:
+        - $values/nonprod-argocd-config/apps/envs/testnet/valuesFile/values-headlamp.yaml
+  sources:
+    - repoURL: https://headlamp-k8s.github.io/headlamp/
+      chart: headlamp
+      targetRevision: 0.25.0
+      helm:
+        valueFiles:
+          - $values/nonprod-argocd-config/apps/envs/testnet/valuesFile/values-headlamp.yaml
+    - repoURL: https://github.com/ten-protocol/ten-apps.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: headlamp
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
