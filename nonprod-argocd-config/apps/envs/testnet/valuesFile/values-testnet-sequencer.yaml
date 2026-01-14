@@ -143,7 +143,8 @@ config:
         - obscuronode-enclave02:11001
       rpctimeout: 10s
     l1:
-      websocketurl: "ws://l1.testnet.ten.xyz:8546"
+      websocketurl: "ws://l1.sepolia.ten.xyz:8546"
+      l1beaconurl: "http://beacon.sepolia.ten.xyz:5052"
       l1blobarchiveurl: "https://ethereum-sepolia-beacon-api.publicnode.com/"
       rpctimeout: 15s
     log:
@@ -184,5 +185,3 @@ externalSecrets:
   secretMappings:
     NODE_PRIVATEKEY: "TESTNET-SEQUENCER-NODE-PRIVATEKEY"
     HOST_DB_POSTGRESHOST: "testnet-seq-db-connstring"
-    BEACON_API_KEY: "DRPC-TESTNET-API-KEY"
-    DRPC_BEACON_URL: "DRPC-TESTNET-BEACON-URL"
