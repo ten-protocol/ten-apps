@@ -8,13 +8,23 @@ spec:
   source:
     repoURL: https://github.com/ten-protocol/ten-apps.git
     targetRevision: main
-    path: charts/ten-tools             # <-- Path to actual chart
+    path: charts/ten-tools
     helm:
       valueFiles:
-        - ../../nonprod-argocd-config/apps/envs/sepolia/valuesFile/values-sepolia-tools.yaml
+        - >-
+          ../../nonprod-argocd-config/apps/envs/sepolia/valuesFile/values-sepolia-tools.yaml
+      parameters:
+        - name: faucet.pk
+          value: '0x8dfb8083da6275ae3e4f41e3e8a8c19d028d32c9247e24530933782f2a05035b'
+        - name: faucet.jwtSecret
+          value: This_is_the_faucet_super_secret
+        - name: faucet.defaultAmount
+          value: '0.1'
+        - name: faucet.nodeHost
+          value: sepolia-validator-01.ten.xyz
   destination:
     server: https://kubernetes.default.svc
     namespace: sepolia
-  syncPolicy: 
+  syncPolicy:
     syncOptions:
       - CreateNamespace=true

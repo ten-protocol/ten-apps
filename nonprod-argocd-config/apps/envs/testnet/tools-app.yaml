@@ -8,10 +8,20 @@ spec:
   source:
     repoURL: https://github.com/ten-protocol/ten-apps.git
     targetRevision: main
-    path: charts/ten-tools             # <-- Path to actual chart
+    path: charts/ten-tools
     helm:
       valueFiles:
-        - ../../nonprod-argocd-config/apps/envs/testnet/valuesFile/values-testnet-tools.yaml
+        - >-
+          ../../nonprod-argocd-config/apps/envs/testnet/valuesFile/values-testnet-tools.yaml
+      parameters:
+        - name: faucet.pk
+          value: ''
+        - name: faucet.jwtSecret
+          value: ''
+        - name: faucet.defaultAmount
+          value: '0.1'
+        - name: faucet.nodeHost
+          value: testnet-validator-01.ten.xyz
   destination:
     server: https://kubernetes.default.svc
     namespace: testnet
