@@ -9,7 +9,7 @@ securityContext: {}
 faucet:
   replicaCount: 1
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/faucet_testnet
+    repository: testnetobscuronet.azurecr.io/obscuronet/faucet_sepolia_testnet
     tag: latest
   nodeHost: "tn-rpc.ten.xyz"
   nodePort: "443"
@@ -22,7 +22,7 @@ tenscan:
   api:
     replicaCount: 1
     image:
-      repository: testnetobscuronet.azurecr.io/obscuronet/api_obscuro_scan_testnet
+      repository: testnetobscuronet.azurecr.io/obscuronet/api_obscuro_scan_sepolia_testnet
       tag: latest
     nodeHostAddress: "https://tn-rpc.ten.xyz"
     host: "tn-api.tenscan.io"
@@ -30,7 +30,7 @@ tenscan:
   fe:
     replicaCount: 1
     image:
-      repository: testnetobscuronet.azurecr.io/obscuronet/fe_obscuro_scan_testnet
+      repository: testnetobscuronet.azurecr.io/obscuronet/fe_obscuro_scan_sepolia_testnet
       tag: latest
     env:
       apiHost: "https://tn-api.tenscan.io"
@@ -42,7 +42,7 @@ bridge:
   frontend:
     enabled: true
     image:
-      repository: "testnetobscuronet.azurecr.io/obscuronet/fe_bridge_testnet"
+      repository: "testnetobscuronet.azurecr.io/obscuronet/fe_bridge_sepolia_testnet"
       tag: "latest"
       pullPolicy: Always
     containerPort: 80

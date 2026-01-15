@@ -4,7 +4,7 @@ frontend:
   name: obscuro-gateway
   domain: tn.ten.xyz
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_testnet_fe_k8s
+    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_sepolia_testnet_fe_k8s
     tag: latest
     pullPolicy: Always
   containerPort: 80
@@ -23,7 +23,7 @@ backend:
   name: obscuro-gateway
   domain: tn.ten.xyz
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_testnet_k8s
+    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_sepolia_testnet_k8s
     tag: latest
     pullPolicy: Always
   nodeHost: "testnet-validator-01.ten.xyz"
