@@ -12,17 +12,6 @@ spec:
     helm:
       valueFiles:
         - ../../nonprod-argocd-config/apps/envs/testnet/valuesFile/values-testnet-tools.yaml
-      parameters:
-        - name: faucet.pk
-          value: "REPLACE_ME"
-        - name: faucet.jwtSecret
-          value: "REPLACE_ME"
-        - name: faucet.defaultAmount
-          value: "0.1"
-        - name: faucet.nodeHost
-          value: "tn-rpc.ten.xyz"
-        - name: bridge.frontend.containerPort
-          value: "80"
   destination:
     server: https://kubernetes.default.svc
     namespace: testnet
