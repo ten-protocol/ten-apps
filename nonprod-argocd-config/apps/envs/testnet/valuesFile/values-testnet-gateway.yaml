@@ -2,7 +2,7 @@ replicaCount: 1
 
 frontend:
   name: obscuro-gateway
-  domain: testnet.ten.xyz
+  domain: tn.ten.xyz
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_testnet_fe_k8s
     tag: latest
@@ -21,7 +21,7 @@ frontend:
 
 backend:
   name: obscuro-gateway
-  domain: testnet.ten.xyz
+  domain: tn.ten.xyz
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_testnet_k8s
     tag: latest
@@ -34,11 +34,11 @@ backend:
   encryptionKeySource: "new"
   insideEnclave: true
   enableTLS: true
-  tlsDomain: "testnet-rpc.ten.xyz"
+  tlsDomain: "tn-rpc.ten.xyz"
   nodePortHTTP: 80
   nodePortWS: 81
   tenChainID: 8443
-  frontendURL: "https://testnet.ten.xyz"
+  frontendURL: "https://tn.ten.xyz"
   verbose: true
   ports:
     http: 80
@@ -69,7 +69,7 @@ backend:
       sgx.intel.com/provision: 10
       sgx.intel.com/enclave: 10
   nodeSelector:
-      kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000k
+      kubernetes.io/hostname: aks-sgxpool-99744890-vmss000004
   tolerations: []
   affinity: {}
 

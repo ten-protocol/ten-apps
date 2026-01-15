@@ -11,12 +11,12 @@ faucet:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/faucet_testnet
     tag: latest
-  nodeHost: "erpc.testnet.ten.xyz"
-  nodePort: "80"
+  nodeHost: "tn-rpc.ten.xyz"
+  nodePort: "443"
   pk: "YOUR_FAUCET_PRIVATE_KEY"
   jwtSecret: "YOUR_JWT_SECRET"
   chainID: 8443
-  host: "testnet-faucet.ten.xyz"
+  host: "tn-faucet.ten.xyz"
 
 tenscan:
   api:
@@ -24,8 +24,8 @@ tenscan:
     image:
       repository: testnetobscuronet.azurecr.io/obscuronet/api_obscuro_scan_testnet
       tag: latest
-    nodeHostAddress: "http://erpc.testnet.ten.xyz:80"
-    host: "testnet-api.tenscan.io"
+    nodeHostAddress: "https://tn-rpc.ten.xyz"
+    host: "tn-api.tenscan.io"
 
   fe:
     replicaCount: 1
@@ -33,11 +33,11 @@ tenscan:
       repository: testnetobscuronet.azurecr.io/obscuronet/fe_obscuro_scan_testnet
       tag: latest
     env:
-      apiHost: "https://testnet-api.tenscan.io"
+      apiHost: "https://tn-api.tenscan.io"
       version: "v1.0.0"
       environment: "testnet"
-    host: "testnet.tenscan.io"
-    host2: "testnet.tenscan.io"
+    host: "tn.tenscan.io"
+    host2: "tn.tenscan.io"
 bridge:
   frontend:
     enabled: true
@@ -48,9 +48,9 @@ bridge:
     containerPort: 80
     service:
       port: 80
-    host: "testnet-bridge.ten.xyz"
+    host: "tn-bridge.ten.xyz"
     env:
-      apiHost: "https://testnet-rpc.ten.xyz/v1"
+      apiHost: "https://tn-rpc.ten.xyz/v1"
     # You can add other environment variables here
 
 resources: {}
