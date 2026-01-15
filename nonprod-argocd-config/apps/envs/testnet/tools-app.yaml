@@ -22,6 +22,8 @@ spec:
           value: '0.1'
         - name: faucet.nodeHost
           value: testnet-validator-01.ten.xyz
+        - name: faucet.nodePort
+          value: '80'
   destination:
     server: https://kubernetes.default.svc
     namespace: testnet
