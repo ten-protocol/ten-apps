@@ -110,6 +110,8 @@ config:
       rpcaddresses:
         - obscuronode-enclave:11001
       rpctimeout: 10s
+      contractSyncInterval: 2m
+      contractFetchLimit: 100
     l1:
       websocketurl: "ws://l1.sepolia.ten.xyz:8546"
       l1beaconurl: "http://beacon.sepolia.ten.xyz:5052"
