@@ -157,8 +157,8 @@ config:
         - obscuronode-enclave:11001
         - obscuronode-enclave02:11001
       rpctimeout: 10s
-      contractSyncInterval: 2m
-      contractFetchLimit: 100
+      contractSyncInterval: 1m
+      contractFetchLimit: 50
     l1:
       websocketurl: "ws://l1.sepolia.ten.xyz:8546"
       l1beaconurl: "http://beacon.sepolia.ten.xyz:5052"
