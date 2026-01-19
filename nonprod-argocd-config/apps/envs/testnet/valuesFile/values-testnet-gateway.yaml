@@ -2,7 +2,7 @@ replicaCount: 1
 
 frontend:
   name: obscuro-gateway
-  domain: tn.ten.xyz
+  domain: testnet.ten.xyz
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_sepolia_testnet_fe_k8s
     tag: latest
@@ -21,7 +21,7 @@ frontend:
 
 backend:
   name: obscuro-gateway
-  domain: tn.ten.xyz
+  domain: testnet.ten.xyz
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_sepolia_testnet_k8s
     tag: latest
@@ -34,11 +34,11 @@ backend:
   encryptionKeySource: "new"
   insideEnclave: true
   enableTLS: true
-  tlsDomain: "tn-rpc.ten.xyz"
+  tlsDomain: "testnet-rpc.ten.xyz"
   nodePortHTTP: 80
   nodePortWS: 81
   tenChainID: 8443
-  frontendURL: "https://tn.ten.xyz"
+  frontendURL: "https://testnet.ten.xyz"
   verbose: true
   ports:
     http: 80
