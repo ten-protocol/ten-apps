@@ -4,7 +4,7 @@ frontend:
   name: obscuro-gateway
   domain: dexynth-gateway.ten.xyz
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_testnet_fe_k8s
+    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_sepolia_testnet_fe_k8s
     tag: latest
     pullPolicy: Always
   containerPort: 80
@@ -23,7 +23,7 @@ backend:
   name: obscuro-gateway
   domain: dexynth-gateway.ten.xyz
   image:
-    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_testnet_k8s
+    repository: testnetobscuronet.azurecr.io/obscuronet/obscuro_gateway_sepolia_testnet_k8s
     tag: latest
     pullPolicy: Always
   nodeHost: "testnet-validator-01.ten.xyz"
@@ -69,7 +69,7 @@ backend:
       sgx.intel.com/provision: 10
       sgx.intel.com/enclave: 10
   nodeSelector:
-      kubernetes.io/hostname: aks-sgxpool-54727109-vmss00000j
+      kubernetes.io/hostname: aks-sgxpool-99744890-vmss000004
   tolerations: []
   affinity: {}
 
