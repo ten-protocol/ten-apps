@@ -102,6 +102,8 @@ config:
       rpcaddresses:
         - obscuronode-enclave:11001
       rpctimeout: 10s
+      contractSyncInterval: 1m
+      contractFetchLimit: 50
     l1:
       websocketurl: "ws://l1.sepolia.ten.xyz:8546"
       l1blobarchiveurl: "https://ethereum-sepolia-beacon-api.publicnode.com/"
