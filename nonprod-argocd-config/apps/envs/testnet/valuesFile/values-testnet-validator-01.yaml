@@ -53,6 +53,8 @@ host:
   fqdn: testnet-validator-01.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-99744890-vmss000004
+  extraPodLabels:
+    ten.xyz/role: validator
 
 config:
   network:
@@ -153,3 +155,19 @@ externalSecrets:
   secretMappings:
     NODE_PRIVATEKEY: "TESTNET-VALIDATOR-01-NODE-PRIVATEKEY"
     HOST_DB_POSTGRESHOST: "testnet-val-01-db-connstring"
+
+sharedLoadBalancer:
+  enabled: true
+  name: "testnet-validators-lb"
+  selector:
+    ten.xyz/role: validator
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+    - name: ws
+      port: 81
+      targetPort: 81
+    - name: p2p
+      port: 10000
+      targetPort: 10000
