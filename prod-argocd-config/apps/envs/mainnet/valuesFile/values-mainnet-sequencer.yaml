@@ -94,6 +94,9 @@ config:
       blocktime: 12s
       starthash: "{{ .Values.l1Config.starthash }}"
       rollupRetryDelay: 10s
+      timeoutBlocks: 5
+      maxBlobRetries: 10
+      maxDynamicRetries: 5
       l1contracts:
         messagebus: "{{ .Values.l1Config.messagebus }}"
         bridge: "{{ .Values.l1Config.bridge }}"
@@ -121,6 +124,8 @@ config:
     db:
       useinmemory: false
       sqlitepath: ""
+      historicaltxcount: "0"
+      historicalcontractcount: "0"
     debug:
       enablemetrics: true
       metricshttpport: 0
