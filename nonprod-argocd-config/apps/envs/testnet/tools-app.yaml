@@ -21,7 +21,7 @@ spec:
         - name: faucet.defaultAmount
           value: '0.1'
         - name: faucet.nodeHost
-          value: testnet-validator-01.ten.xyz
+          value: erpc.testnet.ten.xyz
         - name: faucet.nodePort
           value: '80'
   destination:
