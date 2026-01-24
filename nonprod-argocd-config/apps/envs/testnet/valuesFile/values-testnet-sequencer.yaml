@@ -9,7 +9,7 @@ enclave:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "v1.8.10"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-99744890-vmss000003
+    kubernetes.io/hostname: aks-sgxpool-11336420-vmss000002
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   storage:
@@ -53,7 +53,7 @@ enclave02:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "v1.8.10"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-99744890-vmss000005
+    kubernetes.io/hostname: aks-sgxpool-11336420-vmss000002
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   storage:
@@ -97,7 +97,7 @@ host:
     tag: "v1.8.10"
   fqdn: testnet-sequencer.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-99744890-vmss000003
+    kubernetes.io/hostname: aks-sgxpool-11336420-vmss000002
 
 config:
   network:
@@ -145,8 +145,8 @@ config:
     db:
       useinmemory: false
       sqlitepath: ""
-      historicaltxcount: "70107067"
-      historicalcontractcount: "947100"
+      historicaltxcount: "0"
+      historicalcontractcount: "0"
     debug:
       enablemetrics: true
       metricshttpport: 0

@@ -8,7 +8,7 @@ enclave:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "v1.8.10"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-99744890-vmss000004
+    kubernetes.io/hostname: aks-sgxpool-11336420-vmss000000
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
   storage:
@@ -52,7 +52,7 @@ host:
     tag: "v1.8.10"
   fqdn: testnet-validator-01.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-99744890-vmss000004
+    kubernetes.io/hostname: aks-sgxpool-11336420-vmss000000
   extraPodLabels:
     ten.xyz/role: validator
 
@@ -101,8 +101,8 @@ config:
     db:
       useinmemory: false
       sqlitepath: ""
-      historicaltxcount: "70107067"
-      historicalcontractcount: "947100"
+      historicaltxcount: "0"
+      historicalcontractcount: "0"
     debug:
       enablemetrics: true
       metricshttpport: 0
