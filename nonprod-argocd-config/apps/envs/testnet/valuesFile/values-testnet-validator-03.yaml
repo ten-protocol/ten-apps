@@ -1,37 +1,26 @@
 global:
   imagePullSecrets: []
   imagePullPolicy: Always
-  destructiveDeployment: false
+  destructiveDeployment: true
+
 enclave:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "v1.8.10-1"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-35313246-vmss000002
+    kubernetes.io/hostname: aks-sgxpool-35313246-vmss000006
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
-    ENCLAVE_BACKUPENCRYPTIONKEY: "03c51aa42aa4b0c4253980e05e80ddc081f53339abd4532e20f324188324446219"
+    ENCLAVE_BACKUPENCRYPTIONKEY: "02f7c156f995dc670aeeb2db263a35751515d3fa3b01b80e28bd70a9ceb3340c8f"
   storage:
     spec:
-      storageClassName: premium2-disk-sc
+      storageClassName: "premium2-disk-sc"
       accessModes:
         - ReadWriteOnce
       resources:
         requests:
           storage: 1Gi
   edb:
-    # image:
-    #   repository: "ghcr.io/edgelesssys/edgelessdb-sgx-4gb"
-    #   tag: "v0.3.2"
-    #   pullPolicy: "Always"
-    storage:
-        spec:
-          storageClassName: "premium2-disk-sc"
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 512Gi
     resources:
       limits:
         memory: 8Gi
@@ -45,18 +34,28 @@ enclave:
         sgx.intel.com/epc: 6Gi
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
+    storage:
+        spec:
+          storageClassName: "premium2-disk-sc"
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 512Gi
+
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
     tag: "v1.8.10-1"
-  fqdn: uat-validator-02.ten.xyz
+  fqdn: testnet-validator-03.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-35313246-vmss000002
+    kubernetes.io/hostname: aks-sgxpool-35313246-vmss000006
   extraPodLabels:
     ten.xyz/role: validator
+
 config:
   network:
-    chainid: 7443
+    chainid: 8443
     genesisjson: '{}'
     batch:
       interval: 1s
@@ -72,9 +71,6 @@ config:
       chainid: "11155111"
       blocktime: 15s
       starthash: "{{ .Values.l1Config.starthash }}"
-      timeoutBlocks: 5
-      maxBlobRetries: 10
-      maxDynamicRetries: 5
       l1contracts:
         messagebus: "{{ .Values.l1Config.messagebus }}"
         bridge: "{{ .Values.l1Config.bridge }}"
@@ -89,21 +85,21 @@ config:
       batchCompressionFactor: 0.1
       txCompressionFactor: 0.85
     sequencer:
-      p2paddress: uat-sequencer-ten-node-host:10000
-      systemcontractsupgrader: "0x76d412eBaA22Ab58783531b585128Cf50768abbE"
+      p2paddress: testnet-sequencer-ten-node-host:10000
+      systemcontractsupgrader: "0xA58C60cc047592DE97BF1E8d2f225Fc5D959De77"
     crosschain:
       interval: 6s
   node:
     nodetype: "validator"
-    name: "ten-uat-validator-02"
+    name: "ten-testnet-validator-03"
     isgenesis: false
-    hostAddress: "uat-validator-02.ten.xyz:10000"
+    hostAddress: "testnet-validator-03.ten.xyz:10000"
   host:
     db:
       useinmemory: false
       sqlitepath: ""
-      historicaltxcount: "5107067"
-      historicalcontractcount: "947100"
+      historicaltxcount: "0"
+      historicalcontractcount: "0"
     debug:
       enablemetrics: true
       metricshttpport: 0
@@ -119,7 +115,7 @@ config:
       l1blobarchiveurl: "https://ethereum-sepolia-beacon-api.publicnode.com/"
       rpctimeout: 15s
     log:
-      level: 4
+      level: 3
       path: sys_out
     p2p:
       isdisabled: false
@@ -145,14 +141,30 @@ config:
       enableblockvalidation: false
       genesisjson: []
     log:
-      level: 4
+      level: 3
       path: sys_out
     rpc:
       bindaddress: 0.0.0.0:11001
       timeout: 5s
+
 externalSecrets:
   enabled: true
   secretMappings:
-    NODE_PRIVATEKEY: "uat-validator-02-node-privatekey"
-    HOST_DB_POSTGRESHOST: "uat-validator-02-db-postgreshost"
-    ENCLAVE_SHAREDSECRET: "uat-validator-02-sharedsecret"
+    NODE_PRIVATEKEY: "TESTNET-VALIDATOR-03-NODE-PRIVATEKEY"
+    HOST_DB_POSTGRESHOST: "testnet-val-03-db-connstring"
+
+sharedLoadBalancer:
+  enabled: true
+  name: "testnet-validators-lb"
+  selector:
+    ten.xyz/role: validator
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+    - name: ws
+      port: 81
+      targetPort: 81
+    - name: p2p
+      port: 10000
+      targetPort: 10000

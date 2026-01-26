@@ -10,6 +10,7 @@ enclave:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss000001
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
+    ENCLAVE_BACKUPENCRYPTIONKEY: "03c51aa42aa4b0c4253980e05e80ddc081f53339abd4532e20f324188324446219"
   storage:
     spec:
       storageClassName: premium2-disk-sc
@@ -154,6 +155,7 @@ externalSecrets:
   secretMappings:
     NODE_PRIVATEKEY: "uat-validator-01-node-privatekey"
     HOST_DB_POSTGRESHOST: "uat-validator-01-db-postgreshost"
+    ENCLAVE_SHAREDSECRET: "uat-validator-01-sharedsecret"
 
 sharedLoadBalancer:
   enabled: true
