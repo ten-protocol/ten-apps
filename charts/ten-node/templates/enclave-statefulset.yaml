@@ -188,8 +188,6 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "ten-node.fullname" . }}-enclave
-            - secretRef:
-                name: {{ include "ten-node.fullname" . }}-node-secrets
           volumeMounts:
             - name: {{ include "ten-node.fullname" . }}-enclave  # Fixed volume mount name
               mountPath: /enclavedata
