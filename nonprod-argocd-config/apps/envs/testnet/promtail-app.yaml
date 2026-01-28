@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: promtail
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 6.17.0
+    chart: promtail
+    helm:
+      values: |
+        config:
+          clients:
+            - url: https://loki.ten.xyz/loki/api/v1/push
+              batchwait: 3s
+              batchsize: 1048576
+              tls_config:
+                insecure_skip_verify: true
+              basic_auth:
+                username: ""
+                password: ""
+        env:
+          - name: LOKI_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: promtail-loki-creds
+                key: username
+          - name: LOKI_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: promtail-loki-creds
+                key: password
+        # Create secret manually:
+        # kubectl create secret generic promtail-loki-creds -n promtail \
+        #   --from-literal=username=<user> --from-literal=password=<pass>
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: promtail
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
