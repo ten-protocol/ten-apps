@@ -137,7 +137,7 @@ spec:
             - name: NETWORK_L1_CONTRACTS_NETWORKCONFIG
               value: {{ tpl .Values.config.network.l1.l1contracts.networkConfig . | default "" | quote }}
             - name: NETWORK_GENESIS
-              value: {{ .Values.config.network.genesisjson | default "{}" | quote }}
+              value: {{ if and .Values.config.network.genesisjson (ne .Values.config.network.genesisjson "{}") }}{{ .Values.config.network.genesisjson | quote }}{{ else }}{{ .Files.Get "files/genesis.json" | replace "\n" "" | replace " " "" | quote }}{{ end }}
             - name: NETWORK_L1_CONTRACTS_MESSAGEBUS
               value: {{ tpl .Values.config.network.l1.l1contracts.messagebus . | default "" | quote }}
             - name: NETWORK_BATCH_MAXSIZE
