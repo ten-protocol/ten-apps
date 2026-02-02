@@ -56,7 +56,6 @@ host:
 config:
   network:
     chainid: 8443
-    genesisjson: '{}'
     batch:
       interval: 1s
       maxinterval: 1s
