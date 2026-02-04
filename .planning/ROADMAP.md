@@ -45,11 +45,11 @@ Plans:
   2. Encrypted backups split into 2-of-3 SLIP-39 shares with guardian distribution
   3. Network can restart successfully using shared secret reconstructed from 2 shares
   4. Recovery process validates secret integrity before network restart
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
+- [ ] 02-01-PLAN.md — Network secret backup with simple UAT secret sharing
+- [ ] 02-02-PLAN.md — Network recovery procedure using reconstructed shared secrets
 
 ### Phase 3: Gateway Key Backup
 **Goal**: Gateway database encryption keys backed up and recoverable independently from network secrets
@@ -119,7 +119,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation Setup | 0/2 | Not started | - |
-| 2. Network Secret Backup | 0/TBD | Not started | - |
+| 2. Network Secret Backup | 0/2 | Not started | - |
 | 3. Gateway Key Backup | 0/TBD | Not started | - |
 | 4. Operations Integration | 0/TBD | Not started | - |
 | 5. Security Hardening | 0/TBD | Not started | - |
