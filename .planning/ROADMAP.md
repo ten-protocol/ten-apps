@@ -60,11 +60,11 @@ Plans:
   2. Each gateway instance has independent 2-of-3 SLIP-39 share distribution
   3. Gateway instances restart with recovered encryption keys using -encryptionKeySource
   4. Multiple gateway recovery coordinated without cross-contamination
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md — Gateway key backup and SLIP-39 share distribution with instance isolation
+- [ ] 03-02-PLAN.md — Gateway recovery procedures and multi-instance validation testing
 
 ### Phase 4: Operations Integration
 **Goal**: Complete operational procedures and tooling for production backup management
@@ -120,7 +120,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Foundation Setup | 0/2 | Not started | - |
 | 2. Network Secret Backup | 0/2 | Not started | - |
-| 3. Gateway Key Backup | 0/TBD | Not started | - |
+| 3. Gateway Key Backup | 0/2 | Not started | - |
 | 4. Operations Integration | 0/TBD | Not started | - |
 | 5. Security Hardening | 0/TBD | Not started | - |
 | 6. Testing & Validation | 0/TBD | Not started | - |
