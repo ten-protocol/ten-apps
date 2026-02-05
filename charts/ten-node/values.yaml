@@ -3,12 +3,21 @@ global:
   imagePullPolicy: Always
   destructiveDeployment: true
 
+priorityClass:
+  create: false
+  name: ""
+  value: 1000000
+  globalDefault: false
+  preemptionPolicy: PreemptLowerPriority
+  description: "High priority class for ten-node workloads"
+
 nameOverride: ""
 
 # -- Overrides the chart's computed fullname
 fullnameOverride: ""
 enclave:
   replicaCount: 1
+  priorityClassName: ""
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/sepolia_enclave
     tag: "latest"
@@ -119,6 +128,7 @@ enclave:
 enclave02:
   enabled: false
   replicaCount: 1
+  priorityClassName: ""
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/sepolia_enclave
     tag: "latest"
@@ -238,6 +248,7 @@ enclave02:
 host:
   enabled: true
   replicaCount: 1
+  priorityClassName: ""
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/sepolia_host"
     tag: "latest"
