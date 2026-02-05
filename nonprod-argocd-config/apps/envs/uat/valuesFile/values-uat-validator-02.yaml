@@ -10,7 +10,7 @@ enclave:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000d
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
-    ENCLAVE_BACKUPENCRYPTIONKEY: "03c51aa42aa4b0c4253980e05e80ddc081f53339abd4532e20f324188324446219"
+    ENCLAVE_BACKUPENCRYPTIONKEY: "0299b6253b49aeafb64af3a468336c1cc29dd03237545748c36615e6a81a49513f"
   storage:
     spec:
       storageClassName: premium2-disk-sc
