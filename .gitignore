@@ -1,3 +1,6 @@
 .secrets/
 docs/
 .idea/*
+scripts/
+ten-network-backup-video/
+.planning/
