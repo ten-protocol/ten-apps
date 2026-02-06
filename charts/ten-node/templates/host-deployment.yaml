@@ -189,6 +189,10 @@ spec:
           {{- else }}
             - name: HOST_ENCLAVE_RPCADDRESSES
               value: {{ include "ten-node.fullname" . }}-enclave:11001
+            - name: HOST_ENCLAVE_CONTRACTSYNCINTERVAL
+              value: {{ .Values.config.host.enclave.contractSyncInterval | default "1m" | quote }}
+            - name: HOST_ENCLAVE_CONTRACTFETCHLIMIT
+                - value: {{ .Values.config.host.enclave.contractFetchLimit | default "50" | quote }}
           {{- end }}
             - name: HOST_ENCLAVE_RPCTIMEOUT
               value: {{ .Values.config.host.enclave.rpctimeout | default "10s" | quote }}
