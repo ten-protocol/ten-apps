@@ -6,7 +6,7 @@ enclave:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.8.11"
+    tag: "d047820"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000i
   secretEnv:
@@ -39,19 +39,19 @@ enclave:
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
     storage:
-        spec:
-          storageClassName: "premium2-disk-sc"
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 512Gi
+      spec:
+        storageClassName: "premium2-disk-sc"
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 512Gi
 enclave02:
   enabled: true
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.8.11"
+    tag: "d047820"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000j
   secretEnv:
@@ -84,17 +84,17 @@ enclave02:
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
     storage:
-        spec:
-          storageClassName: "premium2-disk-sc"
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 512Gi
+      spec:
+        storageClassName: "premium2-disk-sc"
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 512Gi
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.8.11"
+    tag: "d047820"
   fqdn: uat-testnet-sequencer.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000i

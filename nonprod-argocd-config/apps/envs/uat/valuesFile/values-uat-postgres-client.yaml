@@ -2,7 +2,6 @@ image:
   repository: postgres
   tag: 16-alpine
   pullPolicy: IfNotPresent
-
 resources:
   limits:
     cpu: 100m
@@ -10,5 +9,13 @@ resources:
   requests:
     cpu: 50m
     memory: 64Mi
-
 nodeSelector: {}
+enclave:
+  image:
+    tag: d047820
+enclave02:
+  image:
+    tag: d047820
+host:
+  image:
+    tag: d047820

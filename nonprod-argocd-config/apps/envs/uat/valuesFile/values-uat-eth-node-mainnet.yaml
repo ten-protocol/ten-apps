@@ -6,30 +6,25 @@ global:
   network: mainnet
   checkpointSync:
     enabled: true
-
 # Geth Execution Client Configuration
 # Latest version: v1.16.7 (Fusaka hardfork support - Dec 3, 2025)
 geth:
   enabled: true
   nameOverride: execution
-
   # Schedule on dedicated eth-mainnet node
   # IMPORTANT: Create a dedicated node with taint: ethereum=mainnet:NoSchedule
   # Update the hostname below to match your mainnet node
   nodeSelector:
     kubernetes.io/hostname: aks-ethmainnet-11656774-vmss000000
-
   tolerations:
     - key: "ethereum"
       operator: "Equal"
       value: "mainnet"
       effect: "NoSchedule"
-
   image:
     repository: ethereum/client-go
     tag: v1.16.7
     pullPolicy: IfNotPresent
-
   # Mainnet network configuration
   extraArgs:
     - --mainnet
@@ -50,7 +45,6 @@ geth:
     - --cache=16384
     - --maxpeers=100
     - --nat=any
-
   # 2TB Persistence for execution layer (mainnet requires more storage than testnets)
   persistence:
     enabled: true
@@ -58,7 +52,6 @@ geth:
     storageClassName: premium2-disk-sc
     accessModes:
       - ReadWriteOnce
-
   # Mainnet requires more resources than Sepolia
   resources:
     requests:
@@ -67,63 +60,51 @@ geth:
     limits:
       cpu: 12000m
       memory: 48Gi
-
   # Service configuration
   httpPort: 8545
   wsPort: 8546
   p2pPort: 30303
   metricsPort: 6060
-
   # P2P NodePort disabled (use ClusterIP instead)
   p2pNodePort:
     enabled: false
-
   # Liveness and readiness probes
   livenessProbe:
     initialDelaySeconds: 300
     periodSeconds: 30
     timeoutSeconds: 10
     failureThreshold: 3
-
   readinessProbe:
     initialDelaySeconds: 60
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 3
-
   # Pod disruption budget disabled (empty object = disabled)
   podDisruptionBudget: {}
-
   # Termination grace period for clean shutdown
   terminationGracePeriodSeconds: 600
-
   # Service account
   serviceAccount:
     create: true
-
 # Prysm Consensus Client Configuration
 # Latest version: v7.1.1 (Fulu hardfork support)
 prysm:
   enabled: true
   nameOverride: beacon
-
   # Schedule on dedicated eth-mainnet node
   # IMPORTANT: Create a dedicated node with taint: ethereum=mainnet:NoSchedule
   # Update the hostname below to match your mainnet node
   nodeSelector:
     kubernetes.io/hostname: aks-ethmainnet-11656774-vmss000000
-
   tolerations:
     - key: "ethereum"
       operator: "Equal"
       value: "mainnet"
       effect: "NoSchedule"
-
   image:
     repository: gcr.io/offchainlabs/prysm/beacon-chain
     tag: stable
     pullPolicy: IfNotPresent
-
   # Mainnet network with checkpoint sync
   extraArgs:
     - --mainnet
@@ -137,12 +118,10 @@ prysm:
     - --block-batch-limit-burst-factor=10
     - --checkpoint-sync-url=https://checkpoint-sync.ethpandaops.io
     - --genesis-beacon-api-url=https://checkpoint-sync.ethpandaops.io
-
   # Checkpoint sync for faster initial sync
   checkpointSync:
     enabled: true
     url: https://checkpoint-sync.ethpandaops.io
-
   # Persistence for consensus layer (mainnet beacon chain is larger than testnet)
   persistence:
     enabled: true
@@ -150,7 +129,6 @@ prysm:
     storageClassName: premium2-disk-sc
     accessModes:
       - ReadWriteOnce
-
   # Mainnet requires more resources than Sepolia
   resources:
     requests:
@@ -159,39 +137,31 @@ prysm:
     limits:
       cpu: 6000m
       memory: 24Gi
-
   # Service ports
   httpPort: 5052
   p2pPort: 9000
   metricsPort: 8080
-
   # P2P NodePort disabled (use ClusterIP instead)
   p2pNodePort:
     enabled: false
-
   # Liveness and readiness probes
   livenessProbe:
     initialDelaySeconds: 300
     periodSeconds: 30
     timeoutSeconds: 10
     failureThreshold: 3
-
   readinessProbe:
     initialDelaySeconds: 60
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 3
-
   # Pod disruption budget disabled (empty object = disabled)
   podDisruptionBudget: {}
-
   # Termination grace period
   terminationGracePeriodSeconds: 600
-
   # Service account
   serviceAccount:
     create: true
-
 # Ethereum Metrics Exporter for monitoring
 ethereum-metrics-exporter:
   enabled: true
@@ -206,40 +176,37 @@ ethereum-metrics-exporter:
         - eth
         - net
         - web3
-
 # Disable other clients (only using Geth + Prysm)
 besu:
   enabled: false
-
 erigon:
   enabled: false
-
 ethereumjs:
   enabled: false
-
 nethermind:
   enabled: false
-
 reth:
   enabled: false
-
 grandine:
   enabled: false
-
 lighthouse:
   enabled: false
-
 lodestar:
   enabled: false
-
 nimbus:
   enabled: false
-
 teku:
   enabled: false
-
 xatu-sentry:
   enabled: false
-
 tracoor-agent:
   enabled: false
+enclave:
+  image:
+    tag: d047820
+enclave02:
+  image:
+    tag: d047820
+host:
+  image:
+    tag: d047820
