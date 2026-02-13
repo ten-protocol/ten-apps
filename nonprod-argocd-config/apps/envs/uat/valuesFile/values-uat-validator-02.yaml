@@ -5,7 +5,7 @@ global:
 enclave:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "d047820"
+    tag: "v1.8.11"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000k
   secretEnv:
@@ -25,13 +25,13 @@ enclave:
     #   tag: "v0.3.2"
     #   pullPolicy: "Always"
     storage:
-      spec:
-        storageClassName: "premium2-disk-sc"
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 512Gi
+        spec:
+          storageClassName: "premium2-disk-sc"
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 512Gi
     resources:
       limits:
         memory: 8Gi
@@ -48,7 +48,7 @@ enclave:
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "d047820"
+    tag: "v1.8.11"
   fqdn: uat-validator-02.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000k
@@ -156,6 +156,3 @@ externalSecrets:
     NODE_PRIVATEKEY: "uat-validator-02-node-privatekey"
     HOST_DB_POSTGRESHOST: "uat-validator-02-db-postgreshost"
     ENCLAVE_SHAREDSECRET: "uat-validator-02-sharedsecret"
-enclave02:
-  image:
-    tag: d047820

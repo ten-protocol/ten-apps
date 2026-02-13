@@ -66,12 +66,3 @@ externalSecrets:
   enabled: true
   secretMappings:
     dbConnectionURL: "uat-gateway-cosmosdb-connectionstring"
-enclave:
-  image:
-    tag: d047820
-enclave02:
-  image:
-    tag: d047820
-host:
-  image:
-    tag: d047820
