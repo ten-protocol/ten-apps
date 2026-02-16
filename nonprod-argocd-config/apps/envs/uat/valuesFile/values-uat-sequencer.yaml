@@ -6,9 +6,9 @@ enclave:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.8.11"
+    tag: "41ee3f7"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000i
+    kubernetes.io/hostname: vmss00000b
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
     ENCLAVE_BACKUPENCRYPTIONKEY: "0299b6253b49aeafb64af3a468336c1cc29dd03237545748c36615e6a81a49513f"
@@ -39,21 +39,21 @@ enclave:
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
     storage:
-        spec:
-          storageClassName: "premium2-disk-sc"
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 512Gi
+      spec:
+        storageClassName: "premium2-disk-sc"
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 512Gi
 enclave02:
   enabled: true
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "v1.8.11"
+    tag: "41ee3f7"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000j
+    kubernetes.io/hostname: vmss00000b
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
     ENCLAVE_BACKUPENCRYPTIONKEY: "0299b6253b49aeafb64af3a468336c1cc29dd03237545748c36615e6a81a49513f"
@@ -84,20 +84,20 @@ enclave02:
         sgx.intel.com/provision: 10
         sgx.intel.com/enclave: 10
     storage:
-        spec:
-          storageClassName: "premium2-disk-sc"
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 512Gi
+      spec:
+        storageClassName: "premium2-disk-sc"
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 512Gi
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "v1.8.11"
+    tag: "41ee3f7"
   fqdn: uat-testnet-sequencer.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000i
+    kubernetes.io/hostname: vmss00000b
 config:
   network:
     chainid: 7443

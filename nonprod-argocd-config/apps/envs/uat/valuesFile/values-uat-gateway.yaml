@@ -66,3 +66,15 @@ externalSecrets:
   enabled: true
   secretMappings:
     dbConnectionURL: "uat-gateway-cosmosdb-connectionstring"
+enclave:
+  image:
+    tag: 41ee3f7
+enclave02:
+  image:
+    tag: 41ee3f7
+host:
+  image:
+    tag: 41ee3f7
+gateway:
+  nodeSelector:
+    kubernetes.io/hostname: vmss00000c

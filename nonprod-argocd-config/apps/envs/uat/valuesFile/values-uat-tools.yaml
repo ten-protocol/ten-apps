@@ -40,3 +40,12 @@ resources: {}
 nodeSelector: {}
 tolerations: []
 affinity: {}
+enclave:
+  image:
+    tag: 41ee3f7
+enclave02:
+  image:
+    tag: 41ee3f7
+host:
+  image:
+    tag: 41ee3f7
