@@ -1,0 +1,116 @@
+{{- if .Values.grantSequencers.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "ten-deploy-jobs.fullname" . }}-grant-sequencers
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "ten-deploy-jobs.labels" . | nindent 4 }}
+    app.kubernetes.io/component: grant-sequencers
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "10"
+spec:
+  activeDeadlineSeconds: {{ .Values.grantSequencers.activeDeadlineSeconds }}
+  backoffLimit: {{ .Values.grantSequencers.backoffLimit }}
+  template:
+    metadata:
+      labels:
+        {{- include "ten-deploy-jobs.labels" . | nindent 8 }}
+        app.kubernetes.io/component: grant-sequencers
+    spec:
+      restartPolicy: Never
+      initContainers:
+        - name: wait-for-nodes
+          image: curlimages/curl:latest
+          command:
+            - /bin/sh
+            - -c
+            - |
+              TIMEOUT={{ .Values.healthCheck.timeoutSeconds }}
+              INTERVAL={{ .Values.healthCheck.intervalSeconds }}
+              ELAPSED=0
+
+              check_node() {
+                local HOST="$1"
+                RESULT=$(curl -s -X POST -H "Content-Type: application/json" \
+                  -d '{"jsonrpc":"2.0","method":"ten_health","params":[],"id":1}' \
+                  "http://${HOST}" 2>/dev/null)
+                if echo "$RESULT" | grep -q '"OverallHealth":true'; then
+                  return 0
+                fi
+                return 1
+              }
+
+              while [ $ELAPSED -lt $TIMEOUT ]; do
+                ALL_HEALTHY=true
+                {{- range $i, $node := (list .Values.nodes.sequencer) }}
+                if ! check_node "{{ $node.host }}:{{ $node.httpPort }}"; then
+                  ALL_HEALTHY=false
+                fi
+                {{- end }}
+                {{- range .Values.nodes.validators }}
+                if ! check_node "{{ .host }}:{{ .httpPort }}"; then
+                  ALL_HEALTHY=false
+                fi
+                {{- end }}
+                if [ "$ALL_HEALTHY" = "true" ]; then
+                  echo "All nodes healthy!"
+                  exit 0
+                fi
+                echo "Waiting for nodes (${ELAPSED}s/${TIMEOUT}s)..."
+                sleep $INTERVAL
+                ELAPSED=$((ELAPSED + INTERVAL))
+              done
+              echo "Timeout waiting for nodes"
+              exit 1
+        - name: fetch-enclave-ids
+          image: curlimages/curl:latest
+          command:
+            - /bin/sh
+            - -c
+            - |
+              SEQ_URL="http://{{ .Values.nodes.sequencer.host }}:{{ .Values.nodes.sequencer.httpPort }}"
+              RESULT=$(curl -s -X POST -H "Content-Type: application/json" \
+                -d '{"jsonrpc":"2.0","method":"ten_health","params":[],"id":1}' \
+                "$SEQ_URL")
+              ENCLAVE_IDS=$(echo "$RESULT" | sed 's/.*"Enclaves":\[//' | sed 's/\].*//' | \
+                grep -o '"EnclaveID":"[^"]*"' | sed 's/"EnclaveID":"//g;s/"//g' | \
+                tr '\n' ',' | sed 's/,$//')
+              if [ -z "$ENCLAVE_IDS" ]; then
+                echo "Failed to fetch enclave IDs"
+                exit 1
+              fi
+              echo "$ENCLAVE_IDS" > /shared/enclave-ids
+              echo "Enclave IDs: $ENCLAVE_IDS"
+          volumeMounts:
+            - name: shared
+              mountPath: /shared
+      containers:
+        - name: grant-sequencers
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /bin/sh
+            - -c
+            - |
+              export ENCLAVE_IDS=$(cat /shared/enclave-ids)
+              npx hardhat run --network layer1 scripts/sequencer/001_grant_sequencers.ts
+          env:
+            - name: NETWORK_JSON
+              value: {{ include "ten-deploy-jobs.l1NetworkJson" . | squote }}
+            - name: ENCLAVE_REGISTRY_ADDR
+              value: {{ .Values.network.l1Contracts.enclaveRegistry | quote }}
+          {{- if .Values.externalSecrets.enabled }}
+          envFrom:
+            - secretRef:
+                name: {{ include "ten-deploy-jobs.fullname" . }}-deployer-secrets
+          {{- end }}
+          volumeMounts:
+            - name: shared
+              mountPath: /shared
+      volumes:
+        - name: shared
+          emptyDir: {}
+{{- end }}

@@ -1,0 +1,61 @@
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: testnetobscuronet.azurecr.io/obscuronet/hardhatdeployer
+  tag: "latest"
+  pullPolicy: Always
+
+network:
+  l1HttpUrl: ""
+  l1DeployerPrivateKey: ""
+  l2DeployerPrivateKey: ""
+  chainId: 443
+
+  l1Contracts:
+    enclaveRegistry: ""
+    networkConfig: ""
+    messagebus: ""
+    rollup: ""
+    crosschain: ""
+    bridge: ""
+
+nodes:
+  sequencer:
+    host: ""
+    httpPort: 80
+    wsPort: 81
+  validators:
+    - host: ""
+      httpPort: 80
+      wsPort: 81
+
+healthCheck:
+  timeoutSeconds: 300
+  intervalSeconds: 5
+
+grantSequencers:
+  enabled: true
+  activeDeadlineSeconds: 600
+  backoffLimit: 3
+
+setChallengePeriod:
+  enabled: true
+  activeDeadlineSeconds: 600
+  backoffLimit: 3
+  challengePeriod: "1"
+
+deployL2Contracts:
+  enabled: true
+  activeDeadlineSeconds: 900
+  backoffLimit: 3
+  faucetPrefundAmount: "0"
+  l2Host: ""
+  l2HttpPort: 80
+  l2WsPort: 81
+
+externalSecrets:
+  enabled: false
+  clusterSecretStore: ""
+  l1DeployerKeyVaultKey: ""
+  l2DeployerKeyVaultKey: ""

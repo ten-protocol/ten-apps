@@ -1,0 +1,87 @@
+{{- if .Values.deployL2Contracts.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "ten-deploy-jobs.fullname" . }}-deploy-l2-contracts
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "ten-deploy-jobs.labels" . | nindent 4 }}
+    app.kubernetes.io/component: deploy-l2-contracts
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "20"
+spec:
+  activeDeadlineSeconds: {{ .Values.deployL2Contracts.activeDeadlineSeconds }}
+  backoffLimit: {{ .Values.deployL2Contracts.backoffLimit }}
+  template:
+    metadata:
+      labels:
+        {{- include "ten-deploy-jobs.labels" . | nindent 8 }}
+        app.kubernetes.io/component: deploy-l2-contracts
+    spec:
+      restartPolicy: Never
+      initContainers:
+        - name: wait-for-nodes
+          image: curlimages/curl:latest
+          command:
+            - /bin/sh
+            - -c
+            - |
+              TIMEOUT={{ .Values.healthCheck.timeoutSeconds }}
+              INTERVAL={{ .Values.healthCheck.intervalSeconds }}
+              ELAPSED=0
+              SEQ_URL="http://{{ .Values.nodes.sequencer.host }}:{{ .Values.nodes.sequencer.httpPort }}"
+              while [ $ELAPSED -lt $TIMEOUT ]; do
+                RESULT=$(curl -s -X POST -H "Content-Type: application/json" \
+                  -d '{"jsonrpc":"2.0","method":"ten_health","params":[],"id":1}' \
+                  "$SEQ_URL" 2>/dev/null)
+                if echo "$RESULT" | grep -q '"OverallHealth":true'; then
+                  echo "Node healthy!"
+                  exit 0
+                fi
+                echo "Waiting for node (${ELAPSED}s/${TIMEOUT}s)..."
+                sleep $INTERVAL
+                ELAPSED=$((ELAPSED + INTERVAL))
+              done
+              echo "Timeout waiting for node"
+              exit 1
+      containers:
+        - name: deploy-l2-contracts
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /bin/sh
+            - /home/obscuro/go-obscuro/entrypoint.sh
+            - obscuro:deploy
+            - --network
+            - layer2
+          env:
+            - name: NETWORK_JSON
+              value: {{ include "ten-deploy-jobs.networkJson" . | squote }}
+            - name: L2_HOST
+              value: {{ .Values.deployL2Contracts.l2Host | quote }}
+            - name: L2_HTTP_PORT
+              value: {{ .Values.deployL2Contracts.l2HttpPort | quote }}
+            - name: L2_WS_PORT
+              value: {{ .Values.deployL2Contracts.l2WsPort | quote }}
+            - name: NETWORK_CHAINID
+              value: {{ .Values.network.chainId | quote }}
+            - name: PREFUND_FAUCET_AMOUNT
+              value: {{ .Values.deployL2Contracts.faucetPrefundAmount | quote }}
+            - name: ENCLAVE_REGISTRY_ADDR
+              value: {{ .Values.network.l1Contracts.enclaveRegistry | quote }}
+            - name: CROSS_CHAIN_ADDR
+              value: {{ .Values.network.l1Contracts.crosschain | quote }}
+            - name: DA_REGISTRY_ADDR
+              value: {{ .Values.network.l1Contracts.rollup | quote }}
+            - name: NETWORK_CONFIG_ADDR
+              value: {{ .Values.network.l1Contracts.networkConfig | quote }}
+            - name: MESSAGE_BUS_ADDR
+              value: {{ .Values.network.l1Contracts.messagebus | quote }}
+          {{- if .Values.externalSecrets.enabled }}
+          envFrom:
+            - secretRef:
+                name: {{ include "ten-deploy-jobs.fullname" . }}-deployer-secrets
+          {{- end }}
+{{- end }}

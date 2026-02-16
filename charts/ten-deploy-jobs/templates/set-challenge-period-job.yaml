@@ -1,0 +1,72 @@
+{{- if .Values.setChallengePeriod.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "ten-deploy-jobs.fullname" . }}-set-challenge-period
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "ten-deploy-jobs.labels" . | nindent 4 }}
+    app.kubernetes.io/component: set-challenge-period
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "15"
+spec:
+  activeDeadlineSeconds: {{ .Values.setChallengePeriod.activeDeadlineSeconds }}
+  backoffLimit: {{ .Values.setChallengePeriod.backoffLimit }}
+  template:
+    metadata:
+      labels:
+        {{- include "ten-deploy-jobs.labels" . | nindent 8 }}
+        app.kubernetes.io/component: set-challenge-period
+    spec:
+      restartPolicy: Never
+      initContainers:
+        - name: wait-for-nodes
+          image: curlimages/curl:latest
+          command:
+            - /bin/sh
+            - -c
+            - |
+              TIMEOUT={{ .Values.healthCheck.timeoutSeconds }}
+              INTERVAL={{ .Values.healthCheck.intervalSeconds }}
+              ELAPSED=0
+              SEQ_URL="http://{{ .Values.nodes.sequencer.host }}:{{ .Values.nodes.sequencer.httpPort }}"
+              while [ $ELAPSED -lt $TIMEOUT ]; do
+                RESULT=$(curl -s -X POST -H "Content-Type: application/json" \
+                  -d '{"jsonrpc":"2.0","method":"ten_health","params":[],"id":1}' \
+                  "$SEQ_URL" 2>/dev/null)
+                if echo "$RESULT" | grep -q '"OverallHealth":true'; then
+                  echo "Node healthy!"
+                  exit 0
+                fi
+                echo "Waiting for node (${ELAPSED}s/${TIMEOUT}s)..."
+                sleep $INTERVAL
+                ELAPSED=$((ELAPSED + INTERVAL))
+              done
+              echo "Timeout waiting for node"
+              exit 1
+      containers:
+        - name: set-challenge-period
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - npx
+            - hardhat
+            - run
+            - --network
+            - layer1
+            - scripts/delay/001_set_challenge_period.ts
+          env:
+            - name: NETWORK_JSON
+              value: {{ include "ten-deploy-jobs.l1NetworkJson" . | squote }}
+            - name: DA_REGISTRY_ADDR
+              value: {{ .Values.network.l1Contracts.rollup | quote }}
+            - name: L1_CHALLENGE_PERIOD
+              value: {{ .Values.setChallengePeriod.challengePeriod | quote }}
+          {{- if .Values.externalSecrets.enabled }}
+          envFrom:
+            - secretRef:
+                name: {{ include "ten-deploy-jobs.fullname" . }}-deployer-secrets
+          {{- end }}
+{{- end }}

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: ten-deploy-jobs
+description: Post-deployment contract jobs for Ten network (grant sequencers, set challenge period, deploy L2 contracts)
+type: application
+version: 0.1.0
+appVersion: "1.0"
