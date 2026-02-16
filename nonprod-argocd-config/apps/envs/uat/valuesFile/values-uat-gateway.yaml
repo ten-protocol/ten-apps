@@ -77,4 +77,4 @@ host:
     tag: 08ac15e
 gateway:
   nodeSelector:
-    kubernetes.io/hostname: vmss00000c
+    kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000k
