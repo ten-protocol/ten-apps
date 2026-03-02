@@ -7,7 +7,7 @@ enclave:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
     tag: "c8bacfb"
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000r
+    kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000s
   secretEnv:
     ENCLAVE_DB_SQLITEPATH: ""
     ENCLAVE_BACKUPENCRYPTIONKEY: "0299b6253b49aeafb64af3a468336c1cc29dd03237545748c36615e6a81a49513f"
@@ -51,7 +51,7 @@ host:
     tag: "c8bacfb"
   fqdn: uat-validator-03.ten.xyz
   nodeSelector:
-    kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000r
+    kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000s
 config:
   network:
     chainid: 7443
