@@ -6,7 +6,7 @@ enclave:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "c8bacfb"
+    tag: "bbb8af7"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000p
   secretEnv:
@@ -51,7 +51,7 @@ enclave02:
   replicaCount: 1
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "c8bacfb"
+    tag: "bbb8af7"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000q
   secretEnv:
@@ -94,7 +94,7 @@ enclave02:
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "c8bacfb"
+    tag: "bbb8af7"
   fqdn: uat-testnet-sequencer.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000p
@@ -202,3 +202,6 @@ externalSecrets:
     NODE_PRIVATEKEY: "uat-sequencer-node-privatekey"
     HOST_DB_POSTGRESHOST: "uat-sequencer-db-postgreshost"
     ENCLAVE_SHAREDSECRET: "uat-sequencer-sharedsecret"
+gateway:
+  image:
+    tag: bbb8af7

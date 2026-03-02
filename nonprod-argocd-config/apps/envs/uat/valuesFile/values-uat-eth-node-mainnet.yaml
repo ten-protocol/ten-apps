@@ -203,10 +203,13 @@ tracoor-agent:
   enabled: false
 enclave:
   image:
-    tag: c8bacfb
+    tag: bbb8af7
 enclave02:
   image:
-    tag: c8bacfb
+    tag: bbb8af7
 host:
   image:
-    tag: c8bacfb
+    tag: bbb8af7
+gateway:
+  image:
+    tag: bbb8af7
