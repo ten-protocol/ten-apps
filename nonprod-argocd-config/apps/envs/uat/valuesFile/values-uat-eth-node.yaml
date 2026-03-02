@@ -199,10 +199,10 @@ tracoor-agent:
   enabled: false
 enclave:
   image:
-    tag: da33b16
+    tag: c8bacfb
 enclave02:
   image:
-    tag: da33b16
+    tag: c8bacfb
 host:
   image:
-    tag: da33b16
+    tag: c8bacfb
