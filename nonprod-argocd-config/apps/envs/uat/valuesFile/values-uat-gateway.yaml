@@ -68,13 +68,13 @@ externalSecrets:
     dbConnectionURL: "uat-gateway-cosmosdb-connectionstring"
 enclave:
   image:
-    tag: bbb8af7
+    tag: 2d27f2e
 enclave02:
   image:
-    tag: bbb8af7
+    tag: 2d27f2e
 host:
   image:
-    tag: bbb8af7
+    tag: 2d27f2e
 gateway:
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000r

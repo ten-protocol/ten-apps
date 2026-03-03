@@ -5,7 +5,7 @@ global:
 enclave:
   image:
     repository: testnetobscuronet.azurecr.io/obscuronet/enclave
-    tag: "bbb8af7"
+    tag: "2d27f2e"
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000r
   secretEnv:
@@ -48,7 +48,7 @@ enclave:
 host:
   image:
     repository: "testnetobscuronet.azurecr.io/obscuronet/host"
-    tag: "bbb8af7"
+    tag: "2d27f2e"
   fqdn: uat-validator-02.ten.xyz
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000r
@@ -158,7 +158,7 @@ externalSecrets:
     ENCLAVE_SHAREDSECRET: "uat-validator-02-sharedsecret"
 enclave02:
   image:
-    tag: bbb8af7
+    tag: 2d27f2e
   nodeSelector:
     kubernetes.io/hostname: aks-sgxpool-35313246-vmss00000r
 gateway:

@@ -12,13 +12,13 @@ resources:
 nodeSelector: {}
 enclave:
   image:
-    tag: bbb8af7
+    tag: 2d27f2e
 enclave02:
   image:
-    tag: bbb8af7
+    tag: 2d27f2e
 host:
   image:
-    tag: bbb8af7
+    tag: 2d27f2e
 gateway:
   image:
     tag: bbb8af7
