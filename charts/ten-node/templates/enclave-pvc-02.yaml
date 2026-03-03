@@ -10,6 +10,7 @@ metadata:
     app.kubernetes.io/part-of: Enclave02
   annotations:
      argocd.argoproj.io/sync-wave: "1"
+     argocd.argoproj.io/health-check: "skip"
 spec:
     storageClassName: premium2-disk-sc
     {{- toYaml .Values.enclave02.edb.storage.spec | nindent 4 }}
@@ -22,6 +23,9 @@ metadata:
   labels:
     app: {{ .Release.Name }}-enclave02
     {{- include "ten-node.labels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/health-check: "skip"
 spec:
     storageClassName: premium2-disk-sc
     {{- toYaml .Values.enclave02.storage.spec | nindent 4 }}

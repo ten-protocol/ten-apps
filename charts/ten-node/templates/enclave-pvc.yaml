@@ -10,6 +10,7 @@ metadata:
     {{- include "ten-node.labels" . | nindent 4 }}
   annotations:
      argocd.argoproj.io/sync-wave: "1"
+     argocd.argoproj.io/health-check: "skip"
 spec:
     {{- toYaml .Values.enclave.edb.storage.spec | nindent 4 }}
 ---
@@ -21,5 +22,8 @@ metadata:
   labels:
     app: {{ .Release.Name }}-enclave
     {{- include "ten-node.labels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/health-check: "skip"
 spec:
     {{- toYaml .Values.enclave.storage.spec | nindent 4 }}
